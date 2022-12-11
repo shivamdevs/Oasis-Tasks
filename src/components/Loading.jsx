@@ -12,7 +12,6 @@ function Loading(props) {
                 <div className={css.progress}>
                     <div className={css.fill} style={{ "--fill": loaded + "%" }}></div>
                 </div>
-                <div className={css.current}>{props.current}</div>
             </div>
             <div className={css.footer}>
                 <div className={css.company}>© Shivam Devs 2022</div>

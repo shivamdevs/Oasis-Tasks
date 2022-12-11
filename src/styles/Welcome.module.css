@@ -6,7 +6,6 @@
     justify-content: space-between;
     inset: 0;
     overflow: auto;
-    /* background: linear-gradient(-45deg, #3eadcf55, #37d5d655, #abe9cd55, #abe9cd55); */
 }
 
 .title {
@@ -37,10 +36,12 @@
     justify-content: center;
     align-items: flex-end;
     min-height: 100%;
+    padding-inline: 10px;
 }
 .card > img {
     max-width: 500px;
     width: 100%;
+    margin-bottom: 25px;
 }
 .step {
     display: flex;
@@ -81,6 +82,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    font-size: 14px;
 }
 .dot {
     color: #727888;
@@ -89,10 +91,16 @@
     color: dodgerblue;
     text-decoration: none;
     font-weight: 500;
-    font-size: 14px;
     transition: .2s;
 }
 .link:hover,
 .link:active {
     color: #624ef0;
+}
+.labeled {
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+    color: #545454;
+    margin-bottom: 20px;
 }

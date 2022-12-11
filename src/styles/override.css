@@ -1,3 +1,7 @@
+.carousel .control-dots {
+    bottom: 0;
+    margin-block: 0;
+}
 .carousel .control-dots .dot {
     box-shadow: none;
     background-color: #0008;

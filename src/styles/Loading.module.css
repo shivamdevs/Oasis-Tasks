@@ -52,14 +52,3 @@
     font-weight: 700;
     font-size: 12px;
 }
-.current {
-    margin: 0px auto 20px;
-    font-weight: 700;
-    min-height: 20px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-    max-width: calc(100% - 20px);
-    color: #727888;
-    font-size: 13px;
-}

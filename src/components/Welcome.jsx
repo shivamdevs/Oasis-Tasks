@@ -12,7 +12,7 @@ function Welcome() {
                 <span>To do</span>
             </div>
             <div className={css.slider}>
-                <Carousel showThumbs={false} showArrows={false} infiniteLoop={true} autoPlay={true} interval={2000} transitionTime={1000} showStatus={false}>
+                <Carousel showThumbs={false} showArrows={false} infiniteLoop={true} autoPlay={true} interval={2000} transitionTime={500} showStatus={false}>
                     <div className={css.card}>
                         <img src="/assets/images/welcome/undraw-1.svg" alt="" />
                     </div>
@@ -40,8 +40,8 @@ function Welcome() {
                 </Carousel>
             </div>
             <div className={css.step}>
-                <Link to="/auth/cna" className={`${css.button} ${css.filled}`}>Create Account</Link>
-                <Link to="/auth" className={css.button}>Already have an Account? Sign in</Link>
+                <Link to="/auth/cna" className={`${css.button} ${css.filled}`}>Continue</Link>
+                <div className={css.labeled}>By clicking on <strong>Continue</strong> you agre to our <Link to="/docs/legal" className={css.link}>Privacy policy</Link> and <Link to="/docs/legal/terms" className={css.link}>Terms of Usage</Link>.</div>
                 <div className={css.links}>
                     <Link to="/docs/legal" className={css.link}>Privacy</Link>
                     <span className={css.dot}>•</span>

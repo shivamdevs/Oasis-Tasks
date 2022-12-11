@@ -1,0 +1,96 @@
+.welcome {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    align-items: center;
+    justify-content: space-between;
+    inset: 0;
+    overflow: auto;
+    /* background: linear-gradient(-45deg, #3eadcf55, #37d5d655, #abe9cd55, #abe9cd55); */
+}
+
+.title {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.title img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.title span {
+    background: -webkit-linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    background: linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 30px;
+    font-weight: 700;
+}
+.card {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    min-height: 100%;
+}
+.card > img {
+    max-width: 500px;
+    width: 100%;
+}
+.step {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: nowrap;
+    padding: 20px;
+}
+.button {
+    display: flex;
+    padding: 12px 15px;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid transparent;
+    background: #503af622;
+    transition: .2s;
+}
+.button:hover,
+.button:active {
+    background-color: #503af644;
+}
+.button.filled {
+    background-color: #624ef0;
+    color: #fff;
+}
+.button.filled:hover,
+.button.filled:active {
+    background-color: #503af6;
+}
+.links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.dot {
+    color: #727888;
+}
+.link {
+    color: dodgerblue;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: .2s;
+}
+.link:hover,
+.link:active {
+    color: #624ef0;
+}

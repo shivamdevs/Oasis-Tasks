@@ -1,0 +1,7 @@
+.carousel .control-dots .dot {
+    box-shadow: none;
+    background-color: #0008;
+}
+.carousel .control-dots .dot.selected {
+    background-color: blue;
+}

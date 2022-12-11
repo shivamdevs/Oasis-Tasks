@@ -1,0 +1,57 @@
+import { Carousel } from 'react-responsive-carousel';
+import css from './../styles/Welcome.module.css';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import './../styles/override.css';
+import { Link } from 'react-router-dom';
+
+function Welcome() {
+    return (
+        <div className={css.welcome}>
+            <div className={css.title}>
+                <img src="./logo192.png" alt="" />
+                <span>To do</span>
+            </div>
+            <div className={css.slider}>
+                <Carousel showThumbs={false} showArrows={false} infiniteLoop={true} autoPlay={true} interval={2000} transitionTime={1000} showStatus={false}>
+                    <div className={css.card}>
+                        <img src="/assets/images/welcome/undraw-1.svg" alt="" />
+                    </div>
+                    <div className={css.card}>
+                        <img src="/assets/images/welcome/undraw-2.svg" alt="" />
+                    </div>
+                    <div className={css.card}>
+                        <img src="/assets/images/welcome/undraw-3.svg" alt="" />
+                    </div>
+                    <div className={css.card}>
+                        <img src="/assets/images/welcome/undraw-4.svg" alt="" />
+                    </div>
+                    <div className={css.card}>
+                        <img src="/assets/images/welcome/undraw-5.svg" alt="" />
+                    </div>
+                    <div className={css.card}>
+                        <img src="/assets/images/welcome/undraw-6.svg" alt="" />
+                    </div>
+                    <div className={css.card}>
+                        <img src="/assets/images/welcome/undraw-7.svg" alt="" />
+                    </div>
+                    <div className={css.card}>
+                        <img src="/assets/images/welcome/undraw-8.svg" alt="" />
+                    </div>
+                </Carousel>
+            </div>
+            <div className={css.step}>
+                <button className={`${css.button} ${css.filled}`}>Create Account</button>
+                <button className={css.button}>Already have an Account? Sign in</button>
+                <div className={css.links}>
+                    <Link to="/docs/legal" className={css.link}>Privacy</Link>
+                    <span className={css.dot}>•</span>
+                    <Link to="/docs/legal/terms" className={css.link}>Terms</Link>
+                    <span className={css.dot}>•</span>
+                    <Link to="/docs/about" className={css.link}>About</Link>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Welcome;

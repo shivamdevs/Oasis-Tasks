@@ -12,7 +12,16 @@ function Welcome() {
                 <span>To do</span>
             </div>
             <div className={css.slider}>
-                <Carousel showThumbs={false} showArrows={false} infiniteLoop={true} autoPlay={true} interval={2000} transitionTime={500} showStatus={false}>
+                <Carousel
+                    autoPlay={true}
+                    interval={2000}
+                    swipeable={false}
+                    showArrows={false}
+                    showStatus={false}
+                    showThumbs={false}
+                    infiniteLoop={true}
+                    transitionTime={500}
+                >
                     <div className={css.card}>
                         <img src="/assets/images/welcome/undraw-1.svg" alt="" />
                     </div>

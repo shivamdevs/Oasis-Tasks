@@ -59,11 +59,11 @@ function Welcome() {
                 </Link>
                 <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <Link to="/docs/legal" className={css.link}>Privacy policy</Link> and <Link to="/docs/legal/terms" className={css.link}>Terms of Usage</Link>.</div>
                 <div className={css.links}>
-                    <Link to="/docs/legal" className={css.link}>Privacy</Link>
+                    <Link to="/docs" className={css.link}>Docs</Link>
                     <span className={css.dot}>•</span>
-                    <span>Version: {app.version}</span>
+                    <Link to="/support" className={css.link}>Support</Link>
                     <span className={css.dot}>•</span>
-                    <Link to="/docs/about" className={css.link}>About</Link>
+                    <Link to="/about" className={css.link}>About</Link>
                 </div>
             </div>
         </div>

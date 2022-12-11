@@ -19,7 +19,7 @@
 }
 .progress {
     min-height: 3px;
-    margin-block: 20px 10px;
+    margin-block: 10px;
     border-radius: 2px;
     min-width: 100px;
     background-color: #ddd;

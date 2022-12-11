@@ -9,7 +9,7 @@ function Welcome() {
         <div className={css.welcome}>
             <div className={css.title}>
                 <img src="./logo192.png" alt="" />
-                <span>To do</span>
+                <span>To Do</span>
             </div>
             <div className={css.slider}>
                 <Carousel
@@ -49,8 +49,9 @@ function Welcome() {
                 </Carousel>
             </div>
             <div className={css.step}>
-                <Link to="/auth/cna" className={`${css.button} ${css.filled}`}>Continue</Link>
-                <div className={css.labeled}>By clicking on <strong>Continue</strong> you agre to our <Link to="/docs/legal" className={css.link}>Privacy policy</Link> and <Link to="/docs/legal/terms" className={css.link}>Terms of Usage</Link>.</div>
+                <Link to="/auth/cna" className={`${css.button} ${css.filled}`}>Create Account</Link>
+                <Link to="/auth" className={css.button}>Already have an Account? Sign in</Link>
+                <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <Link to="/docs/legal" className={css.link}>Privacy policy</Link> and <Link to="/docs/legal/terms" className={css.link}>Terms of Usage</Link>.</div>
                 <div className={css.links}>
                     <Link to="/docs/legal" className={css.link}>Privacy</Link>
                     <span className={css.dot}>•</span>

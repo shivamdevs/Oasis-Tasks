@@ -1,0 +1,65 @@
+.loader {
+    display: flex;
+    position: fixed;
+    inset: 0;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+.loader > div {
+    text-align: center;
+}
+.loader > div:first-child {
+    min-height: 100px;
+}
+.logo {
+    width: 50px;
+    height: 50px;
+}
+.progress {
+    min-height: 3px;
+    margin-block: 20px 10px;
+    border-radius: 2px;
+    min-width: 100px;
+    background-color: #ddd;
+    position: relative;
+    overflow: hidden;
+}
+.fill {
+    display: block;
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 0%;
+    transition: .1s;
+    width: var(--fill);
+    background-image: linear-gradient(to right, #e45973 0px, #ab54aa 50px, #624ef0 100px);
+}
+.footer {
+    margin-bottom: 20px;
+    text-align: center;
+    background: -webkit-linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    background: linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.company {
+    font-weight: 700;
+    font-size: 16px;
+}
+.version {
+    font-weight: 700;
+    font-size: 12px;
+}
+.current {
+    margin-block: 0px 20px;
+    font-weight: 700;
+    min-height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: calc(100% - 20px);
+    color: #727888;
+    font-size: 13px;
+}

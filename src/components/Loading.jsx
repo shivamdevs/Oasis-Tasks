@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import app from '../appdata';
 import css from './../styles/Loading.module.css';
 
 function Loading(props) {
@@ -14,8 +15,8 @@ function Loading(props) {
                 </div>
             </div>
             <div className={css.footer}>
-                <div className={css.company}>© Shivam Devs 2022</div>
-                <div className={css.version}>1.0.0</div>
+                <div className={css.company}>{app.copyright}</div>
+                <div className={css.version}>{app.version}</div>
             </div>
         </div>
     );

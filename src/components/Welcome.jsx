@@ -50,7 +50,12 @@ function Welcome() {
             </div>
             <div className={css.step}>
                 <Link to="/auth/cna" className={`${css.button} ${css.filled}`}>Create Account</Link>
-                <Link to="/auth" className={css.button}>Already have an Account? Sign in</Link>
+                <Link to="/auth/cwe" className={css.button}>Already have an Account? Sign in</Link>
+                <div className={css.splitter}>or</div>
+                <Link to="/auth/cwg" className={`${css.button} ${css.google}`}>
+                    <img src="/assets/images/welcome/google_auth.svg" alt="" />
+                    <span>Continue with Google</span>
+                </Link>
                 <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <Link to="/docs/legal" className={css.link}>Privacy policy</Link> and <Link to="/docs/legal/terms" className={css.link}>Terms of Usage</Link>.</div>
                 <div className={css.links}>
                     <Link to="/docs/legal" className={css.link}>Privacy</Link>

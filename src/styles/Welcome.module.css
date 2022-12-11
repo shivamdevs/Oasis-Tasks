@@ -61,6 +61,8 @@
     border: 1px solid transparent;
     background: #503af622;
     transition: .2s;
+    color: #624ef0;
+    text-decoration: none;
 }
 .button:hover,
 .button:active {

@@ -40,8 +40,8 @@ function Welcome() {
                 </Carousel>
             </div>
             <div className={css.step}>
-                <button className={`${css.button} ${css.filled}`}>Create Account</button>
-                <button className={css.button}>Already have an Account? Sign in</button>
+                <Link to="/auth/cna" className={`${css.button} ${css.filled}`}>Create Account</Link>
+                <Link to="/auth" className={css.button}>Already have an Account? Sign in</Link>
                 <div className={css.links}>
                     <Link to="/docs/legal" className={css.link}>Privacy</Link>
                     <span className={css.dot}>•</span>

@@ -14,8 +14,8 @@
     color: #271a88;
     font-weight: 500;
 }
-.image {
-    border-top: 1px solid #ddd;
+.wrap {
+    text-align: center;
 }
 .flex {
     margin-block: 20px;

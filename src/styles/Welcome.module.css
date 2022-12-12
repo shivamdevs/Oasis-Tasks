@@ -1,11 +1,8 @@
 .welcome {
     display: flex;
     flex-direction: column;
-    position: fixed;
     align-items: center;
     justify-content: space-between;
-    inset: 0;
-    overflow: auto;
 }
 
 .title {

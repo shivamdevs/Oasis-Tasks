@@ -1,12 +1,13 @@
 import { Carousel } from 'react-responsive-carousel';
-import css from './../styles/Welcome.module.css';
+import css from './../../styles/Welcome.module.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import './../styles/override.css';
-import app, { NavAnchor, NavButton } from '../appdata';
+import './../../styles/override.css';
+import app, { NavAnchor, NavButton } from '../../appdata';
+import Layout from '../Layout';
 
 function Welcome() {
     return (
-        <div className={css.welcome}>
+        <Layout className={css.welcome}>
             <div className={css.title}>
                 <img src="/logo192.png" alt="" />
                 <span>{app.name}</span>
@@ -65,7 +66,7 @@ function Welcome() {
                     <NavAnchor to="/about" className={css.link}>About</NavAnchor>
                 </div>
             </div>
-        </div>
+        </Layout>
     );
 };
 

@@ -6,8 +6,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import Loading from "./components/Loading";
 import { Toaster } from "react-hot-toast";
-import Welcome from "./components/Welcome";
+import Welcome from "./components/pages/Welcome";
 import Notfound from "./components/Notfound";
+import About from "./components/pages/About";
 
 function App() {
     const navigate = useNavigate();
@@ -36,6 +37,7 @@ function App() {
                 {!loading && <>
                     <Routes>
                         <Route path="/auth/*" element={<>Hello</>} />
+                        <Route path="/about" element={<About />} />
                         <Route path="/" exact element={<Welcome />} />
                         <Route path="*" element={<Notfound />} />
                     </Routes>

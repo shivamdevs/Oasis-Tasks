@@ -1,11 +1,8 @@
 .loader {
     display: flex;
-    position: fixed;
-    inset: 0;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: nowrap;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
 }
 .loader > div {
     text-align: center;

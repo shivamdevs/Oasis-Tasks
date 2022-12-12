@@ -19,13 +19,13 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBxukV4ANIr5hxQy0t6ALyC40j3uNV1Kt8",
-    authDomain: "shivamdevs-task-manager.firebaseapp.com",
-    projectId: "shivamdevs-task-manager",
-    storageBucket: "shivamdevs-task-manager.appspot.com",
-    messagingSenderId: "610515433025",
-    appId: "1:610515433025:web:ed73778afd081530e378c0",
-    measurementId: "G-1E00NP0QX4"
+    apiKey: "AIzaSyDRA5z3oE6WR5yh9XwdS2_GcIAo6WTD-UI",
+    authDomain: "react-c4e3a.firebaseapp.com",
+    projectId: "react-c4e3a",
+    storageBucket: "react-c4e3a.appspot.com",
+    messagingSenderId: "361633102410",
+    appId: "1:361633102410:web:f533b9337899da7398c4b3",
+    measurementId: "G-D49LGDJTFD"
 };
 
 const app = initializeApp(firebaseConfig);

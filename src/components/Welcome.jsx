@@ -4,20 +4,11 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './../styles/override.css';
 import app, { NavAnchor, NavButton } from '../appdata';
 
-import undraw1 from './../assets/images/welcome/undraw-1.svg';
-import undraw2 from './../assets/images/welcome/undraw-1.svg';
-import undraw3 from './../assets/images/welcome/undraw-1.svg';
-import undraw4 from './../assets/images/welcome/undraw-1.svg';
-import undraw5 from './../assets/images/welcome/undraw-1.svg';
-import undraw6 from './../assets/images/welcome/undraw-1.svg';
-import undraw7 from './../assets/images/welcome/undraw-1.svg';
-import undraw8 from './../assets/images/welcome/undraw-1.svg';
-
 function Welcome() {
     return (
         <div className={css.welcome}>
             <div className={css.title}>
-                <img src="./logo192.png" alt="" />
+                <img src="/logo192.png" alt="" />
                 <span>{app.name}</span>
             </div>
             <div className={css.slider}>
@@ -32,28 +23,28 @@ function Welcome() {
                     transitionTime={500}
                 >
                     <div className={css.card}>
-                        <img src={undraw1} alt="" />
+                        <img src="/assets/images/welcome/undraw-1.svg" alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src={undraw2} alt="" />
+                        <img src="/assets/images/welcome/undraw-2.svg" alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src={undraw3} alt="" />
+                        <img src="/assets/images/welcome/undraw-3.svg" alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src={undraw4} alt="" />
+                        <img src="/assets/images/welcome/undraw-4.svg" alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src={undraw5} alt="" />
+                        <img src="/assets/images/welcome/undraw-5.svg" alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src={undraw6} alt="" />
+                        <img src="/assets/images/welcome/undraw-6.svg" alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src={undraw7} alt="" />
+                        <img src="/assets/images/welcome/undraw-7.svg" alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src={undraw8} alt="" />
+                        <img src="/assets/images/welcome/undraw-8.svg" alt="" />
                     </div>
                 </Carousel>
             </div>

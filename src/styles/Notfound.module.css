@@ -15,6 +15,7 @@
     font-weight: 500;
 }
 .wrap {
+    width: 100%;
     text-align: center;
 }
 .flex {

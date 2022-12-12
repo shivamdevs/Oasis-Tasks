@@ -2,8 +2,16 @@ import { Carousel } from 'react-responsive-carousel';
 import css from './../styles/Welcome.module.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import './../styles/override.css';
-import { Link } from 'react-router-dom';
-import app from '../appdata';
+import app, { NavAnchor, NavButton } from '../appdata';
+
+import undraw1 from './../assets/images/welcome/undraw-1.svg';
+import undraw2 from './../assets/images/welcome/undraw-1.svg';
+import undraw3 from './../assets/images/welcome/undraw-1.svg';
+import undraw4 from './../assets/images/welcome/undraw-1.svg';
+import undraw5 from './../assets/images/welcome/undraw-1.svg';
+import undraw6 from './../assets/images/welcome/undraw-1.svg';
+import undraw7 from './../assets/images/welcome/undraw-1.svg';
+import undraw8 from './../assets/images/welcome/undraw-1.svg';
 
 function Welcome() {
     return (
@@ -24,46 +32,46 @@ function Welcome() {
                     transitionTime={500}
                 >
                     <div className={css.card}>
-                        <img src="/assets/images/welcome/undraw-1.svg" alt="" />
+                        <img src={undraw1} alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src="/assets/images/welcome/undraw-2.svg" alt="" />
+                        <img src={undraw2} alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src="/assets/images/welcome/undraw-3.svg" alt="" />
+                        <img src={undraw3} alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src="/assets/images/welcome/undraw-4.svg" alt="" />
+                        <img src={undraw4} alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src="/assets/images/welcome/undraw-5.svg" alt="" />
+                        <img src={undraw5} alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src="/assets/images/welcome/undraw-6.svg" alt="" />
+                        <img src={undraw6} alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src="/assets/images/welcome/undraw-7.svg" alt="" />
+                        <img src={undraw7} alt="" />
                     </div>
                     <div className={css.card}>
-                        <img src="/assets/images/welcome/undraw-8.svg" alt="" />
+                        <img src={undraw8} alt="" />
                     </div>
                 </Carousel>
             </div>
             <div className={css.step}>
-                <Link to="/auth/create" className={`${css.button} ${css.filled}`}>Create Account</Link>
-                <Link to="/auth/email" className={css.button}>Already have an Account? Sign in</Link>
+                <NavButton to="/auth/create" className={`${css.button} ${css.filled}`}>Create Account</NavButton>
+                <NavButton to="/auth/email" className={css.button}>Already have an Account? Sign in</NavButton>
                 <div className={css.splitter}>or</div>
-                <Link to="/auth/google" className={`${css.button} ${css.google}`}>
+                <NavButton to="/auth/google" className={`${css.button} ${css.google}`}>
                     <img src="/assets/images/welcome/google_auth.svg" alt="" />
                     <span>Continue with Google</span>
-                </Link>
-                <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <Link to="/docs/legal" className={css.link}>Privacy policy</Link> and <Link to="/docs/legal/terms" className={css.link}>Terms of Usage</Link>.</div>
+                </NavButton>
+                <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <NavAnchor to="/docs/legal" className={css.link}>Privacy policy</NavAnchor> and <NavAnchor to="/docs/legal/terms" className={css.link}>Terms of Usage</NavAnchor>.</div>
                 <div className={css.links}>
-                    <Link to="/docs" className={css.link}>Docs</Link>
+                    <NavAnchor to="/docs" className={css.link}>Docs</NavAnchor>
                     <span className={css.dot}>•</span>
-                    <Link to="/support" className={css.link}>Support</Link>
+                    <NavAnchor to="/support" className={css.link}>Support</NavAnchor>
                     <span className={css.dot}>•</span>
-                    <Link to="/about" className={css.link}>About</Link>
+                    <NavAnchor to="/about" className={css.link}>About</NavAnchor>
                 </div>
             </div>
         </div>

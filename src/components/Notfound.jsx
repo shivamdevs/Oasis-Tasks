@@ -1,5 +1,4 @@
 import css from './../styles/Notfound.module.css';
-import './../styles/override.css';
 
 import { NavButton } from '../appdata';
 import Layout from './Layout';

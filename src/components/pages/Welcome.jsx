@@ -1,7 +1,6 @@
 import { Carousel } from 'react-responsive-carousel';
 import css from './../../styles/Welcome.module.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import './../../styles/override.css';
 import app, { NavAnchor, NavButton } from '../../appdata';
 import Layout from '../Layout';
 

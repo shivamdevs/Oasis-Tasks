@@ -22,6 +22,7 @@ function Email() {
                 complete="current-password"
                 label="Password"
             />
+            <div className={css.formtag}></div>
             <div className={css.formactioncol}>
                 <button type="submit" className="button filled">Continue</button>
                 <NavButton type="button" className="button" to="/auth/reset">Forgot password?</NavButton>

@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { auth } from './firebase';
 import { useAuthState } from "react-firebase-hooks/auth";
 
+import './styles/override.css';
+
 import Loading from "./components/Loading";
 import { Toaster } from "react-hot-toast";
 import Welcome from "./components/pages/Welcome";

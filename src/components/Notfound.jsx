@@ -8,7 +8,7 @@ function Notfound() {
     const undraw = Math.floor(Math.random() * 3);
     return (
         <Layout className={css.notfound}>
-            <BackHeader label="Page not found" border={true} />
+            <BackHeader label="Page not found" />
             <div className={css.wrap}>
                 <div className={css.text}>
                     This page is not available right now.<br />

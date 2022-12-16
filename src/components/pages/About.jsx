@@ -8,7 +8,7 @@ import app from "../../appdata";
 function About() {
     return (
         <Layout>
-            <BackHeader label="About" border={true} />
+            <BackHeader label="About" />
             <div className={css.title}>
                 <img src="/logo192.png" alt="" />
                 <span>{app.name}</span>

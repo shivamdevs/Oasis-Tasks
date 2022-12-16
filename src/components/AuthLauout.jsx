@@ -9,7 +9,7 @@ import Google from './pages/auth/Google';
 
 function AuthLauout() {
     return (
-        <Layout>
+        <Layout className={css.authbox}>
             <BackHeader />
             <Routes>
                 <Route path="/" element={<Redirect to="/" replace={true} />} />

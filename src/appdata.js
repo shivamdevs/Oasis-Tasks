@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import "./styles/override.css";
 
 const app = {
     name: 'To do',
@@ -9,16 +11,16 @@ const app = {
 
 export default app;
 
-const NavButton = ({children, to, ...props}) => {
+const NavButton = ({children = "", to, className = "", ...props}) => {
     const navigate = useNavigate();
     return (
-        <button {...props} onClick={() => navigate(to)}>{children}</button>
+        <button {...props} className={className || "button"} onClick={() => navigate(to)}>{children}</button>
     );
 };
-const NavAnchor = ({ children, to, ...props }) => {
+const NavAnchor = ({ children = "", to, className = "", ...props }) => {
     const navigate = useNavigate();
     return (
-        <a {...props} onClick={() => navigate(to)}>{children}</a>
+        <a {...props} className={className || "link"} onClick={() => navigate(to)}>{children}</a>
     );
 };
 
@@ -26,3 +28,10 @@ export {
     NavAnchor,
     NavButton,
 };
+
+export function Redirect({to, replace = true}) {
+    const navigate = useNavigate();
+    useEffect(() => {
+        navigate(to, { replace: replace });
+    }, [navigate, replace, to]);
+}

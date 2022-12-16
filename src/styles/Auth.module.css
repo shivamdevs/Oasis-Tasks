@@ -1,0 +1,75 @@
+.authform {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 93%;
+    gap: 15px;
+}
+
+.authform>* {
+    width: 100%;
+}
+
+.authgreet {
+    text-align: center;
+    background: -webkit-linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    background: linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 20px;
+}
+
+.authgreet .title {
+    font-size: 25px;
+    font-weight: 700;
+    color: #212333;
+    margin-bottom: 10px;
+}
+
+.authgreet .subtitle {
+    font-weight: 500;
+    font-size: 16px;
+    color: #545666;
+}
+
+.formgroup {
+    width: 100%;
+    display: flex;
+    padding-inline: 5px;
+    flex-direction: column;
+}
+.formlabel {
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #624ef0;
+}
+.forminput {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    transition: .2s;
+    outline: none;
+    background: none;
+}
+.forminput:focus {
+    border-color: #624ef0;
+    box-shadow: 0 0 0 2px #624ef0;
+}
+.formaction {
+    margin-top: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 15px;
+}
+.formactioncol {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 15px;
+}

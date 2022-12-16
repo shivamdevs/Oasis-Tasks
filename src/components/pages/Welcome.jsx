@@ -50,20 +50,20 @@ function Welcome() {
                 </Carousel>
             </div>
             <div className={css.step}>
-                <NavButton to="/auth/create" className={`${css.button} ${css.filled}`}>Create Account</NavButton>
-                <NavButton to="/auth/email" className={css.button}>Already have an Account? Sign in</NavButton>
+                <NavButton to="/auth/create" className="button filled">Create Account</NavButton>
+                <NavButton to="/auth/email" className="button">Already have an Account? Sign in</NavButton>
                 <div className={css.splitter}>or</div>
-                <NavButton to="/auth/google" className={`${css.button} ${css.google}`}>
+                <NavButton to="/auth/google" className={`button ${css.google}`}>
                     <img src="/assets/images/welcome/google_auth.svg" alt="" />
                     <span>Continue with Google</span>
                 </NavButton>
-                <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <NavAnchor to="/docs/legal" className={css.link}>Privacy policy</NavAnchor> and <NavAnchor to="/docs/legal/terms" className={css.link}>Terms of Usage</NavAnchor>.</div>
+                <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <NavAnchor to="/docs/legal">Privacy policy</NavAnchor> and <NavAnchor to="/docs/legal/terms">Terms of Usage</NavAnchor>.</div>
                 <div className={css.links}>
-                    <NavAnchor to="/docs" className={css.link}>Docs</NavAnchor>
+                    <NavAnchor to="/docs">Docs</NavAnchor>
                     <span className={css.dot}>•</span>
-                    <NavAnchor to="/support" className={css.link}>Support</NavAnchor>
+                    <NavAnchor to="/support">Support</NavAnchor>
                     <span className={css.dot}>•</span>
-                    <NavAnchor to="/about" className={css.link}>About</NavAnchor>
+                    <NavAnchor to="/about">About</NavAnchor>
                 </div>
             </div>
         </Layout>

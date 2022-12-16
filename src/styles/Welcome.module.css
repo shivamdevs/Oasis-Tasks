@@ -49,43 +49,17 @@
     flex-wrap: nowrap;
     padding: 20px;
 }
-.button {
-    display: flex;
-    padding: 12px 15px;
-    justify-content: center;
-    align-items: center;
-    font-weight: 500;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid transparent;
-    background: #503af622;
-    transition: .2s;
-    color: #624ef0;
-    text-decoration: none;
-}
-.button:hover,
-.button:active {
-    background-color: #503af644;
-}
-.button.filled {
-    background-color: #624ef0;
-    color: #fff;
-}
-.button.filled:hover,
-.button.filled:active {
-    background-color: #503af6;
-}
-.button.google {
+.google {
     background-color: #fff;
     color: #343434;
     border-color: #ccc;
     border-radius: 25px;
 }
-.button.google span {
+.google span {
     margin-inline: auto;
 }
-.button.google:hover,
-.button.google:active {
+.google:hover,
+.google:active {
     background-color: #503af633;
     color: #000;
 }
@@ -98,16 +72,6 @@
 }
 .dot {
     color: #727888;
-}
-.link {
-    color: dodgerblue;
-    text-decoration: none;
-    font-weight: 500;
-    transition: .2s;
-}
-.link:hover,
-.link:active {
-    color: #624ef0;
 }
 .labeled {
     text-align: center;

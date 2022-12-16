@@ -11,12 +11,12 @@ function BackHeader(props) {
         }
     };
     return (
-        <header style={css.header}>
+        <header style={{...css.header, borderBottom: props.border ? "1px solid #ddd" : ""}}>
             <button style={css.navigate} onClick={goBack}>
                 {location.key !== "default" && <i className="fas fa-arrow-left"></i>}
                 {location.key === "default" && <i className="fas fa-home"></i>}
             </button>
-            <span className='text'>{props.children || props.label}</span>
+            <span className='text'>{props.children || props.label || ""}</span>
         </header>
     );
 };
@@ -32,7 +32,6 @@ const css = {
         "padding": "10px",
         "display": "flex",
         "flexWrap": "nowrap",
-        "borderBottom": "1px solid #ddd",
         "alignItems": "center",
         "position": "sticky",
         "top": "0",

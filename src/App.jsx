@@ -26,13 +26,13 @@ function App() {
             console.log(error);
         }
     }, [error, loading, navigate, user]);
-    
+
     return (
         <>
             <Toaster position="bottom-center" />
             <BrowserView>
                 <Routes>
-                    < Route path="*" element={<h1><center>View this app on mobile devices</center></h1>} />
+                    < Route path="*" element={<h1><center>View this app on mobile device.</center></h1>} />
                 </Routes>
             </BrowserView>
             <MobileView>

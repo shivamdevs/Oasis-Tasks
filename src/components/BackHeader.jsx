@@ -15,7 +15,7 @@ function BackHeader({children = "", label = ""}) {
     return (
         <header className={css.header}>
             <button className={css.navigate} onClick={goBack}>
-                {location.key !== "default" && <i className="fas fa-arrow-left"></i>}
+                {location.key !== "default" && <i className="far fa-arrow-left"></i>}
                 {location.key === "default" && <i className="fas fa-home"></i>}
             </button>
             <span className='text'>{children || label || ""}</span>

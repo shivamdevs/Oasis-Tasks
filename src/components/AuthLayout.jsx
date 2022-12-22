@@ -3,9 +3,9 @@ import { Redirect } from '../appdata';
 import css from './../styles/Auth.module.css';
 import BackHeader from './BackHeader';
 import Layout from './Layout';
+import Notfound from './Notfound';
 import Create from './pages/auth/Create';
 import Email from './pages/auth/Email';
-import Google from './pages/auth/Google';
 
 function AuthLayout() {
     return (
@@ -15,7 +15,7 @@ function AuthLayout() {
                 <Route path="/" element={<Redirect to="/" replace={true} />} />
                 <Route path="/email" element={<Email />} />
                 <Route path="/create" element={<Create />} />
-                <Route path="/google" element={<Google />} />
+                <Route path="*" element={<Notfound />} />
             </Routes>
         </Layout>
     );

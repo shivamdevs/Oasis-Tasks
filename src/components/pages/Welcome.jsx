@@ -51,11 +51,6 @@ function Welcome() {
             <div className={css.step}>
                 <NavButton to="/auth/create" className="button filled">Create Account</NavButton>
                 <NavButton to="/auth/email" className="button">Already have an Account? Sign in</NavButton>
-                <div className="splitter">or</div>
-                <NavButton to="/auth/google" className={`button ${css.google}`}>
-                    <img src="/assets/images/welcome/google_auth.svg" alt="" />
-                    <span>Continue with Google</span>
-                </NavButton>
                 <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <NavAnchor to="/docs/legal">Privacy policy</NavAnchor> and <NavAnchor to="/docs/legal/terms">Terms of Usage</NavAnchor>.</div>
                 <div className={css.links}>
                     <NavAnchor to="/tasks">Docs</NavAnchor>

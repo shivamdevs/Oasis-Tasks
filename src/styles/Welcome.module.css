@@ -51,6 +51,7 @@
 }
 .google {
     background-color: #fff;
+    min-height: 50px;
     color: #343434;
     border-color: #ccc;
     border-radius: 25px;
@@ -79,22 +80,4 @@
     font-size: 13px;
     color: #545454;
     margin-block: 10px;
-}
-.splitter {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    font-weight: 500;
-    color: #727888;
-}
-.splitter::before,
-.splitter::after {
-    content: '';
-    display: inline-flex;
-    flex: 1;
-    min-height: 1px;
-    background-color: #ccc;
-    margin-top: 6px;
 }

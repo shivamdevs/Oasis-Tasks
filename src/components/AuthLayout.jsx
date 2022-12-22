@@ -7,7 +7,7 @@ import Create from './pages/auth/Create';
 import Email from './pages/auth/Email';
 import Google from './pages/auth/Google';
 
-function AuthLauout() {
+function AuthLayout() {
     return (
         <Layout className={css.authbox}>
             <BackHeader />
@@ -21,7 +21,7 @@ function AuthLauout() {
     );
 };
 
-export default AuthLauout;
+export default AuthLayout;
 
 export function Input({
     label = "",

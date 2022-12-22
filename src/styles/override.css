@@ -53,3 +53,23 @@
 .button.filled:active {
     background-color: #503af6;
 }
+
+.splitter {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: 500;
+    color: #727888;
+}
+
+.splitter::before,
+.splitter::after {
+    content: '';
+    display: inline-flex;
+    flex: 1;
+    min-height: 1px;
+    background-color: #ccc;
+    margin-top: 6px;
+}

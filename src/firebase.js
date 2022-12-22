@@ -96,7 +96,7 @@ const getUserData = async (user) => {
         const doc = await getDocs(q);
         if (!doc.docs.length) return null;
         const data = doc.docs[0].data();
-        if (!data.profile) data.profile = `https://ui-avatars.com/api/?name=${encodeURI(data.name)}&background=2a52be&color=fff`;
+        if (!data.profile) data.profile = `https://ui-avatars.com/api/?name=${encodeURI(data.name)}&background=2a52be&color=ffffff`;
         return data;
     } catch (err) {
         console.error(err);

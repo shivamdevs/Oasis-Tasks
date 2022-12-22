@@ -1,4 +1,4 @@
-import { Input } from '../../AuthLauout';
+import { Input } from '../../AuthLayout';
 import css from './../../../styles/Auth.module.css';
 
 function Create() {

@@ -14,6 +14,24 @@
     gap: 15px;
 }
 
+.google {
+    background-color: #fff;
+    min-height: 50px;
+    color: #343434;
+    border-color: #ccc;
+    border-radius: 25px;
+}
+
+.google span {
+    margin-inline: auto;
+}
+
+.google:hover,
+.google:active {
+    background-color: #503af633;
+    color: #000;
+}
+
 .authform>* {
     width: 100%;
 }

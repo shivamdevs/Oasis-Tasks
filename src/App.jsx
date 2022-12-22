@@ -11,7 +11,8 @@ import { Toaster } from "react-hot-toast";
 import Welcome from "./components/pages/Welcome";
 import Notfound from "./components/Notfound";
 import About from "./components/pages/About";
-import AuthLauout from "./components/AuthLauout";
+import AuthLayout from "./components/AuthLayout";
+import HomeLayout from "./components/HomeLayout";
 
 function App() {
     const navigate = useNavigate();
@@ -39,7 +40,8 @@ function App() {
                 {loading && <Loading />}
                 {!loading && <>
                     <Routes>
-                        <Route path="/auth/*" element={<AuthLauout />} />
+                        <Route path="/tasks/*" element={<HomeLayout />} />
+                        <Route path="/auth/*" element={<AuthLayout />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/" exact element={<Welcome />} />
                         <Route path="*" element={<Notfound />} />

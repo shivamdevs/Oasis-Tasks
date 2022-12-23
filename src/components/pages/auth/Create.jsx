@@ -35,6 +35,9 @@ function Create() {
             <PasswordStrengthBar
                 className={css.formpassword}
                 password={password}
+                shortScoreWord=""
+                minLength={1}
+                scoreWords={[]}
                 onChangeScore={(value) => setScore(value)}
             />
             <div className={css.formaction}>

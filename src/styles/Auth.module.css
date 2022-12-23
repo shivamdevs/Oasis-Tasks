@@ -95,3 +95,6 @@
     flex-wrap: nowrap;
     gap: 15px;
 }
+.formpassword {
+    padding: 5px 8px;
+}

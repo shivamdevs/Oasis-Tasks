@@ -25,17 +25,17 @@ function Create() {
                 label="Email address"
                 value={score}
             />
-            <PasswordStrengthBar
-                password={password}
-                onChangeScore={(value) => setScore(value)}
-            />
             <Input
                 id="password"
                 type="password"
                 complete="new-password"
                 label="Password"
-                error="google it"
                 updater={(value) => setPassword(value)}
+            />
+            <PasswordStrengthBar
+                className={css.formpassword}
+                password={password}
+                onChangeScore={(value) => setScore(value)}
             />
             <div className={css.formaction}>
                 <button type="submit" className="button filled">Create Account</button>

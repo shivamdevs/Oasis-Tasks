@@ -62,9 +62,24 @@
     outline: none;
     background: none;
 }
+.forminputerror {
+    border-color: #e45973;
+}
 .forminput:focus {
     border-color: #624ef0;
     box-shadow: 0 0 0 2px #624ef0;
+}
+.forminput.forminputerror:focus {
+    border-color: #e45973;
+    box-shadow: 0 0 0 2px #e45973;
+}
+.formerror {
+    color: #e45973;
+    font-weight: 500;
+    font-size: 14px;
+}
+.formerror:not(:empty) {
+    padding-top: 5px;
 }
 .formaction {
     margin-top: auto;

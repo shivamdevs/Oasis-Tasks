@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { Route, Routes } from 'react-router-dom';
 import { Redirect } from '../appdata';
 import css from './../styles/Auth.module.css';
@@ -40,7 +41,10 @@ export function Input({
                 type={type}
                 name={id}
                 id={id}
-                className={css.forminput}
+                className={classNames(
+                    css.forminput,
+                    (error ? css.forminputerror : "")
+                )}
                 onChange={({ target }) => updater && updater(target.value)}
                 defaultValue={value}
                 required

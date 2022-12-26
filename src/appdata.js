@@ -1,5 +1,6 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
+import { useEffect, useRef, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./styles/override.css";
 
 const app = {
@@ -23,10 +24,29 @@ const NavAnchor = ({ children = "", to, className = "", ...props }) => {
         <a {...props} className={className || "link"} onClick={() => navigate(to)}>{children}</a>
     );
 };
+const NavReplace = ({ children = "", to, className = "", activeClassName = "", ...props }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const [isActive, setActive] = useState(false);
+    const ref = useRef();
+    useEffect(() => {
+        setActive(location.pathname === encodeURI(to));
+        if (location.pathname === encodeURI(to)) {
+            ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }, [location, to]);
+    return (
+        <a {...props} ref={ref} className={classNames(
+            className || "link",
+            (isActive ? activeClassName || "active" : ""),
+        )} onClick={() => navigate(to, {replace :true})}>{children}</a>
+    );
+};
 
 export {
     NavAnchor,
     NavButton,
+    NavReplace,
 };
 
 export function Redirect({to, replace = true}) {

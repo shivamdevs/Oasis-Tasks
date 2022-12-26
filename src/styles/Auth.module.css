@@ -65,6 +65,9 @@
 .forminputerror {
     border-color: #e45973;
 }
+.forminputaspass {
+    padding-right: 40px;
+}
 .forminput:focus {
     border-color: #624ef0;
     box-shadow: 0 0 0 2px #624ef0;

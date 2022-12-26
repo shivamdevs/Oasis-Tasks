@@ -54,6 +54,11 @@
     background-color: #503af6;
 }
 
+.button:disabled {
+    opacity: .7 !important;
+    cursor: not-allowed !important;
+}
+
 .splitter {
     display: flex;
     gap: 10px;

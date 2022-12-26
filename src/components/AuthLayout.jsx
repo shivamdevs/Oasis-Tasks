@@ -1,6 +1,9 @@
 import classNames from 'classnames';
-import { Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Redirect } from '../appdata';
+import { auth } from '../fb.user';
 import css from './../styles/Auth.module.css';
 import BackHeader from './BackHeader';
 import Layout from './Layout';
@@ -9,6 +12,13 @@ import Create from './pages/auth/Create';
 import Email from './pages/auth/Email';
 
 function AuthLayout() {
+    const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (user) navigate(-1);
+        if (loading) {}
+        if (error) console.log(error);
+    }, [error, loading, navigate, user]);
     return (
         <Layout className={css.authbox}>
             <BackHeader />
@@ -32,7 +42,8 @@ export function Input({
     error = "",
     focus = false,
     complete = "auto",
-    type = "text"
+    type = "text",
+    disabled = false,
 }) {
     return (
         <div className={css.formgroup}>
@@ -50,6 +61,7 @@ export function Input({
                 required
                 autoComplete={complete}
                 autoFocus={focus}
+                disabled={disabled}
             />
             <div className={css.formerror}>{error}</div>
         </div>

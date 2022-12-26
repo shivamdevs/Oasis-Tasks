@@ -3,8 +3,19 @@ import css from './../../styles/Welcome.module.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import app, { NavAnchor, NavButton } from '../../appdata';
 import Layout from '../Layout';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../fb.user';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Welcome() {
+    const [user, loading, error] = useAuthState(auth);
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (user) navigate("/tasks", {replace: true});
+        if (loading) {}
+        if (error) console.log(error);
+    }, [error, loading, navigate, user]);
     return (
         <Layout className={css.welcome}>
             <div className={css.title}>

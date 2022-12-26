@@ -6,6 +6,7 @@ import { auth } from "../fb.user";
 
 import css from './../styles/Home.module.css';
 import Layout from "./Layout";
+import NewList from "./pages/NewList";
 
 
 function HomeLayout() {
@@ -13,6 +14,8 @@ function HomeLayout() {
 
     const [userPhoto, setUserPhoto] = useState("");
     const [userName, setUserName] = useState("");
+
+    const [newList , setNewList] = useState(false);
 
     const params = useParams();
     console.log(params);
@@ -30,22 +33,25 @@ function HomeLayout() {
         if (error) console.log(error);
     }, [error, loading, navigate, user, userName]);
     return (
-        <Layout>
-            <div className={css.header}>
-                <img src="/logo192.png" alt="" className={css.headerTitle} />
-                <div className={css.headerSearch}>
-                    <input type="search" name="search" id="search" placeholder="Search category..." />
-                    <NavAnchor to="/profile" className={css.headerUser}>
-                        <img src={userPhoto} alt="" />
-                    </NavAnchor>
+        <>
+            <Layout>
+                <div className={css.header}>
+                    <img src="/logo192.png" alt="" className={css.headerTitle} />
+                    <div className={css.headerSearch}>
+                        <input type="search" name="search" id="search" placeholder="Search category..." />
+                        <NavAnchor to="/profile" className={css.headerUser}>
+                            <img src={userPhoto} alt="" />
+                        </NavAnchor>
+                    </div>
                 </div>
-            </div>
-            <div className={css.categories}>
-                <NavReplace key="default" activeClassName={css.activeCategory} className={css.category} to="/tasks/default">My tasks</NavReplace>
-                {categories && categories.map(item => <NavReplace key={item.key} className={css.category} activeClassName={css.activeCategory} to={`/tasks/${item.key}`}>{item.label}</NavReplace>)}
-                <span className={css.category}>Add +</span>
-            </div>
-        </Layout>
+                <div className={css.categories}>
+                    <NavReplace key="default" activeClassName={css.activeCategory} className={css.category} to="/lists/default">My tasks</NavReplace>
+                    {categories && categories.map(item => <NavReplace key={item.key} bucket={item.key} className={css.category} activeClassName={css.activeCategory} to={`/lists/${item.key}`}>{item.label}</NavReplace>)}
+                    <NavAnchor className={css.category} onClick={() => setNewList(true)} to="/lists/newlist" replace={false}>+ New List</NavAnchor>
+                </div>
+            </Layout>
+            {newList && <NewList />}
+        </>
     );
 };
 

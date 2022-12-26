@@ -12,7 +12,7 @@ function Welcome() {
     const [user, loading, error] = useAuthState(auth);
     const navigate = useNavigate();
     useEffect(() => {
-        if (user) navigate("/tasks", {replace: true});
+        if (user) navigate("/lists", {replace: true});
         if (loading) {}
         if (error) console.log(error);
     }, [error, loading, navigate, user]);
@@ -64,7 +64,7 @@ function Welcome() {
                 <NavButton to="/auth/email" className="button">Already have an Account? Sign in</NavButton>
                 <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <NavAnchor to="/docs/legal">Privacy policy</NavAnchor> and <NavAnchor to="/docs/legal/terms">Terms of Usage</NavAnchor>.</div>
                 <div className={css.links}>
-                    <NavAnchor to="/tasks">Docs</NavAnchor>
+                    <NavAnchor to="/lists">Docs</NavAnchor>
                     <span className={css.dot}>•</span>
                     <NavAnchor to="/support">Support</NavAnchor>
                     <span className={css.dot}>•</span>

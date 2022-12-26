@@ -7,8 +7,8 @@
     gap: 10px;
 }
 .headerTitle {
-    width: 38px;
-    height: 38px;
+    width: 44px;
+    height: 44px;
 }
 .headerSearch {
     display: flex;
@@ -40,8 +40,8 @@
     display: none;
 }
 .headerUser {
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -64,7 +64,6 @@
     padding: 5px 15px 10px;
     color: #232323;
     font-weight: 600;
-    font-size: 15px;
     text-decoration: none;
     position: relative;
 }
@@ -81,7 +80,34 @@
     content: " ";
     position: absolute;
     inset: auto 20px -1px 20px;
-    height: 4px;
+    height: 5px;
     background-color: #ab54aa;
     border-radius: 4px 4px 0 0;
+}
+
+
+
+
+
+
+.inputarea {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    outline: none;
+    border: none;
+    background-color: #f8f8ff;
+}
+
+
+
+
+.newlist {
+    background-color: #fff;
+}
+.newError {
+    border-top: 1px solid #ddd;
+    display: block;
+    width: 100%;
+    padding-top: 5px;
 }

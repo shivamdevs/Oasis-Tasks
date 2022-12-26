@@ -11,8 +11,19 @@ function Layout({children, ...props}) {
         </div>
     )
 }
+function FormLayout({ children, ...props }) {
+    const [autoBorder, setBorder] = useState(false);
+    return (
+        <form {...props} style={css} onScroll={({ target }) => setBorder(target.scrollTop > 0)} scrolled={autoBorder.toString()} id="form-layout">
+            {children}
+        </form>
+    )
+}
 
 export default Layout;
+export {
+    FormLayout
+};
 
 const css = {
     "position": "fixed",

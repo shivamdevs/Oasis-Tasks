@@ -31,7 +31,7 @@ function Email() {
         const getauth = await logInWithEmailAndPassword(email, password);
 
         if (getauth.type === "success") {
-            return navigate("/tasks");
+            return navigate(-1);
         }
         setDisabled(false);
 

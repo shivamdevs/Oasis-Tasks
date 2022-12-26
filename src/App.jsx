@@ -13,6 +13,7 @@ import Welcome from "./components/pages/Welcome";
 import AuthLayout from "./components/AuthLayout";
 import HomeLayout from "./components/HomeLayout";
 import { Redirect } from "./appdata";
+import NewList from "./components/pages/NewList";
 
 function App() {
     const navigate = useNavigate();
@@ -27,8 +28,9 @@ function App() {
             {loading && <Loading />}
             {!loading && <>
                 <Routes>
-                    <Route path="/tasks/:taskid" element={<HomeLayout />} />
-                    <Route path="/tasks" element={<Redirect to="/tasks/default" />} />
+                    <Route path="/lists/:listid" element={<HomeLayout />} />
+                    <Route path="/lists/newlist" element={<NewList />} />
+                    <Route path="/lists" element={<Redirect to="/lists/default" />} />
                     <Route path="/auth/*" element={<AuthLayout />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/" exact element={<Welcome />} />

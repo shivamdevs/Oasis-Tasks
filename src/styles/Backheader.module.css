@@ -1,6 +1,5 @@
 .header {
     width: 100%;
-    font-weight: 700;
     padding: 10px;
     display: flex;
     flex-wrap: nowrap;
@@ -12,7 +11,17 @@
     border-bottom-style: solid;
     border-bottom-color: transparent;
     transition: .2s;
-    font-size: 20px;
+}
+.headerAuto {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
 }
 
 [scrolled=true] .header {
@@ -29,4 +38,16 @@
     color: inherit;
     flex-wrap: nowrap;
     margin-right: 40px;
+}
+.text {
+    margin-right: auto;
+    font-weight: 700;
+    font-size: 20px;
+}
+.button {
+    color: dodgerblue;
+    background: none;
+    border: none;
+    font-weight: 500;
+    padding: 5px 10px;
 }

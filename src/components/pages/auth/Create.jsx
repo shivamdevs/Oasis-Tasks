@@ -39,7 +39,7 @@ function Create() {
         const getauth = await registerWithEmailAndPassword(name, email, password);
 
         if (getauth.type === "success") {
-            return navigate("/tasks");
+            return navigate(-1);
         }
         setDisabled(false);
 

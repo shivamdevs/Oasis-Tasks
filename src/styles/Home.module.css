@@ -52,7 +52,6 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     border-bottom: 1px solid #ccc;
-    padding-inline: 10%;
 }
 
 .categories::-webkit-scrollbar {
@@ -60,18 +59,19 @@
 }
 .category {
     display: inline-flex;
+    align-items: center;
+    min-width: 80px;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    justify-content: center;
     white-space: nowrap;
     padding: 5px 15px 10px;
     color: #232323;
     font-weight: 600;
     text-decoration: none;
     position: relative;
-}
-.category:first-child {
-    margin-left: auto;
-}
-.category:last-child {
-    margin-right: auto;
 }
 .activeCategory {
     color: #ab54aa;
@@ -96,7 +96,7 @@
     padding: 15px 20px;
     outline: none;
     border: none;
-    background-color: #f8f8ff;
+    background-color: #fff;
 }
 
 

@@ -1,7 +1,7 @@
 // import { BrowserView, MobileView } from "react-device-detect";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { auth } from './fb.user';
+import { auth, logout } from './fb.user';
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import './styles/override.css';
@@ -12,8 +12,8 @@ import Notfound from "./components/Notfound";
 import Welcome from "./components/pages/Welcome";
 import AuthLayout from "./components/AuthLayout";
 import HomeLayout from "./components/HomeLayout";
+import ProfileMenu from "./components/pages/Profile";
 import { Redirect } from "./appdata";
-import NewList from "./components/pages/NewList";
 
 function App() {
     const navigate = useNavigate();
@@ -28,11 +28,11 @@ function App() {
             {loading && <Loading />}
             {!loading && <>
                 <Routes>
-                    <Route path="/lists/:listid" element={<HomeLayout />} />
-                    <Route path="/lists/newlist" element={<NewList />} />
-                    <Route path="/lists" element={<Redirect to="/lists/default" />} />
+                    <Route path="/lists/*" element={<HomeLayout />} />
                     <Route path="/auth/*" element={<AuthLayout />} />
                     <Route path="/about" element={<About />} />
+                    <Route path="/settings" element={<ProfileMenu />} />
+                    <Route path="/logout" element={<Logout />} />
                     <Route path="/" exact element={<Welcome />} />
                     <Route path="*" element={<Notfound />} />
                 </Routes>
@@ -50,3 +50,8 @@ function App() {
 };
 
 export default App;
+
+function Logout() {
+    logout();
+    return (<Redirect to={-1} />);
+}

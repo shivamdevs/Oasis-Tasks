@@ -7,6 +7,7 @@ import {
     sendPasswordResetEmail,
     signOut
 } from "firebase/auth";
+import { getFirestore } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDRA5z3oE6WR5yh9XwdS2_GcIAo6WTD-UI",
@@ -20,6 +21,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
 
 const clarifyError = (text) => {
     text = text.toString();
@@ -102,10 +104,12 @@ const logout = () => {
 };
 
 export {
+    db,
     auth,
     updateUserProfile,
     logInWithEmailAndPassword,
     registerWithEmailAndPassword,
     sendPasswordReset,
     logout,
+    clarifyError,
 };

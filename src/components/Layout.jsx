@@ -11,10 +11,10 @@ function Layout({children, ...props}) {
         </div>
     )
 }
-function FormLayout({ children, ...props }) {
+function FormLayout({ children, onSubmit = null, ...props }) {
     const [autoBorder, setBorder] = useState(false);
     return (
-        <form {...props} style={css} onScroll={({ target }) => setBorder(target.scrollTop > 0)} scrolled={autoBorder.toString()} id="form-layout">
+        <form {...props} style={css} onSubmit={onSubmit} onScroll={({ target }) => setBorder(target.scrollTop > 0)} scrolled={autoBorder.toString()} id="form-layout">
             {children}
         </form>
     )

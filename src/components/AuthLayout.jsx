@@ -5,7 +5,6 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Redirect } from '../appdata';
 import { auth } from '../fb.user';
 import css from './../styles/Auth.module.css';
-import BackHeader from './BackHeader';
 import Layout from './Layout';
 import Notfound from './Notfound';
 import Create from './pages/auth/Create';
@@ -21,7 +20,6 @@ function AuthLayout() {
     }, [error, loading, navigate, user]);
     return (
         <Layout className={css.authbox}>
-            <BackHeader />
             <Routes>
                 <Route path="/" element={<Redirect to="/" replace={true} />} />
                 <Route path="/email" element={<Email />} />

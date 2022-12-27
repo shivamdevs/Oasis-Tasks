@@ -9,8 +9,6 @@
     display: flex;
     width: 100%;
     flex-direction: column;
-    padding: 20px;
-    flex: 1;
     gap: 15px;
 }
 
@@ -19,32 +17,29 @@
 }
 
 .authgreet {
-    text-align: center;
     background: -webkit-linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
     background: linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 20px;
+    padding-inline: 15px;
 }
 
 .authgreet .title {
-    font-size: 25px;
+    font-size: 22px;
+    margin-bottom: 5px;
     font-weight: 700;
     color: #212333;
-    margin-bottom: 10px;
 }
-
 .authgreet .subtitle {
     font-weight: 500;
     font-size: 16px;
     color: #545666;
 }
-
 .formgroup {
     width: 100%;
     display: flex;
-    padding-inline: 5px;
+    padding-inline: 15px;
     flex-direction: column;
 }
 .formlabel {
@@ -99,5 +94,5 @@
     gap: 15px;
 }
 .formpassword {
-    padding: 5px 8px;
+    padding: 0 15px;
 }

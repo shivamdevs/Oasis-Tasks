@@ -6,7 +6,7 @@
     align-items: center;
     position: sticky;
     top: 0;
-    background-color: #fff;
+    background-color: transparent;
     border-bottom-width: 1px;
     border-bottom-style: solid;
     border-bottom-color: transparent;
@@ -21,10 +21,11 @@
     position: sticky;
     top: 0;
     background-color: transparent;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid transparent;
 }
 
-[scrolled=true] .header {
+[scrolled=true] .header,
+[scrolled=true] .headerAuto {
     background-color: #fff;
     border-bottom-color: #ddd;
     box-shadow: 0 4px 8px -4px #0004;

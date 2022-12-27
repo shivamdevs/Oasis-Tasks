@@ -4,6 +4,8 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 import { useNavigate } from 'react-router-dom';
 import { registerWithEmailAndPassword } from '../../../fb.user';
 import { Input } from '../../AuthLayout';
+import { BackHeaderWithButton } from '../../BackHeader';
+import { FormLayout } from '../../Layout';
 import css from './../../../styles/Auth.module.css';
 
 function Create() {
@@ -29,10 +31,10 @@ function Create() {
         const postemail = email.trim();
         const postpassword = password.trim();
 
-        if (!postname) return e.target[0].focus();
-        if (!postemail) return e.target[1].focus();
-        if (!postpassword) return e.target[2].focus();
-        if (score < 4) return (e.target[2].focus(), setPasswordError("Choose a strong password"));
+        if (!postname) return e.target[2].focus();
+        if (!postemail) return e.target[3].focus();
+        if (!postpassword) return e.target[4].focus();
+        if (score < 4) return (e.target[4].focus(), setPasswordError("Choose a strong password"));
 
         setDisabled(true);
 
@@ -45,13 +47,13 @@ function Create() {
 
         if (getauth.action === "name") {
             setNameError(getauth.data);
-            e.target[0].focus();
+            e.target[2].focus();
         } else if (getauth.action === "email") {
             setEmailError(getauth.data);
-            e.target[1].focus();
+            e.target[3].focus();
         } else if (getauth.action === "password") {
             setPasswordError(getauth.data);
-            e.target[2].focus();
+            e.target[4].focus();
         } else if (getauth.action === "toast") {
             toast(getauth.data);
         } else {
@@ -59,7 +61,8 @@ function Create() {
         }
     }
     return (
-        <form action="" method="post" onSubmit={submitForm} className={css.authform}>
+        <FormLayout onSubmit={submitForm} className={css.authform}>
+            <BackHeaderWithButton button="Sign up" type="submit" />
             <div className={css.authgreet}>
                 <div className={css.title}>Welcome!</div>
                 <div className={css.subtitle}>It's an honour to be a part of your journey!</div>
@@ -99,10 +102,7 @@ function Create() {
                 scoreWords={[]}
                 onChangeScore={(value) => setScore(value)}
             />
-            <div className={css.formaction}>
-                <button type="submit" className="button filled" disabled={disabled}>Create Account</button>
-            </div>
-        </form>
+        </FormLayout>
     );
 };
 

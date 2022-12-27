@@ -3,6 +3,8 @@ import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { logInWithEmailAndPassword } from '../../../fb.user';
 import { Input } from '../../AuthLayout';
+import { BackHeaderWithButton } from '../../BackHeader';
+import { FormLayout } from '../../Layout';
 import css from './../../../styles/Auth.module.css';
 
 function Email() {
@@ -23,8 +25,8 @@ function Email() {
         const postemail = email.trim();
         const postpassword = password.trim();
 
-        if (!postemail) return e.target[0].focus();
-        if (!postpassword) return e.target[1].focus();
+        if (!postemail) return e.target[2].focus();
+        if (!postpassword) return e.target[3].focus();
 
         setDisabled(true);
 
@@ -36,10 +38,10 @@ function Email() {
         setDisabled(false);
 
         if (getauth.action === "email") {
-            e.target[0].focus();
+            e.target[2].focus();
             setEmailError(getauth.data);
         } else if (getauth.action === "password") {
-            e.target[1].focus();
+            e.target[3].focus();
             setPasswordError(getauth.data);
         } else if (getauth.action === "toast") {
             toast(getauth.data);
@@ -48,7 +50,8 @@ function Email() {
         }
     }
     return (
-        <form action="" method="post" onSubmit={submitForm} className={css.authform}>
+        <FormLayout onSubmit={submitForm} className={css.authform}>
+            <BackHeaderWithButton button="Sign in" type="submit" />
             <div className={css.authgreet}>
                 <div className={css.title}>Welcome back!</div>
                 <div className={css.subtitle}>It's good to see you again!</div>
@@ -72,11 +75,7 @@ function Email() {
                 error={passwordError}
                 updater={(value) => setPassword(value)}
             />
-            <div className={css.formtag}></div>
-            <div className={css.formactioncol}>
-                <button type="submit" className="button filled">Continue</button>
-            </div>
-        </form>
+        </FormLayout>
     );
 };
 

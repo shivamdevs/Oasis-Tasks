@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore/lite";
+import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore/lite";
 import { randomString } from "./appdata";
 import { clarifyError, db } from "./fb.user";
 
@@ -51,7 +51,7 @@ async function getAllLists(user) {
 
 async function getAllTasks(user, docs) {
     try {
-        const q = query(collection(db, 'to-do-tasks'), where("uid" , "==", user.uid), where("deleted", "==", false));
+        /*const q = */query(collection(db, 'to-do-tasks'), where("uid" , "==", user.uid), where("deleted", "==", false));
         
     } catch (err) {
         return clarifyError(err);

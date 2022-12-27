@@ -11,6 +11,17 @@ const app = {
 
 export default app;
 
+const randomNumber = (min = 0, max = 9) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+const randomString = (length = 5) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let result = '';
+    for (let i = 0; i < length; i++) result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    return result;
+};
+
 const NavButton = ({children = "", to, className = "", replace = false, ...props}) => {
     const navigate = useNavigate();
     return (
@@ -53,6 +64,8 @@ export {
     NavAnchor,
     NavButton,
     NavReplace,
+    randomNumber,
+    randomString,
 };
 
 export function Redirect({to, replace = true}) {

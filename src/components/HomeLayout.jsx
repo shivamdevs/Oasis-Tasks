@@ -3,7 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import app, { NavAnchor, NavReplace } from "../appdata";
-import { getAllLists } from "../fb.todo";
+import { getAllLists, getAllTasks } from "../fb.todo";
 import { auth } from "../fb.user";
 
 import css from './../styles/Home.module.css';
@@ -59,7 +59,10 @@ function Home() {
                 if (item.key === params.listid) available = true;
             });
             if (!available) navigate("/lists/default", { replace: true });
-            return setCategory(docs.data);
+            const tasks = await getAllTasks(user, docs.data);
+            console.log(tasks);
+            setCategory(docs.data);
+            return;
         }
         toast.error(docs.data);
     }, [navigate, params.listid, user]);
@@ -84,7 +87,7 @@ function Home() {
                 <div className={css.header}>
                     <img src="/logo192.png" alt="" className={css.headerTitle} />
                     <div className={css.headerSearch}>
-                        <input type="search" name="search" id="search" placeholder="Search category..." />
+                        <input type="search" name="search" id="search" placeholder="Search list..." />
                         <NavAnchor to="./settings" className={css.headerUser}>
                             <img src={userPhoto} alt="" />
                         </NavAnchor>
@@ -102,7 +105,7 @@ function Home() {
                             {item.label === "*star*" ? <i className="fas fa-star"></i> : item.label}
                         </NavReplace>);
                     })}
-                    <NavAnchor className={css.category} to="./newlist" replace={false}>+ New List</NavAnchor>
+                    <NavAnchor className={css.category} to="./newlist" replace={false}>+ New list</NavAnchor>
                 </div>
                 <Routes>
                     <Route path="/settings/*" element={<ProfileMenu />} />

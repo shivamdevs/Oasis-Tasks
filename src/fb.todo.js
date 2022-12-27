@@ -1,4 +1,5 @@
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore/lite";
+import { addDoc, collection, doc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore/lite";
+import { randomString } from "./appdata";
 import { clarifyError, db } from "./fb.user";
 
 async function addNewList(user, label) {
@@ -7,7 +8,7 @@ async function addNewList(user, label) {
         return date.setTime(date.getTime());
     })();
     try {
-        const data = await addDoc(collection(db, 'to-do-lists'), {
+        const data = await setDoc(doc(db, 'to-do-lists', (`${user.uid}-${created}-${randomString(11)}`)), {
             uid: user.uid,
             label,
             deleted: false,
@@ -48,7 +49,17 @@ async function getAllLists(user) {
     }
 }
 
+async function getAllTasks(user, docs) {
+    try {
+        const q = query(collection(db, 'to-do-tasks'), where("uid" , "==", user.uid), where("deleted", "==", false));
+        
+    } catch (err) {
+        return clarifyError(err);
+    }
+}
+
 export {
     addNewList,
     getAllLists,
+    getAllTasks,
 };

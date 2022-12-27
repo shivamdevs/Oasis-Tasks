@@ -20,11 +20,12 @@
     align-items: center;
     position: sticky;
     top: 0;
-    background-color: #fff;
+    background-color: transparent;
     border-bottom: 1px solid #ccc;
 }
 
 [scrolled=true] .header {
+    background-color: #fff;
     border-bottom-color: #ddd;
     box-shadow: 0 4px 8px -4px #0004;
 }
@@ -38,6 +39,7 @@
     color: inherit;
     flex-wrap: nowrap;
     margin-right: 40px;
+    font-size: 20px;
 }
 .text {
     margin-right: auto;

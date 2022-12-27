@@ -27,7 +27,16 @@ async function getAllLists(user) {
     try {
         const q = query(collection(db, 'to-do-lists'), where('uid', "==" , user.uid), where('deleted', "==", false));
         const snap = await getDocs(q);
-        const result = [];
+        const result = [
+            {
+                label: '*star*',
+                key: "starred",
+            },
+            {
+                label: "My tasks",
+                key: "default",
+            }
+        ];
         snap.forEach(item => result.push({label: item.data().label, key: item.id}));
         return {
             type: "success",

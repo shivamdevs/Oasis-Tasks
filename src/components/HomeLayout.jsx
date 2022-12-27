@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
@@ -10,6 +10,7 @@ import css from './../styles/Home.module.css';
 import Layout from "./Layout";
 import { LoadCircle } from "./Loading";
 import NewList from "./pages/NewList";
+import ProfileMenu from "./pages/Profile";
 
 
 function HomeLayout() {
@@ -50,29 +51,18 @@ function Home() {
 
     const navigate = useNavigate();
 
-    const updateLists = async () => {
+    const updateLists = useCallback(async () => {
         const docs = await getAllLists(user);
         if (docs.type === "success") {
             let available = false;
             docs.data.forEach(item => {
                 if (item.key === params.listid) available = true;
             });
-            if (!available && params.listid !== "newlist") navigate("/lists/default", {replace: true});
-            return setCategory(() => [
-                {
-                    label: '*star*',
-                    key: "starred",
-                },
-                {
-                    label: "My tasks",
-                    key: "default",
-                },
-                ...docs.data
-            ]);
+            if (!available) navigate("/lists/default", { replace: true });
+            return setCategory(docs.data);
         }
         toast.error(docs.data);
-    };
-    updateLists();
+    }, [navigate, params.listid, user]);
 
     useEffect(() => {
         if (!user) navigate("/", {replace: true});
@@ -82,6 +72,12 @@ function Home() {
         }
         if (error) console.log(error);
     }, [error, loading, navigate, user, userName]);
+
+    useEffect(() => {
+        (async function() {
+            await updateLists();
+        })();
+    }, [updateLists]);
     return (
         <>
             <Layout>
@@ -89,7 +85,7 @@ function Home() {
                     <img src="/logo192.png" alt="" className={css.headerTitle} />
                     <div className={css.headerSearch}>
                         <input type="search" name="search" id="search" placeholder="Search category..." />
-                        <NavAnchor to="/settings" className={css.headerUser}>
+                        <NavAnchor to="./settings" className={css.headerUser}>
                             <img src={userPhoto} alt="" />
                         </NavAnchor>
                     </div>
@@ -106,10 +102,13 @@ function Home() {
                             {item.label === "*star*" ? <i className="fas fa-star"></i> : item.label}
                         </NavReplace>);
                     })}
-                    <NavAnchor className={css.category} to="/lists/newlist" replace="false">+ New List</NavAnchor>
+                    <NavAnchor className={css.category} to="./newlist" replace={false}>+ New List</NavAnchor>
                 </div>
+                <Routes>
+                    <Route path="/settings/*" element={<ProfileMenu />} />
+                    <Route path="/newlist" element={<NewList />} />
+                </Routes>
                 {(categories.length === 0) && <LoadCircle />}
-                {params.listid === "newlist" && <NewList perform={updateLists} />}
             </Layout>
         </>
     );

@@ -28,6 +28,5 @@ export {
 const css = {
     "position": "fixed",
     "inset": "0",
-    "overflow": "auto",
     "background": "#fff",
 };

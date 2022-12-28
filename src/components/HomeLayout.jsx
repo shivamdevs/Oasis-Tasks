@@ -118,7 +118,7 @@ function Home() {
                     <div className={css.emptyList}>
 
                     </div>
-                    {taskArray[params.listid].map(item => {
+                    {taskArray[params.listid]?.map(item => {
                         return <TaskItem key={item.id} data={item} />
                     })}
                 </div>

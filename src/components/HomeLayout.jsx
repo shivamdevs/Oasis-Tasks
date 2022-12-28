@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
+import { Carousel } from "react-responsive-carousel";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import app, { NavAnchor, NavReplace } from "../appdata";
 import { getAllLists, getAllTasks } from "../fb.todo";
@@ -19,7 +20,7 @@ function HomeLayout() {
         <>
             <Routes>
                 <Route path="/:listid/*" element={<Home />} />
-                <Route path="/" element={<RedirectToList/>} />
+                <Route path="/" element={<RedirectToList />} />
             </Routes>
         </>
     );
@@ -50,6 +51,7 @@ function Home() {
 
     const [categories, setCategory] = useState([]);
     const [taskArray, setTaskArray] = useState({});
+    const [currentList, setCurrentList] = useState(null);
 
     const navigate = useNavigate();
 
@@ -60,8 +62,15 @@ function Home() {
         }
 
         let available = false;
-        docs.data.forEach(item => {
-            if (item.key === params.listid) available = true;
+        docs.data.forEach((item, index) => {
+            if (item.key === params.listid) {
+                available = true;
+                setCurrentList({
+                    key: item.key,
+                    label: (item.label === "*star*" ? "Starred" : item.label),
+                    index,
+                });
+            }
         });
         if (!available) navigate("/lists/default", { replace: true });
         const tasks = await getAllTasks(user, docs.data);
@@ -74,7 +83,7 @@ function Home() {
     }, [navigate, params.listid, user]);
 
     useEffect(() => {
-        if (!user) navigate("/", {replace: true});
+        if (!user) navigate("/", { replace: true });
         if (!loading && user) {
             setUserName(user.displayName);
             setUserPhoto(user.photoURL || `https://ui-avatars.com/api/?name=${userName}&background=624ef0&color=fff`);
@@ -83,7 +92,7 @@ function Home() {
     }, [error, loading, navigate, user, userName]);
 
     useEffect(() => {
-        (async function() {
+        (async function () {
             await updateLists();
         })();
     }, [updateLists]);
@@ -93,7 +102,7 @@ function Home() {
                 <div className={css.header}>
                     <img src="/logo192.png" alt="" className={css.headerTitle} />
                     <div className={css.headerSearch}>
-                        <input type="search" name="search" id="search" autoComplete="off" placeholder="Search list..." />
+                        <input type="search" name="search" id="search" autoComplete="off" placeholder={`Search ${currentList.label}...`} />
                         <NavAnchor to="./settings" className={css.headerUser}>
                             <img src={userPhoto} alt="" />
                         </NavAnchor>
@@ -106,6 +115,7 @@ function Home() {
                             className={css.category}
                             bucket={item.key}
                             current={params.listid}
+                            id={`title-${item.key}`}
                             to={`/lists/${item.key}`}
                             activeClassName={css.activeCategory}
                         >
@@ -115,12 +125,20 @@ function Home() {
                     <NavAnchor className={css.category} to="./newlist" replace={false}>+ New list</NavAnchor>
                 </div>
                 <div className={css.tasksBody}>
-                    <div className={css.emptyList}>
-
-                    </div>
-                    {taskArray[params.listid]?.map(item => {
-                        return <TaskItem key={item.id} data={item} />
-                    })}
+                    {categories && (categories.length > 0) && <Carousel
+                        swipeable={true}
+                        showArrows={false}
+                        showStatus={false}
+                        showThumbs={false}
+                        infiniteLoop={false}
+                        transitionTime={100}
+                        showIndicators={false}
+                        swipeScrollTolerance={20}
+                        selectedItem={currentList.index}
+                        onChange={(index, item) => navigate(`/lists/${item.key.slice(2)}`) && console.log(index)}
+                    >
+                        {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} item={item.key} data={taskArray[item.key] || []} />)}
+                    </Carousel>}
                 </div>
                 <div className={css.appFooter}>
                     <NavAnchor className={css.footerIcon} to="./viewlists" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
@@ -139,6 +157,14 @@ function Home() {
 }
 
 
-function TaskItem({data = {}}) {
+function TaskItem({ data = {} }) {
     return (<div>{data.task}<br />{data.detail}</div>);
+}
+
+function TaskList({ data = [], item = "" }) {
+    return (
+        <div className={css.tasksBlock}>
+            {data.map(item => <TaskItem key={item.id} data={item} />)}
+        </div>
+    );
 }

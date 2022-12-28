@@ -52,9 +52,10 @@ const NavReplace = ({
             ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
         }
     }, [bucket, current]);
-
+    
     const clickAction = () => {
         navigate(to, { replace: true });
+        ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
         if (window.localStorage) {
             window.localStorage.setItem(`${app.name.replaceAll(' ', '').toLowerCase()}.current.bucket`, bucket);
         }

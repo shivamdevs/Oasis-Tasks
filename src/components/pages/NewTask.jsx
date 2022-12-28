@@ -9,7 +9,7 @@ import { FormLayout } from "../Layout";
 import { LoadCircle } from "../Loading";
 import css from './../../styles/Home.module.css';
 
-function NewTask() {
+function NewTask({publish}) {
     const navigate = useNavigate();
 
     const params = useParams();
@@ -27,6 +27,7 @@ function NewTask() {
         setDisabled(true);
         const data = await addNewTask(user, params.listid, posttask, detail);
         if (data.type === "success") {
+            publish();
             return navigate(-1);
         }
         setDisabled(false);

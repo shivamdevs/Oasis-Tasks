@@ -9,7 +9,7 @@ import { FormLayout } from "../Layout";
 import { LoadCircle } from "../Loading";
 import css from './../../styles/Home.module.css';
 
-function NewList() {
+function NewList({publish}) {
     const navigate = useNavigate();
 
     const [user] = useAuthState(auth);
@@ -23,6 +23,7 @@ function NewList() {
         setDisabled(true);
         const data = await addNewList(user, postname);
         if (data.type === "success") {
+            publish();
             return navigate(-1);
         }
         setDisabled(false);

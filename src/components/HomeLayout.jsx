@@ -46,12 +46,13 @@ function Home() {
 
     const [userPhoto, setUserPhoto] = useState("");
     const [userName, setUserName] = useState("");
+    const [userLoading, setUserLoading] = useState(false);
 
     const params = useParams();
 
     const [categories, setCategory] = useState([]);
     const [taskArray, setTaskArray] = useState({});
-    const [currentList, setCurrentList] = useState(null);
+    const [currentList, setCurrentList] = useState({});
 
     const navigate = useNavigate();
 
@@ -60,9 +61,18 @@ function Home() {
         if (docs.type !== "success") {
             return toast.error(docs.data);
         }
+        const tasks = await getAllTasks(user, docs.data);
+        if (tasks.type !== "success") {
+            return toast.error(tasks.data);
+        }
+        setCategory(docs.data);
+        setTaskArray(tasks.data);
+        setUserLoading(false);
+    }, [user]);
 
+    useEffect(() => {
         let available = false;
-        docs.data.forEach((item, index) => {
+        categories.forEach((item, index) => {
             if (item.key === params.listid) {
                 available = true;
                 setCurrentList({
@@ -73,14 +83,7 @@ function Home() {
             }
         });
         if (!available) navigate("/lists/default", { replace: true });
-        const tasks = await getAllTasks(user, docs.data);
-        console.log(tasks);
-        if (tasks.type !== "success") {
-            return toast.error(tasks.data);
-        }
-        setCategory(docs.data);
-        setTaskArray(tasks.data);
-    }, [navigate, params.listid, user]);
+    }, [categories, navigate, params.listid]);
 
     useEffect(() => {
         if (!user) navigate("/", { replace: true });
@@ -102,7 +105,7 @@ function Home() {
                 <div className={css.header}>
                     <img src="/logo192.png" alt="" className={css.headerTitle} />
                     <div className={css.headerSearch}>
-                        <input type="search" name="search" id="search" autoComplete="off" placeholder={`Search ${currentList.label}...`} />
+                        <input type="search" name="search" id="search" autoComplete="off" placeholder={`Search ${currentList.label || "list"}...`} />
                         <NavAnchor to="./settings" className={css.headerUser}>
                             <img src={userPhoto} alt="" />
                         </NavAnchor>
@@ -131,7 +134,7 @@ function Home() {
                         showStatus={false}
                         showThumbs={false}
                         infiniteLoop={false}
-                        transitionTime={100}
+                        transitionTime={300}
                         showIndicators={false}
                         swipeScrollTolerance={20}
                         selectedItem={currentList.index}
@@ -143,14 +146,15 @@ function Home() {
                 <div className={css.appFooter}>
                     <NavAnchor className={css.footerIcon} to="./viewlists" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
                     <NavAnchor className={css.footerIcon} to="./listoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
+                    <span className={css.footerIcon} onClick={() => {setUserLoading(true);updateLists();}}><i className="fas fa-cloud-arrow-down"></i></span>
                     {(params.listid !== "starred") && <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>}
                 </div>
                 <Routes>
                     <Route path="/settings/*" element={<ProfileMenu />} />
-                    <Route path="/newlist" element={<NewList />} />
-                    <Route path="/newtask" element={<NewTask />} />
+                    <Route path="/newlist" element={<NewList publish={updateLists} />} />
+                    <Route path="/newtask" element={<NewTask publish={updateLists} />} />
                 </Routes>
-                {(categories.length === 0) && <LoadCircle />}
+                {(categories.length === 0 || userLoading) && <LoadCircle />}
             </Layout>
         </>
     );

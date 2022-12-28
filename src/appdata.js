@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const app = {
     name: 'To do',
@@ -34,17 +34,24 @@ const NavAnchor = ({children = "", to, className = "", replace = false, ...props
         <a {...props} className={className || "link"} onClick={() => navigate(to, {replace: replace})}>{children}</a>
     );
 };
-const NavReplace = ({ children = "", to, className = "", bucket = "default", activeClassName = "", ...props }) => {
+const NavReplace = ({
+    to,
+    children = "",
+    className = "",
+    bucket = "default",
+    current = "default",
+    activeClassName = "",
+    ...props
+}) => {
     const navigate = useNavigate();
-    const location = useLocation();
     const [isActive, setActive] = useState(false);
     const ref = useRef();
     useEffect(() => {
-        setActive(location.pathname === encodeURI(to));
-        if (location.pathname === encodeURI(to)) {
-            ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setActive(current === bucket);
+        if (current === bucket) {
+            ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
         }
-    }, [location, to]);
+    }, [bucket, current]);
 
     const clickAction = () => {
         navigate(to, { replace: true });

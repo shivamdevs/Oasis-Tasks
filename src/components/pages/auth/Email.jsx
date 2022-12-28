@@ -5,6 +5,7 @@ import { logInWithEmailAndPassword } from '../../../fb.user';
 import { Input } from '../../AuthLayout';
 import { BackHeaderWithButton } from '../../BackHeader';
 import { FormLayout } from '../../Layout';
+import { LoadCircle } from '../../Loading';
 import css from './../../../styles/Auth.module.css';
 
 function Email() {
@@ -44,14 +45,14 @@ function Email() {
             e.target[3].focus();
             setPasswordError(getauth.data);
         } else if (getauth.action === "toast") {
-            toast(getauth.data);
+            toast.error(getauth.data);
         } else {
             console.log(getauth);
         }
     }
     return (
         <FormLayout onSubmit={submitForm} className={css.authform}>
-            <BackHeaderWithButton button="Sign in" type="submit" />
+            <BackHeaderWithButton button="Sign in" type="submit" disabled={disabled} />
             <div className={css.authgreet}>
                 <div className={css.title}>Welcome back!</div>
                 <div className={css.subtitle}>It's good to see you again!</div>
@@ -75,6 +76,7 @@ function Email() {
                 error={passwordError}
                 updater={(value) => setPassword(value)}
             />
+            {disabled && <LoadCircle />}
         </FormLayout>
     );
 };

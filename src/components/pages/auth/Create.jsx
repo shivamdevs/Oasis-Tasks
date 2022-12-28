@@ -6,6 +6,7 @@ import { registerWithEmailAndPassword } from '../../../fb.user';
 import { Input } from '../../AuthLayout';
 import { BackHeaderWithButton } from '../../BackHeader';
 import { FormLayout } from '../../Layout';
+import { LoadCircle } from '../../Loading';
 import css from './../../../styles/Auth.module.css';
 
 function Create() {
@@ -55,14 +56,14 @@ function Create() {
             setPasswordError(getauth.data);
             e.target[4].focus();
         } else if (getauth.action === "toast") {
-            toast(getauth.data);
+            toast.error(getauth.data);
         } else {
             console.log(getauth);
         }
     }
     return (
         <FormLayout onSubmit={submitForm} className={css.authform}>
-            <BackHeaderWithButton button="Sign up" type="submit" />
+            <BackHeaderWithButton button="Sign up" type="submit" disabled={disabled} />
             <div className={css.authgreet}>
                 <div className={css.title}>Welcome!</div>
                 <div className={css.subtitle}>It's an honour to be a part of your journey!</div>
@@ -102,6 +103,7 @@ function Create() {
                 scoreWords={[]}
                 onChangeScore={(value) => setScore(value)}
             />
+            {disabled && <LoadCircle />}
         </FormLayout>
     );
 };

@@ -7,6 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../fb.user';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 function Welcome() {
     const [user, loading, error] = useAuthState(auth);
@@ -14,7 +15,7 @@ function Welcome() {
     useEffect(() => {
         if (user) navigate("/lists", {replace: true});
         if (loading) {}
-        if (error) console.log(error);
+        if (error) toast.error(error);
     }, [error, loading, navigate, user]);
     return (
         <>{!user && <>

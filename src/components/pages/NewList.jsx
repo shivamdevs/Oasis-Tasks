@@ -19,7 +19,7 @@ function NewList() {
     const submitForm = async (e) => {
         e.preventDefault();
         const postname = name.trim();
-        if (!postname) return e.target[0].focus();
+        if (!postname) return e.target[2].focus();
         setDisabled(true);
         const data = await addNewList(user, postname);
         if (data.type === "success") {
@@ -28,9 +28,9 @@ function NewList() {
         setDisabled(false);
         if (data.action === "name") {
             setNameError(data.data);
-            e.target[0].focus();
+            e.target[2].focus();
         } else if (data.action === "toast") {
-            toast(data.data);
+            toast.error(data.data);
         } else {
             console.log(data);
         }
@@ -38,7 +38,7 @@ function NewList() {
     return (
         <FormLayout className={css.newlist} onSubmit={submitForm}>
             <BackHeaderWithButton label="Add new list" button="Create" type="submit" disabled={disabled} />
-            <input type="text" placeholder="Enter new list name..." className={css.inputarea} autoComplete="off" autoFocus={true} onChange={({target}) => setName(target.value)} required={true} />
+            <input type="text" placeholder="Enter new list..." className={css.inputarea} autoComplete="off" autoFocus={true} onChange={({target}) => setName(target.value)} required={true} />
             <span className={css.newError}>{nameErr}</span>
             {disabled && <LoadCircle />}
         </FormLayout>

@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import { toast } from 'react-hot-toast';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Redirect } from '../appdata';
 import { auth } from '../fb.user';
@@ -16,7 +17,7 @@ function AuthLayout() {
     useEffect(() => {
         if (user) navigate(-1);
         if (loading) {}
-        if (error) console.log(error);
+        if (error) toast.error(error);
     }, [error, loading, navigate, user]);
     return (
         <Layout className={css.authbox}>

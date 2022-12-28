@@ -6,10 +6,12 @@
     padding: 10px;
     gap: 10px;
 }
+
 .headerTitle {
     width: 44px;
     height: 44px;
 }
+
 .headerSearch {
     display: flex;
     align-items: center;
@@ -24,6 +26,7 @@
     background-color: #eee;
     overflow: hidden;
 }
+
 .headerSearch input {
     flex: 1;
     height: 100%;
@@ -33,19 +36,23 @@
     outline: none;
     background: transparent;
 }
+
 .headerSearch input::-webkit-search-decoration,
 .headerSearch input::-webkit-search-cancel-button,
 .headerSearch input::-webkit-search-results-button,
 .headerSearch input::-webkit-search-results-decoration {
     display: none;
 }
+
 .headerUser {
     width: 38px;
     height: 38px;
     border-radius: 50%;
     overflow: hidden;
 }
+
 .categories {
+    min-height: calc(1em + 21px);
     white-space: nowrap;
     overflow: auto hidden;
     padding: 0;
@@ -57,6 +64,7 @@
 .categories::-webkit-scrollbar {
     display: none;
 }
+
 .category {
     display: inline-block;
     min-width: 80px;
@@ -72,9 +80,11 @@
     text-decoration: none;
     position: relative;
 }
+
 .activeCategory {
     color: #ab54aa;
 }
+
 .activeCategory::after {
     content: " ";
     position: absolute;
@@ -96,17 +106,79 @@
     outline: none;
     border: none;
     background-color: #fff;
+    border-block: 1px solid #ddd;
+}
+
+.inputbox {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    outline: none;
+    border: none;
+    background-color: #fff;
+    resize: none;
 }
 
 
 
+.listbody {
+    display: flex;
+    flex-direction: column;
+}
 
 .newlist {
     background-color: #fff;
 }
+
 .newError {
-    border-top: 1px solid #ddd;
     display: block;
     width: 100%;
     padding-top: 5px;
+}
+
+.tasksBody {
+    display: block;
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+}
+
+
+
+.appFooter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2px 10px;
+    border-top: 1px solid #71b6ff;
+    background-color: #eef;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 20px;
+    position: relative;
+}
+
+.footerIcon {
+    font-size: 18px;
+    color: #1e90ff;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footerAddIcon {
+    font-size: 22px;
+    color: #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    inset: auto 20px 20px auto;
+    border: 4px solid #fff;
+    background-color: #ab54aa;
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }

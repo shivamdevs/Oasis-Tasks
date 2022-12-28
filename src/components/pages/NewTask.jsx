@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { addNewList, addNewTask } from "../../fb.todo";
+import { addNewTask } from "../../fb.todo";
 import { auth } from "../../fb.user";
 import { BackHeaderWithButton } from "../BackHeader";
 import { FormLayout } from "../Layout";

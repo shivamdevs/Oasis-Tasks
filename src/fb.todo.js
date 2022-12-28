@@ -2,18 +2,19 @@ import { collection, doc, getDocs, query, setDoc, where } from "firebase/firesto
 import { randomString } from "./appdata";
 import { clarifyError, db } from "./fb.user";
 
-async function addNewList(user, label) {
+async function addNewList(user, label, {defaultList = false}) {
     const created = (() => {
         const date = new Date();
         return date.setTime(date.getTime());
     })();
     try {
-        const data = await setDoc(doc(db, 'to-do-lists', (`${user.uid}-${created}-${randomString(11)}`)), {
+        const data = await setDoc(doc(db, 'to-do-lists', (defaultList ? 'default' : (`${user.uid}-${created}-${randomString(11)}`))), {
             uid: user.uid,
             label,
             deleted: false,
             created,
             updated: created,
+            defaultList: defaultList,
         });
         return {
             type: "success",
@@ -51,6 +52,13 @@ async function addNewTask(user, list, task, detail) {
     }
 }
 
+// async function updateTask(user, task, field, value) {
+//     const timestamp = (() => {
+//         const date = new Date();
+//         return date.setTime(date.getTime());
+//     })();
+// }
+
 async function getAllLists(user) {
     try {
         const q = query(collection(db, 'to-do-lists'), where('uid', "==" , user.uid), where('deleted', "==", false));
@@ -59,10 +67,6 @@ async function getAllLists(user) {
             {
                 label: '*star*',
                 key: "starred",
-            },
-            {
-                label: "My tasks",
-                key: "default",
             }
         ];
         snap.forEach(item => result.push({label: item.data().label, key: item.id}));

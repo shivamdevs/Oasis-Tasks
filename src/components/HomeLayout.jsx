@@ -89,7 +89,7 @@ function Home() {
         if (!user) navigate("/", { replace: true });
         if (!loading && user) {
             setUserName(user.displayName);
-            setUserPhoto(user.photoURL || `https://ui-avatars.com/api/?name=${userName}&background=624ef0&color=fff`);
+            setUserPhoto(user.photoURL || `https://ui-avatars.com/api/?name=${userName || "User"}&background=624ef0&color=fff`);
         }
         if (error) toast.error(error);
     }, [error, loading, navigate, user, userName]);
@@ -146,7 +146,7 @@ function Home() {
                 <div className={css.appFooter}>
                     <NavAnchor className={css.footerIcon} to="./viewlists" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
                     <NavAnchor className={css.footerIcon} to="./listoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
-                    <span className={css.footerIcon} onClick={() => {setUserLoading(true);updateLists();}}><i className="fas fa-cloud-arrow-down"></i></span>
+                    <span className={css.footerIcon} onClick={() => {setUserLoading(true);updateLists();}}><i className="far fa-cloud-arrow-down"></i></span>
                     {(params.listid !== "starred") && <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>}
                 </div>
                 <Routes>
@@ -162,7 +162,26 @@ function Home() {
 
 
 function TaskItem({ data = {} }) {
-    return (<div>{data.task}<br />{data.detail}</div>);
+    const navigate = useNavigate();
+    const flipData = async (field) => {
+        
+    };
+    return (
+        <div className={css.taskBar}>
+            <button type="button">
+                {data.checked && <i className="far fa-check-double"></i>}
+                {!data.checked && <i className="far fa-circle-check"></i>}
+            </button>
+            <div className={css.taskBarContent} onClick={() => navigate(`./${data.id}`)}>
+                <div className={css.taskBarLabel}>{data.task}</div>
+                {data.detail && <div className={css.taskBarDetail}>{data.detail}</div>}
+            </div>
+            <button type="button" onClick={() => flipData('starred')}>
+                {data.starred && <i className="fas fa-star"></i>}
+                {!data.starred && <i className="far fa-star"></i>}
+            </button>
+        </div>
+    );
 }
 
 function TaskList({ data = [], item = "" }) {

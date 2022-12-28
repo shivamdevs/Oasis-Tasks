@@ -139,7 +139,9 @@
 .tasksBody {
     display: block;
     flex: 1;
+    height: 100%;
     width: 100%;
+    overflow: hidden;
 }
 .tasksBody > div,
 .tasksBody>div > div,
@@ -150,8 +152,8 @@
 .tasksBlock {
     display: block;
     height: 100%;
-    padding-bottom: 40px;
     overflow: auto;
+    padding-bottom: 60px;
 }
 
 
@@ -192,4 +194,38 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+
+.taskBar {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    padding: 5px;
+    gap: 15px;
+    border-bottom: 1px solid #f9f9f9;
+}
+.taskBar > button {
+    display: inline-flex;
+    border: none;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+    background-color: transparent;
+    width: 40px;
+    font-size: 18px;
+    color: #545454;
+}
+.taskBarContent {
+    flex: 1;
+    display: block;
+    text-align: left;
+    font-weight: 500;
+    padding-block: 5px;
+    font-size: 17px;
+}
+.taskBarDetail {
+    padding-top: 5px;
+    color: #212333;
+    font-size: .8em;
 }

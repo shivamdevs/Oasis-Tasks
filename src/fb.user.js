@@ -8,6 +8,7 @@ import {
     signOut
 } from "firebase/auth";
 import { getFirestore } from 'firebase/firestore/lite';
+import { addNewList } from "./fb.todo";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDRA5z3oE6WR5yh9XwdS2_GcIAo6WTD-UI",
@@ -59,6 +60,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
     try {
         const data = await createUserWithEmailAndPassword(auth, email, password);
         await updateUserProfile(data.user, {displayName: name});
+        await addNewList(data.user, 'My tasks', { defaultList: true});
         return {
             type: "success",
             action: "signup",

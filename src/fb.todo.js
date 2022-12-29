@@ -110,11 +110,11 @@ async function getAllTasks(user, docs) {
         const q = query(collection(db, 'to-do-tasks'), where("uid" , "==", user.uid), where("deleted", "==", false));
         const snap = await getDocs(q);
         const result = {};
-        for (const key of docs) result[key.key] = [];
+        for (const key of docs) (result[key.key] = []) && (result[key.key].completed = []);
         snap.docs.reverse().forEach(item => {
             const data = { ...item.data(), id: item.id };
             if (data.starred) result.starred.push(data);
-            result[data.list].push(data);
+            if (data.checked) result[data.list].completed.push(data); else result[data.list].push(data);
         });
         return {
             type: "success",

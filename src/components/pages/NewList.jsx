@@ -17,9 +17,14 @@ function NewList({publish}) {
     const [nameErr, setNameError] = useState("");
     const [disabled, setDisabled] = useState(false);
     const submitForm = async (e) => {
+        setNameError("");
         e.preventDefault();
         const postname = name.trim();
         if (!postname) return e.target[2].focus();
+        if (postname.match(/[^a-zA-Z0-9\-._]+$/gm)) {
+            setNameError('No special characters except dash, underscore and period is allowed.');
+            return e.target[2].focus();
+        }
         setDisabled(true);
         const data = await addNewList(user, postname, {});
         if (data.type === "success") {

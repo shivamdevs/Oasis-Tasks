@@ -144,7 +144,7 @@ function Home() {
                         showIndicators={false}
                         swipeScrollTolerance={20}
                         selectedItem={currentList.index}
-                        onChange={(index, item) => navigate(`/lists/${item.key.slice(2)}`, {replace: true}) && console.log(index)}
+                        onChange={(index, item) => (index !== currentList.index) && navigate(`/lists/${item.key.slice(2)}`, {replace: true})}
                     >
                         {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} publish={updateLists} item={item.key} data={taskArray[item.key] || []} />)}
                     </Carousel>}
@@ -180,9 +180,9 @@ function TaskItem({ data = {}, publish }) {
     };
     return (
         <div className={css.taskBar}>
-            <button type="button">
-                {task.checked && <span><i className="far fa-check-double"></i></span>}
-                {!task.checked && <span><i className="far fa-circle-check"></i></span>}
+            <button type="button" onClick={() => flipData('checked')}>
+                {task.checked && <span><i className="far fa-check"></i></span>}
+                {!task.checked && <span><i className="far fa-circle"></i></span>}
             </button>
             <div className={css.taskBarContent} onClick={() => navigate(`./${task.id}`)}>
                 <div className={css.taskBarLabel}>{task.task}</div>
@@ -197,9 +197,32 @@ function TaskItem({ data = {}, publish }) {
 }
 
 function TaskList({ data = [], item = "", publish }) {
+    const [extended, setExtended] = useState(false);
     return (
         <div className={css.tasksBlock}>
-            {data.map(item => <TaskItem key={item.id} publish={publish} data={item} />)}
+            {(data.length > 0 || data.completed.length > 0) && <>
+                {data.map(item => <TaskItem key={item.id} publish={publish} data={item} />)}
+                {(data.completed.length > 0) && <>
+                    <div className={css.taskCompletedHeader} onClick={() => setExtended(!extended)}>
+                        <span>Completed ({data.completed.length})</span>
+                        {extended && <span className={css.taskCompletedArrow}><i className="fas fa-chevron-up"></i></span>}
+                        {!extended && <span className={css.taskCompletedArrow}><i className="fas fa-chevron-down"></i></span>}
+                    </div>
+                    {extended && data.completed.map(done => <TaskItem key={done.id} publish={publish} data={done} />)}
+                </>}
+            </>}
+            {(data.length === 0 && data.completed.length === 0) && <>
+                {item === "starred" && <div className={css.taskEmpty}>
+                    <img src="/assets/images/lists/undraw-stars.svg" alt="" />
+                    <div className={css.taskEmptyText}>You haven't got any stars!</div>
+                    <div className={css.taskEmptyNote}>Add tasks as <strong>Starred</strong> by clicking on the stars beside them.</div>
+                </div>}
+                {item !== "starred" && <div className={css.taskEmpty}>
+                    <img src="/assets/images/lists/undraw-waiting.svg" alt="" />
+                    <div className={css.taskEmptyText}>Waiting for you to add something!</div>
+                    <div className={css.taskEmptyNote}>Add new tasks by clicking on <strong>+</strong> icon below.</div>
+                </div>}
+            </>}
         </div>
     );
 }

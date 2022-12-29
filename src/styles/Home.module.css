@@ -133,7 +133,10 @@
 .newError {
     display: block;
     width: 100%;
-    padding-top: 5px;
+    padding: 5px 10px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: red;
 }
 
 .tasksBody {
@@ -201,9 +204,9 @@
     display: flex;
     flex-wrap: nowrap;
     align-items: stretch;
-    padding: 5px;
+    padding: 10px;
     gap: 15px;
-    border-bottom: 1px solid #f9f9f9;
+    border-bottom: 1px solid #eee;
 }
 .taskBar > button {
     display: inline-flex;
@@ -228,4 +231,43 @@
     padding-top: 5px;
     color: #212333;
     font-size: .8em;
+}
+.taskCompletedHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #eef;
+    border-block: 1px solid #ddf;
+    color: black;
+    font-weight: 600;
+}
+.taskCompletedArrow {
+    color: #727888;
+}
+
+
+.taskEmpty {
+    display: flex;
+    flex: 1;
+    min-height: 100%;
+    align-items: center;
+    flex-direction: column;
+    padding: 50px 50px 0;
+    justify-content: center;
+    gap: 10px;
+}
+.taskEmpty > img {
+    max-width: 300px;
+}
+.taskEmptyText {
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 20px;
+    color: #1e90ff;
+}
+.taskEmptyNote {
+    font-weight: 500;
+    font-size: 14px;
+    color: #ab54aa;
 }

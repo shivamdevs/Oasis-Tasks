@@ -12,36 +12,14 @@
     height: 44px;
 }
 
-.headerSearch {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    flex: 1;
-    gap: 2px;
-    padding: 2px;
-    flex-wrap: nowrap;
-    border-radius: 24px;
-    border: 1px solid #ddd;
-    background-color: #eee;
-    overflow: hidden;
-}
-
-.headerSearch input {
-    flex: 1;
-    height: 100%;
-    border-radius: 18px 0 0 18px;
-    border: none;
-    padding: 0 10px 0 20px;
-    outline: none;
-    background: transparent;
-}
-
-.headerSearch input::-webkit-search-decoration,
-.headerSearch input::-webkit-search-cancel-button,
-.headerSearch input::-webkit-search-results-button,
-.headerSearch input::-webkit-search-results-decoration {
-    display: none;
+.headerLabel {
+    background: -webkit-linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    background: linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 .headerUser {
@@ -146,12 +124,14 @@
     width: 100%;
     overflow: hidden;
 }
-.tasksBody > div,
-.tasksBody>div > div,
+
+.tasksBody>div,
+.tasksBody>div>div,
 .tasksBody>div>div>div,
 .tasksBody>div>div>div>ul {
     height: 100%;
 }
+
 .tasksBlock {
     display: block;
     height: 100%;
@@ -205,20 +185,22 @@
     flex-wrap: nowrap;
     align-items: stretch;
     padding: 10px;
-    gap: 15px;
-    border-bottom: 1px solid #eee;
+    gap: 10px;
+    border-bottom: 1px solid #ddf;
 }
-.taskBar > button {
+
+.taskBar>button {
     display: inline-flex;
     border: none;
     justify-content: center;
     align-items: center;
     padding-top: 5px;
     background-color: transparent;
-    width: 40px;
+    width: 30px;
     font-size: 18px;
     color: #545454;
 }
+
 .taskBarContent {
     flex: 1;
     display: block;
@@ -227,21 +209,27 @@
     padding-block: 5px;
     font-size: 17px;
 }
+
 .taskBarDetail {
     padding-top: 5px;
     color: #212333;
     font-size: .8em;
+    white-space: pre-wrap;
 }
+
 .taskCompletedHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
     background: #eef;
-    border-block: 1px solid #ddf;
+    border-bottom: 1px solid #ddf;
     color: black;
     font-weight: 600;
+    position: sticky;
+    top: -1px;
 }
+
 .taskCompletedArrow {
     color: #727888;
 }
@@ -257,15 +245,18 @@
     justify-content: center;
     gap: 10px;
 }
-.taskEmpty > img {
+
+.taskEmpty>img {
     max-width: 300px;
 }
+
 .taskEmptyText {
     font-weight: 700;
     font-size: 20px;
     margin-top: 20px;
     color: #1e90ff;
 }
+
 .taskEmptyNote {
     font-weight: 500;
     font-size: 14px;

@@ -55,7 +55,6 @@ function Home() {
     const [taskArray, setTaskArray] = useState({});
     const [currentList, setCurrentList] = useState({});
 
-
     const updateLists = useCallback(async () => {
         if (!user) return;
         const docs = await getAllLists(user);
@@ -110,12 +109,10 @@ function Home() {
             <Layout className={css.listbody}>
                 <div className={css.header}>
                     <img src="/logo192.png" alt="" className={css.headerTitle} />
-                    <div className={css.headerSearch}>
-                        <input type="search" name="search" id="search" autoComplete="off" placeholder={`Search ${currentList.label || "list"}...`} />
-                        <NavAnchor to="./settings" className={css.headerUser}>
-                            <img src={userPhoto} alt="" />
-                        </NavAnchor>
-                    </div>
+                    <div className={css.headerLabel}>{app.name}</div>
+                    <NavAnchor to="./settings" className={css.headerUser}>
+                        <img src={userPhoto} alt="" />
+                    </NavAnchor>
                 </div>
                 <div className={css.categories}>
                     {categories && (categories.length > 0) && categories.map(item => {
@@ -142,7 +139,7 @@ function Home() {
                         infiniteLoop={false}
                         transitionTime={300}
                         showIndicators={false}
-                        swipeScrollTolerance={20}
+                        swipeScrollTolerance={60}
                         selectedItem={currentList.index}
                         preventMovementUntilSwipeScrollTolerance={true}
                         onChange={(index, item) => (index !== currentList.index) && navigate(`/lists/${item.key.slice(2)}`, {replace: true})}
@@ -215,12 +212,12 @@ function TaskList({ data = [], item = "", publish }) {
             {(data.length === 0 && data.completed.length === 0) && <>
                 {item === "starred" && <div className={css.taskEmpty}>
                     <img src="/assets/images/lists/undraw-stars.svg" alt="" />
-                    <div className={css.taskEmptyText}>You haven't got any stars!</div>
-                    <div className={css.taskEmptyNote}>Add tasks as <strong>Starred</strong> by clicking on the stars beside them.</div>
+                    <div className={css.taskEmptyText}>No stars is yours yet!</div>
+                    <div className={css.taskEmptyNote}>Add tasks as <strong>Starred</strong> by clicking on the star beside them.</div>
                 </div>}
                 {item !== "starred" && <div className={css.taskEmpty}>
                     <img src="/assets/images/lists/undraw-waiting.svg" alt="" />
-                    <div className={css.taskEmptyText}>Waiting for you to add something!</div>
+                    <div className={css.taskEmptyText}>Waiting for you along!</div>
                     <div className={css.taskEmptyNote}>Add new tasks by clicking on <strong>+</strong> icon below.</div>
                 </div>}
             </>}

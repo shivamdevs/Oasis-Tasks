@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { toast } from 'react-hot-toast';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { Redirect } from '../appdata';
 import { auth } from '../fb.user';

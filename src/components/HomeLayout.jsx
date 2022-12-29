@@ -144,6 +144,7 @@ function Home() {
                         showIndicators={false}
                         swipeScrollTolerance={20}
                         selectedItem={currentList.index}
+                        preventMovementUntilSwipeScrollTolerance={true}
                         onChange={(index, item) => (index !== currentList.index) && navigate(`/lists/${item.key.slice(2)}`, {replace: true})}
                     >
                         {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} publish={updateLists} item={item.key} data={taskArray[item.key] || []} />)}

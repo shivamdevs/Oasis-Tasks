@@ -40,7 +40,7 @@ function NewTask({publish}) {
         } else if (data.action === "toast") {
             toast.error(data.data);
         } else {
-            console.log(data);
+            console.error(data);
         }
     };
     useEffect(() => {

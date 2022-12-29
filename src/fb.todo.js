@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore/lite";
+import { collection, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore/lite";
 import { randomString } from "./appdata";
 import { clarifyError, db } from "./fb.user";
 
@@ -22,6 +22,7 @@ async function addNewList(user, label, {defaultList = false}) {
             data: data
         };
     } catch (err) {
+        console.error(err);
         return clarifyError(err);
     }
 }
@@ -48,16 +49,35 @@ async function addNewTask(user, list, task, detail) {
             data: data
         };
     } catch (err) {
+        console.error(err);
         return clarifyError(err);
     }
 }
 
-// async function updateTask(user, task, field, value) {
-//     const timestamp = (() => {
-//         const date = new Date();
-//         return date.setTime(date.getTime());
-//     })();
-// }
+async function updateTask(task, field, value) {
+    const timestamp = (() => {
+        const date = new Date();
+        return date.setTime(date.getTime());
+    })();
+    const getFieldValues = () => {
+        const obj = {
+            updated: timestamp,
+        };
+        obj[field] = value;
+        return obj;
+    };
+    try {
+        await updateDoc(doc(db, 'to-do-tasks', task), getFieldValues());
+        return {
+            type: "success",
+            action: "update-task",
+            data: ""
+        }
+    } catch (err) {
+        console.error(err);
+        return clarifyError(err);
+    }
+}
 
 async function getAllLists(user) {
     try {
@@ -67,6 +87,10 @@ async function getAllLists(user) {
             {
                 label: '*star*',
                 key: "starred",
+            },
+            {
+                label: 'My tasks',
+                key: "default",
             }
         ];
         snap.forEach(item => result.push({label: item.data().label, key: item.id}));
@@ -76,6 +100,7 @@ async function getAllLists(user) {
             data: result
         };
     } catch (err) {
+        console.error(err);
         return clarifyError(err);
     }
 }
@@ -87,9 +112,9 @@ async function getAllTasks(user, docs) {
         const result = {};
         for (const key of docs) result[key.key] = [];
         snap.docs.reverse().forEach(item => {
-            const data = item.data();
-            if (data.starred) result.starred.push({...data, id: item.id});
-            result[data.list].push({...data, id: item.id});
+            const data = { ...item.data(), id: item.id };
+            if (data.starred) result.starred.push(data);
+            result[data.list].push(data);
         });
         return {
             type: "success",
@@ -97,6 +122,7 @@ async function getAllTasks(user, docs) {
             data: result
         };
     } catch (err) {
+        console.error(err);
         return clarifyError(err);
     }
 }
@@ -104,6 +130,7 @@ async function getAllTasks(user, docs) {
 export {
     addNewList,
     addNewTask,
+    updateTask,
     getAllLists,
     getAllTasks,
 };

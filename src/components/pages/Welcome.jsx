@@ -15,7 +15,7 @@ function Welcome() {
     useEffect(() => {
         if (user) navigate("/lists", {replace: true});
         if (loading) {}
-        if (error) toast.error(error);
+        if (error) console.error(error);
     }, [error, loading, navigate, user]);
     return (
         <>{!user && <>

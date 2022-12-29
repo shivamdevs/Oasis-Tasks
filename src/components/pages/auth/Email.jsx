@@ -47,7 +47,7 @@ function Email() {
         } else if (getauth.action === "toast") {
             toast.error(getauth.data);
         } else {
-            console.log(getauth);
+            console.error(getauth);
         }
     }
     return (

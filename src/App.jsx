@@ -20,7 +20,7 @@ function App() {
     const [user, loading, error] = useAuthState(auth);
 
     useEffect(() => {
-        if (error) console.log(error);
+        if (error) console.error(error);
     }, [error, loading, navigate, user]);
 
     return (

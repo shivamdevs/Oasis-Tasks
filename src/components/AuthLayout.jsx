@@ -17,7 +17,7 @@ function AuthLayout() {
     useEffect(() => {
         if (user) navigate(-1);
         if (loading) {}
-        if (error) toast.error(error);
+        if (error) console.error(error);
     }, [error, loading, navigate, user]);
     return (
         <Layout className={css.authbox}>

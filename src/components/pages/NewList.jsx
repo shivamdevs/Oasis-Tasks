@@ -21,7 +21,7 @@ function NewList({publish}) {
         const postname = name.trim();
         if (!postname) return e.target[2].focus();
         setDisabled(true);
-        const data = await addNewList(user, postname);
+        const data = await addNewList(user, postname, {});
         if (data.type === "success") {
             publish();
             return navigate(-1);
@@ -33,7 +33,7 @@ function NewList({publish}) {
         } else if (data.action === "toast") {
             toast.error(data.data);
         } else {
-            console.log(data);
+            console.error(data);
         }
     };
     return (

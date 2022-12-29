@@ -4,7 +4,7 @@ import { toast } from "react-hot-toast";
 import { Carousel } from "react-responsive-carousel";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import app, { NavAnchor, NavReplace } from "../appdata";
-import { getAllLists, getAllTasks } from "../fb.todo";
+import { getAllLists, getAllTasks, updateTask } from "../fb.todo";
 import { auth } from "../fb.user";
 
 import css from './../styles/Home.module.css';
@@ -32,38 +32,39 @@ function RedirectToList() {
     const navigate = useNavigate();
     let bucket = "default";
     if (window.localStorage) {
-        let bucket = window.localStorage.getItem(`${app.name.replaceAll(' ', '').toLowerCase()}.current.bucket`);
+        bucket = window.localStorage.getItem(`${app.name.replaceAll(' ', '').toLowerCase()}.current.bucket`);
         if (bucket === null) {
             bucket = "default";
             window.localStorage.setItem(`${app.name.replaceAll(' ', '').toLowerCase()}.current.bucket`, bucket);
         }
     }
-    useEffect(() => navigate(`/lists/${bucket}`, { replace: true }), [bucket, navigate]);
+    useEffect(() => {navigate(`/lists/${bucket}`, { replace: true })});
 }
 
 function Home() {
     const [user, loading, error] = useAuthState(auth);
 
-    const [userPhoto, setUserPhoto] = useState("");
     const [userName, setUserName] = useState("");
+    const [userPhoto, setUserPhoto] = useState("");
     const [userLoading, setUserLoading] = useState(false);
 
     const params = useParams();
+    const navigate = useNavigate();
 
     const [categories, setCategory] = useState([]);
     const [taskArray, setTaskArray] = useState({});
     const [currentList, setCurrentList] = useState({});
 
-    const navigate = useNavigate();
 
     const updateLists = useCallback(async () => {
+        if (!user) return;
         const docs = await getAllLists(user);
         if (docs.type !== "success") {
-            return toast.error(docs.data);
+            return console.error(docs.data);
         }
         const tasks = await getAllTasks(user, docs.data);
         if (tasks.type !== "success") {
-            return toast.error(tasks.data);
+            return console.error(tasks.data);
         }
         setCategory(docs.data);
         setTaskArray(tasks.data);
@@ -71,27 +72,32 @@ function Home() {
     }, [user]);
 
     useEffect(() => {
-        let available = false;
-        categories.forEach((item, index) => {
-            if (item.key === params.listid) {
-                available = true;
-                setCurrentList({
-                    key: item.key,
-                    label: (item.label === "*star*" ? "Starred" : item.label),
-                    index,
-                });
-            }
-        });
-        if (!available) navigate("/lists/default", { replace: true });
+        if (categories && categories.length > 0) {
+            let available = false;
+            categories.forEach((item, index) => {
+                if (item.key === params.listid) {
+                    available = true;
+                    setCurrentList({
+                        key: item.key,
+                        label: (item.label === "*star*" ? "Starred" : item.label),
+                        index,
+                    });
+                }
+            });
+            if (!available) navigate("/lists/default", { replace: true });
+        }
     }, [categories, navigate, params.listid]);
 
     useEffect(() => {
-        if (!user) navigate("/", { replace: true });
-        if (!loading && user) {
-            setUserName(user.displayName);
-            setUserPhoto(user.photoURL || `https://ui-avatars.com/api/?name=${userName || "User"}&background=624ef0&color=fff`);
+        if (!loading) {
+            if (user) {
+                setUserName(user.displayName);
+                setUserPhoto(user.photoURL || `https://ui-avatars.com/api/?name=${userName}&background=624ef0&color=fff`);
+            } else {
+                return navigate("/", { replace: true });
+            }
         }
-        if (error) toast.error(error);
+        if (error) console.error(error);
     }, [error, loading, navigate, user, userName]);
 
     useEffect(() => {
@@ -138,15 +144,15 @@ function Home() {
                         showIndicators={false}
                         swipeScrollTolerance={20}
                         selectedItem={currentList.index}
-                        onChange={(index, item) => navigate(`/lists/${item.key.slice(2)}`) && console.log(index)}
+                        onChange={(index, item) => navigate(`/lists/${item.key.slice(2)}`, {replace: true}) && console.log(index)}
                     >
-                        {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} item={item.key} data={taskArray[item.key] || []} />)}
+                        {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} publish={updateLists} item={item.key} data={taskArray[item.key] || []} />)}
                     </Carousel>}
                 </div>
                 <div className={css.appFooter}>
                     <NavAnchor className={css.footerIcon} to="./viewlists" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
                     <NavAnchor className={css.footerIcon} to="./listoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
-                    <span className={css.footerIcon} onClick={() => {setUserLoading(true);updateLists();}}><i className="far fa-cloud-arrow-down"></i></span>
+                    <span className={css.footerIcon} onClick={() => { setUserLoading(true); updateLists(); }}><i className="far fa-cloud-arrow-down"></i></span>
                     {(params.listid !== "starred") && <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>}
                 </div>
                 <Routes>
@@ -161,33 +167,39 @@ function Home() {
 }
 
 
-function TaskItem({ data = {} }) {
+function TaskItem({ data = {}, publish }) {
+    const task = data;
     const navigate = useNavigate();
     const flipData = async (field) => {
-        
+        const value = !task[field];
+        const wait = await updateTask(task.id, field, value);
+        if (wait.type !== "success") {
+            return toast.error(wait.data);
+        }
+        publish();
     };
     return (
         <div className={css.taskBar}>
             <button type="button">
-                {data.checked && <i className="far fa-check-double"></i>}
-                {!data.checked && <i className="far fa-circle-check"></i>}
+                {task.checked && <span><i className="far fa-check-double"></i></span>}
+                {!task.checked && <span><i className="far fa-circle-check"></i></span>}
             </button>
-            <div className={css.taskBarContent} onClick={() => navigate(`./${data.id}`)}>
-                <div className={css.taskBarLabel}>{data.task}</div>
-                {data.detail && <div className={css.taskBarDetail}>{data.detail}</div>}
+            <div className={css.taskBarContent} onClick={() => navigate(`./${task.id}`)}>
+                <div className={css.taskBarLabel}>{task.task}</div>
+                {task.detail && <div className={css.taskBarDetail}>{task.detail}</div>}
             </div>
             <button type="button" onClick={() => flipData('starred')}>
-                {data.starred && <i className="fas fa-star"></i>}
-                {!data.starred && <i className="far fa-star"></i>}
+                {task.starred && <span><i className="fas fa-star"></i></span>}
+                {!task.starred && <span><i className="far fa-star"></i></span>}
             </button>
         </div>
     );
 }
 
-function TaskList({ data = [], item = "" }) {
+function TaskList({ data = [], item = "", publish }) {
     return (
         <div className={css.tasksBlock}>
-            {data.map(item => <TaskItem key={item.id} data={item} />)}
+            {data.map(item => <TaskItem key={item.id} publish={publish} data={item} />)}
         </div>
     );
 }

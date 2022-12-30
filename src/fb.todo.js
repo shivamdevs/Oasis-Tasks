@@ -113,7 +113,7 @@ async function getAllTasks(user, docs) {
         for (const key of docs) (result[key.key] = []) && (result[key.key].completed = []);
         snap.docs.reverse().forEach(item => {
             const data = { ...item.data(), id: item.id };
-            if (data.starred) result.starred.push(data);
+            if (data.starred) (data.checked ? result.starred.completed.push(data) : result.starred.push(data));
             if (data.checked) result[data.list].completed.push(data); else result[data.list].push(data);
         });
         return {

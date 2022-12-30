@@ -20,9 +20,20 @@ function FormLayout({ children, onSubmit = null, ...props }) {
     )
 }
 
+function TransLayout({ children, onClickHide = true, parentProps, ...props }) {
+    return (
+        <div {...parentProps} style={csstrans}>
+            <div {...props} style={csstranslow}>
+                {children}
+            </div>
+        </div>
+    )
+}
+
 export default Layout;
 export {
-    FormLayout
+    FormLayout,
+    TransLayout,
 };
 
 const css = {
@@ -30,4 +41,17 @@ const css = {
     "inset": "0",
     "overflow": "auto",
     "background": "#fff",
+};
+const csstrans = {
+    "position": "fixed",
+    "inset": "0",
+    "background": "#0007",
+};
+const csstranslow = {
+    "position": "absolute",
+    "inset": "auto 0 0 0",
+    "maxHeight": "100%",
+    "overflow": "auto",
+    "background": "#fff",
+
 };

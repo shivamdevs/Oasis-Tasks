@@ -1,5 +1,4 @@
-import classNames from "classnames";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const app = {
@@ -7,6 +6,7 @@ const app = {
     version: '1.0.0',
     copyright: '© Shivam Devs 2022',
     updated: 'December 12, 2022 06:55 PM',
+    bucket: "to.do"
 };
 
 export default app;
@@ -34,44 +34,10 @@ const NavAnchor = ({children = "", to, className = "", replace = false, ...props
         <a {...props} className={className || "link"} onClick={() => navigate(to, {replace: replace})}>{children}</a>
     );
 };
-const NavReplace = ({
-    to,
-    children = "",
-    className = "",
-    bucket = "default",
-    current = "default",
-    activeClassName = "",
-    ...props
-}) => {
-    const navigate = useNavigate();
-    const [isActive, setActive] = useState(false);
-    const ref = useRef();
-    useEffect(() => {
-        setActive(current === bucket);
-        if (current === bucket) {
-            ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-        }
-    }, [bucket, current]);
-    
-    const clickAction = () => {
-        navigate(to, { replace: true });
-        ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-        if (window.localStorage) {
-            window.localStorage.setItem(`${app.name.replaceAll(' ', '').toLowerCase()}.current.bucket`, bucket);
-        }
-    };
-    return (
-        <a {...props} ref={ref} className={classNames(
-            className || "link",
-            (isActive ? activeClassName || "active" : ""),
-        )} onClick={clickAction}>{children}</a>
-    );
-};
 
 export {
     NavAnchor,
     NavButton,
-    NavReplace,
     randomNumber,
     randomString,
 };

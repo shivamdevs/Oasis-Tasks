@@ -209,6 +209,9 @@
     padding-block: 5px;
     font-size: 17px;
 }
+.taskBarContentDone {
+    text-decoration: line-through;
+}
 
 .taskBarDetail {
     padding-top: 5px;
@@ -227,7 +230,8 @@
     color: black;
     font-weight: 600;
     position: sticky;
-    top: -1px;
+    top: 0;
+    bottom: -60px;
 }
 
 .taskCompletedArrow {
@@ -261,4 +265,53 @@
     font-weight: 500;
     font-size: 14px;
     color: #ab54aa;
+}
+
+
+.categoryViewer {
+    padding-right: 10px;
+}
+.categoryView {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 10px 20px;
+    border-radius: 0 20px 20px 0;
+    margin-bottom: 2px;
+    font-weight: 500;
+    position: relative;
+}
+.categoryView:first-child {
+    margin-top: 5px;
+}
+.categoryView:last-child {
+    margin-bottom: 5px;
+}
+.categoryView > span:first-child {
+    color: #727888;
+    margin-right: 20px;
+}
+.categoryViewStarred {
+    background-color: #71b6ff;
+    height: 1px;
+    width: calc(100% + 10px);
+    margin-right: -10px;
+    margin-bottom: 2px;
+    z-index: 1;
+}
+.categoryViewActive {
+    background-color: #c3e1ff;
+    color: #1e90ff;
+}
+.categoryViewActive span:first-child {
+    color: #1e90ff;
+}
+.categoryViewActive::before {
+    content: " ";
+    position: absolute;
+    inset: 3px auto 3px 0;
+    width: 3px;
+    background-color: #1e90ff;
+    border-radius: 0 6px 6px 0;
 }

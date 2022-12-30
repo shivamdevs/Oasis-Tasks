@@ -1,14 +1,15 @@
-import { useCallback, useEffect, useState } from "react";
+import classNames from "classnames";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { Carousel } from "react-responsive-carousel";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import app, { NavAnchor, NavReplace } from "../appdata";
+import app, { NavAnchor } from "../appdata";
 import { getAllLists, getAllTasks, updateTask } from "../fb.todo";
 import { auth } from "../fb.user";
 
 import css from './../styles/Home.module.css';
-import Layout from "./Layout";
+import Layout, { TransLayout } from "./Layout";
 import { LoadCircle } from "./Loading";
 import NewList from "./pages/NewList";
 import NewTask from "./pages/NewTask";
@@ -32,10 +33,10 @@ function RedirectToList() {
     const navigate = useNavigate();
     let bucket = "default";
     if (window.localStorage) {
-        bucket = window.localStorage.getItem(`${app.name.replaceAll(' ', '').toLowerCase()}.current.bucket`);
+        bucket = window.localStorage.getItem(`${app.bucket}.current.bucket`);
         if (bucket === null) {
             bucket = "default";
-            window.localStorage.setItem(`${app.name.replaceAll(' ', '').toLowerCase()}.current.bucket`, bucket);
+            window.localStorage.setItem(`${app.bucket}.current.bucket`, bucket);
         }
     }
     useEffect(() => {navigate(`/lists/${bucket}`, { replace: true })});
@@ -43,9 +44,6 @@ function RedirectToList() {
 
 function Home() {
     const [user, loading, error] = useAuthState(auth);
-
-    const [userName, setUserName] = useState("");
-    const [userPhoto, setUserPhoto] = useState("");
     const [userLoading, setUserLoading] = useState(false);
 
     const params = useParams();
@@ -88,16 +86,11 @@ function Home() {
     }, [categories, navigate, params.listid]);
 
     useEffect(() => {
-        if (!loading) {
-            if (user) {
-                setUserName(user.displayName);
-                setUserPhoto(user.photoURL || `https://ui-avatars.com/api/?name=${userName}&background=624ef0&color=fff`);
-            } else {
-                return navigate("/", { replace: true });
-            }
+        if (!loading && !user) {
+            return navigate("/", { replace: true });
         }
         if (error) console.error(error);
-    }, [error, loading, navigate, user, userName]);
+    }, [error, loading, navigate, user]);
 
     useEffect(() => {
         (async function () {
@@ -106,66 +99,82 @@ function Home() {
     }, [updateLists]);
     return (
         <>
-            <Layout className={css.listbody}>
-                <div className={css.header}>
-                    <img src="/logo192.png" alt="" className={css.headerTitle} />
-                    <div className={css.headerLabel}>{app.name}</div>
-                    <NavAnchor to="./settings" className={css.headerUser}>
-                        <img src={userPhoto} alt="" />
-                    </NavAnchor>
-                </div>
-                <div className={css.categories}>
-                    {categories && (categories.length > 0) && categories.map(item => {
-                        return (<NavReplace
-                            key={item.key}
-                            className={css.category}
-                            bucket={item.key}
-                            current={params.listid}
-                            id={`title-${item.key}`}
-                            to={`/lists/${item.key}`}
-                            activeClassName={css.activeCategory}
-                        >
-                            {item.label === "*star*" ? <i className="fas fa-star"></i> : item.label}
-                        </NavReplace>);
-                    })}
-                    <NavAnchor className={css.category} to="./newlist" replace={false}>+ New list</NavAnchor>
-                </div>
-                <div className={css.tasksBody}>
-                    {categories && (categories.length > 0) && <Carousel
-                        swipeable={true}
-                        showArrows={false}
-                        showStatus={false}
-                        showThumbs={false}
-                        infiniteLoop={false}
-                        transitionTime={300}
-                        showIndicators={false}
-                        swipeScrollTolerance={60}
-                        selectedItem={currentList.index}
-                        preventMovementUntilSwipeScrollTolerance={true}
-                        onChange={(index, item) => (index !== currentList.index) && navigate(`/lists/${item.key.slice(2)}`, {replace: true})}
-                    >
-                        {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} publish={updateLists} item={item.key} data={taskArray[item.key] || []} />)}
-                    </Carousel>}
-                </div>
-                <div className={css.appFooter}>
-                    <NavAnchor className={css.footerIcon} to="./viewlists" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
-                    <NavAnchor className={css.footerIcon} to="./listoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
-                    <span className={css.footerIcon} onClick={() => { setUserLoading(true); updateLists(); }}><i className="far fa-cloud-arrow-down"></i></span>
-                    {(params.listid !== "starred") && <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>}
-                </div>
-                <Routes>
-                    <Route path="/settings/*" element={<ProfileMenu />} />
-                    <Route path="/newlist" element={<NewList publish={updateLists} />} />
-                    <Route path="/newtask" element={<NewTask publish={updateLists} />} />
-                </Routes>
-                {(categories.length === 0 || userLoading) && <LoadCircle />}
-            </Layout>
+            <Routes>
+                <Route path="/settings/*" element={<ProfileMenu />} />
+                <Route path="/newlist" element={<NewList publish={updateLists} />} />
+                <Route path="/newtask" element={<NewTask publish={updateLists} />} />
+                <Route path="/*" element={<Listing user={user} setUserLoading={setUserLoading} categories={categories} currentList={currentList} updateLists={updateLists} taskArray={taskArray} />} />
+            </Routes>
+            {(categories.length === 0 || userLoading) && <LoadCircle />}
         </>
     );
 }
 
+function Listing({user = {}, categories = [], currentList = {}, updateLists = null, taskArray = {}, setUserLoading = null}) {
+    const params = useParams();
+    const navigate = useNavigate();
+    function navigateToList(key, replace = true, goBack = false) {
+        goBack && navigate(-1);
+        navigate(`/lists/${key}`, {replace: replace});
+    }
+    return (
+        <Layout className={css.listbody}>
+            <div className={css.header}>
+                <img src="/logo192.png" alt="" className={css.headerTitle} />
+                <div className={css.headerLabel}>{app.name}</div>
+                <NavAnchor to="./settings" className={css.headerUser}>
+                    <img src={user?.photoURL || `https://ui-avatars.com/api/?name=${user?.displayName || "User"}&background=624ef0&color=fff`} alt="" />
+                </NavAnchor>
+            </div>
+            <div className={css.categories}>
+                {categories && (categories.length > 0) && categories.map(item => {
+                    return (<NavReplace
+                        key={item.key}
+                        className={css.category}
+                        bucket={item.key}
+                        current={params.listid}
+                        id={`title-${item.key}`}
+                        to={`/lists/${item.key}`}
+                        activeClassName={css.activeCategory}
+                    >
+                        {item.label === "*star*" ? <i className="fas fa-star"></i> : item.label}
+                    </NavReplace>);
+                })}
+                <NavAnchor className={css.category} to="./newlist" replace={false}>+ New list</NavAnchor>
+            </div>
+            <div className={css.tasksBody}>
+                {categories && (categories.length > 0) && <Carousel
+                    swipeable={true}
+                    showArrows={false}
+                    showStatus={false}
+                    showThumbs={false}
+                    infiniteLoop={false}
+                    transitionTime={300}
+                    showIndicators={false}
+                    swipeScrollTolerance={60}
+                    selectedItem={currentList.index}
+                    preventMovementUntilSwipeScrollTolerance={true}
+                    onChange={(index, item) => (index !== currentList.index) && navigate(`/lists/${item.key.slice(2)}`, { replace: true })}
+                >
+                    {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} publish={updateLists} item={item.key} data={taskArray[item.key] || []} />)}
+                </Carousel>}
+            </div>
+            <div className={css.appFooter}>
+                <NavAnchor className={css.footerIcon} to="./allcategories" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
+                <NavAnchor className={css.footerIcon} to="./categoryoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
+                <span className={css.footerIcon} onClick={() => { setUserLoading(true); updateLists(); }}><i className="far fa-cloud-arrow-down"></i></span>
+                {(params.listid !== "starred") && <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>}
+            </div>
+            <Routes>
+                <Route path="/allcategories" element={<AllCategories categories={categories} currentList={currentList} navigateToList={navigateToList} />} />
+                <Route path="/categoryoptions" element={<CategoryOptions />} />
+            </Routes>
+        </Layout>
+    );
+}
 
-function TaskItem({ data = {}, publish }) {
+
+function TaskItem({ data = {}, publish = null, completed = false }) {
     const task = data;
     const navigate = useNavigate();
     const flipData = async (field) => {
@@ -182,7 +191,7 @@ function TaskItem({ data = {}, publish }) {
                 {task.checked && <span><i className="far fa-check"></i></span>}
                 {!task.checked && <span><i className="far fa-circle"></i></span>}
             </button>
-            <div className={css.taskBarContent} onClick={() => navigate(`./${task.id}`)}>
+            <div className={classNames(css.taskBarContent, (completed ? css.taskBarContentDone : ""))} onClick={() => navigate(`./${task.id}`)}>
                 <div className={css.taskBarLabel}>{task.task}</div>
                 {task.detail && <div className={css.taskBarDetail}>{task.detail}</div>}
             </div>
@@ -196,17 +205,21 @@ function TaskItem({ data = {}, publish }) {
 
 function TaskList({ data = [], item = "", publish }) {
     const [extended, setExtended] = useState(false);
+    const header = useRef();
+    useEffect(() => {
+        if (extended) header.current.scrollIntoView({ behavior: 'smooth' });
+    }, [extended]);
     return (
         <div className={css.tasksBlock}>
             {(data.length > 0 || data.completed.length > 0) && <>
                 {data.map(item => <TaskItem key={item.id} publish={publish} data={item} />)}
                 {(data.completed.length > 0) && <>
-                    <div className={css.taskCompletedHeader} onClick={() => setExtended(!extended)}>
+                    <div className={css.taskCompletedHeader} ref={header} onClick={() => setExtended(!extended)}>
                         <span>Completed ({data.completed.length})</span>
                         {extended && <span className={css.taskCompletedArrow}><i className="fas fa-chevron-up"></i></span>}
                         {!extended && <span className={css.taskCompletedArrow}><i className="fas fa-chevron-down"></i></span>}
                     </div>
-                    {extended && data.completed.map(done => <TaskItem key={done.id} publish={publish} data={done} />)}
+                    {extended && data.completed.map(done => <TaskItem key={done.id} completed={true} publish={publish} data={done} />)}
                 </>}
             </>}
             {(data.length === 0 && data.completed.length === 0) && <>
@@ -222,5 +235,66 @@ function TaskList({ data = [], item = "", publish }) {
                 </div>}
             </>}
         </div>
+    );
+}
+
+
+function NavReplace({
+    to,
+    children = "",
+    className = "",
+    bucket = "default",
+    current = "default",
+    activeClassName = "",
+    ...props
+}) {
+    const navigate = useNavigate();
+    const [isActive, setActive] = useState(false);
+    const ref = useRef();
+    useEffect(() => {
+        setActive(current === bucket);
+        if (current === bucket) {
+            ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+        }
+    }, [bucket, current]);
+
+    const clickAction = () => {
+        navigate(to, { replace: true });
+        ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+        if (window.localStorage) {
+            window.localStorage.setItem(`${app.bucket}.current.bucket`, bucket);
+        }
+    };
+    return (
+        <a {...props} ref={ref} className={classNames(
+            className || "link",
+            (isActive ? activeClassName || "active" : ""),
+        )} onClick={clickAction}>{children}</a>
+    );
+};
+
+
+function AllCategories({categories = {}, currentList = {}, navigateToList = null}) {
+    return (
+        <TransLayout className={css.categoryViewer}>
+            {categories && (categories.length > 0) && categories.map(list => <span key={list.key}>
+                <div onClick={() => navigateToList(list.key, true, true)} className={classNames(
+                    css.categoryView,
+                    (list.key === currentList.key ? css.categoryViewActive : "")
+                )}>
+                    <span>{(list.key === "starred" ? <i className="fas fa-star"></i> : list.key === "default" ? <i className="fas fa-feather-pointed"></i> : <i className="fas fa-tags"></i>)}</span>
+                    <span>{(list.label === "*star*" ? "Starred" : list.label)}</span>
+                </div>
+                {(list.key === "starred") && <div className={css.categoryViewStarred}></div>}
+            </span>)}
+        </TransLayout>
+    );
+}
+
+function CategoryOptions() {
+    return (
+        <TransLayout>
+            Google it
+        </TransLayout>
     );
 }

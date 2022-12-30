@@ -21,7 +21,7 @@ function NewList({publish}) {
         e.preventDefault();
         const postname = name.trim();
         if (!postname) return e.target[2].focus();
-        if (postname.match(/[^a-zA-Z0-9\-._]+$/gm)) {
+        if (postname.match(/[^a-zA-Z0-9\-._ ]/gm)) {
             setNameError('No special characters except dash, underscore and period is allowed.');
             return e.target[2].focus();
         }

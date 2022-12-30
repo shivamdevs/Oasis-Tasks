@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Toaster } from "react-hot-toast";
 
 
@@ -20,9 +20,13 @@ function FormLayout({ children, onSubmit = null, ...props }) {
     )
 }
 
-function TransLayout({ children, onClickHide = true, parentProps, ...props }) {
+function TransLayout({ children, onOuterClick = null, parentProps, ...props }) {
+    const outer = useRef();
+    const hideTrans = (target) => {
+        if (target === outer.current) onOuterClick && onOuterClick();
+    };
     return (
-        <div {...parentProps} style={csstrans}>
+        <div {...parentProps} ref={outer} onClick={({target}) => hideTrans(target)} style={csstrans}>
             <div {...props} style={csstranslow}>
                 {children}
             </div>

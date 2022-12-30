@@ -157,6 +157,7 @@
 .footerIcon {
     font-size: 18px;
     color: #1e90ff;
+    padding: 8px;
     width: 40px;
     height: 40px;
     display: inline-flex;
@@ -226,7 +227,7 @@
     align-items: center;
     padding: 10px 20px;
     background: #eef;
-    border-bottom: 1px solid #ddf;
+    border-block: 1px solid #ddf;
     color: black;
     font-weight: 600;
     position: sticky;
@@ -236,6 +237,9 @@
 
 .taskCompletedArrow {
     color: #727888;
+}
+.taskBar:has(+ .taskCompletedHeader) {
+    border-bottom: none;
 }
 
 

@@ -5,11 +5,11 @@ import { toast } from "react-hot-toast";
 import { Carousel } from "react-responsive-carousel";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import app, { NavAnchor } from "../appdata";
-import { getAllLists, getAllTasks, updateTask } from "../fb.todo";
+import { getAllLists, getAllTasks, updateList, updateTask } from "../fb.todo";
 import { auth } from "../fb.user";
 
 import css from './../styles/Home.module.css';
-import Layout, { TransLayout } from "./Layout";
+import Layout, { DeleteLayout, TransLayout } from "./Layout";
 import { LoadCircle, LoadSVG } from "./Loading";
 import NewList from "./pages/NewList";
 import NewTask from "./pages/NewTask";
@@ -44,7 +44,7 @@ function RedirectToList() {
 
 function Home() {
     const [user, loading, error] = useAuthState(auth);
-    const [userLoading, setUserLoading] = useState(false);
+    const [userLoading, setUserLoading] = useState(0);
 
     const params = useParams();
     const navigate = useNavigate();
@@ -68,9 +68,9 @@ function Home() {
     }, [user]);
 
     const publish = async () => {
-        setUserLoading(true);
+        setUserLoading(last => ++last);
         await updateLists();
-        setUserLoading(false);
+        setUserLoading(last => --last);
     };
 
     useEffect(() => {
@@ -131,12 +131,9 @@ function Listing({user = {}, categories = [], currentList = {}, publish = null, 
                 {categories && (categories.length > 0) && categories.map(item => {
                     return (<NavReplace
                         key={item.key}
-                        className={css.category}
                         bucket={item.key}
                         current={params.listid}
-                        id={`title-${item.key}`}
                         to={`/lists/${item.key}`}
-                        activeClassName={css.activeCategory}
                     >
                         {item.label === "*star*" ? <i className="fas fa-star"></i> : item.label}
                     </NavReplace>);
@@ -162,14 +159,16 @@ function Listing({user = {}, categories = [], currentList = {}, publish = null, 
             </div>
             <div className={css.appFooter}>
                 <NavAnchor className={css.footerIcon} to="./allcategories" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
-                {userLoading && <span className={css.footerIcon}><LoadSVG color="#1e90ff" width={12} /></span>}
-                {!userLoading && <span className={css.footerIcon} onClick={publish}><i className="far fa-cloud-check"></i></span>}
+                {(userLoading > 0) && <span className={css.footerIcon}><LoadSVG color="#1e90ff" width={12} /></span>}
+                {(userLoading === 0) && <span className={css.footerIcon} onClick={publish}><i className="far fa-cloud-check"></i></span>}
                 {(params.listid !== "starred") && <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>}
                 <NavAnchor className={css.footerIcon} to="./categoryoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
             </div>
             <Routes>
                 <Route path="/allcategories" element={<AllCategories categories={categories} currentList={currentList} />} />
-                <Route path="/categoryoptions" element={<CategoryOptions />} />
+                <Route path="/categoryoptions" element={<CategoryOptions taskArray={taskArray} currentList={currentList} publish={publish} />} />
+                <Route path="/deletelist" element={<DeleteList currentList={currentList} publish={publish} />} />
+                <Route path="/deletecompleted" element={<DeleteAllCompleted currentList={currentList} taskArray={taskArray} publish={publish} />} />
             </Routes>
         </Layout>
     );
@@ -249,12 +248,12 @@ function TaskList({ data = [], item = "", publish }) {
                 {item === "starred" && <div className={css.taskEmpty}>
                     <img src="/assets/images/lists/undraw-stars.svg" alt="" />
                     <div className={css.taskEmptyText}>No stars is yours yet!</div>
-                    <div className={css.taskEmptyNote}>Add tasks as <strong>Starred</strong> by clicking on the star beside them.</div>
+                    <div className={css.taskEmptyNote}>Add tasks as <strong>Starred</strong> by clicking on the <i className="far fa-star"></i> icon beside them.</div>
                 </div>}
                 {item !== "starred" && <div className={css.taskEmpty}>
                     <img src="/assets/images/lists/undraw-waiting.svg" alt="" />
                     <div className={css.taskEmptyText}>Waiting for you along!</div>
-                    <div className={css.taskEmptyNote}>Add new tasks by clicking on <strong>+</strong> icon below.</div>
+                    <div className={css.taskEmptyNote}>Add new tasks by clicking on <i className="fas fa-plus"></i> icon below.</div>
                 </div>}
             </>}
         </div>
@@ -265,10 +264,8 @@ function TaskList({ data = [], item = "", publish }) {
 function NavReplace({
     to,
     children = "",
-    className = "",
     bucket = "default",
     current = "default",
-    activeClassName = "",
     ...props
 }) {
     const navigate = useNavigate();
@@ -283,15 +280,14 @@ function NavReplace({
 
     const clickAction = () => {
         navigate(to, { replace: true });
-        ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
         if (window.localStorage) {
             window.localStorage.setItem(`${app.bucket}.current.bucket`, bucket);
         }
     };
     return (
         <a {...props} ref={ref} className={classNames(
-            className || "link",
-            (isActive ? activeClassName || "active" : ""),
+            css.category,
+            (isActive ? css.activeCategory : ""),
         )} onClick={clickAction}>{children}</a>
     );
 };
@@ -328,11 +324,168 @@ function AllCategories({categories = {}, currentList = {}}) {
     );
 }
 
-function CategoryOptions() {
+function CategoryOptions({currentList = {}, taskArray = {}, publish = null}) {
     const navigate = useNavigate();
+    const [disabled, setDisabled] = useState({tasks: false, stars: false, rename: false, delete: false, completed: false});
+
+    useEffect(() => {
+        if (currentList.key === "starred" || currentList.key === "default") setDisabled(old => {
+            old.rename = true;
+            old.delete = true;
+            return old;
+        });
+        if (taskArray[currentList.key].completed.length === 0) setDisabled(old => {
+            old.completed = true;
+            return old;
+        });
+        if (taskArray[currentList.key].length === 0) setDisabled(old => {
+            old.tasks = true;
+            return old;
+        });
+        if (taskArray.starred.length === 0 && taskArray.starred.completed.length === 0) setDisabled(old => {
+            old.stars = true;
+            return old;
+        });
+    }, [currentList.key, taskArray]);
+
+    const actionStar = async () => {
+        navigate(-1);
+        for (const task of [...taskArray.starred, ...taskArray.starred.completed]) {
+            const update = await updateTask(task.id, "starred", false);
+            if (update.type !== "success") {
+                return toast.error(update.data);
+            }
+            publish();
+        }
+        toast.success("All tasks removed from starred");
+    };
+    const actionMark = async () => {
+        navigate(-1);
+        for (const task of taskArray[currentList.key]) {
+            const update = await updateTask(task.id, "checked", true);
+            if (update.type !== "success") {
+                return toast.error(update.data);
+            }
+            publish();
+        }
+        toast.success("All tasks marked as completed");
+    };
+    const actionUnmark = async () => {
+        navigate(-1);
+        for (const task of taskArray[currentList.key].completed) {
+            const update = await updateTask(task.id, "checked", false);
+            if (update.type !== "success") {
+                return toast.error(update.data);
+            }
+            publish();
+        }
+        toast.success("All tasks marked as incomplete");
+    };
+    const actionRename = () => {
+        navigate(`/lists/${currentList.key}/editlist`, {replace: true});
+    };
+    const actionDelete = () => {
+        navigate(`/lists/${currentList.key}/deletelist`, {replace: true});
+    };
+    const actionCompleted = () => {
+        navigate(`/lists/${currentList.key}/deletecompleted`, { replace: true });
+    };
+
     return (
         <TransLayout onOuterClick={() => navigate(-1)}>
-            Google it
+            <div className={css.listOptionHeader}>{currentList.label}</div>
+            {(currentList.key === "starred") && <>
+                <div className={css.listOptionBreak}></div>
+                <div onClick={() => !disabled.stars && actionStar()} className={classNames(
+                    css.listOptionBar,
+                    (disabled.stars ? css.listOptionDisabled : "")
+                )}>
+                    <span></span>
+                    <span>Remove all tasks from Starred</span>
+                </div>
+            </>}
+            <div className={css.listOptionBreak}></div>
+            <div onClick={() => !disabled.tasks && actionMark()} className={classNames(
+                css.listOptionBar,
+                (disabled.tasks ? css.listOptionDisabled : "")
+            )}>
+                <span></span>
+                <span>Mark all as completed</span>
+            </div>
+            <div onClick={() => !disabled.completed && actionUnmark()} className={classNames(
+                css.listOptionBar,
+                (disabled.completed ? css.listOptionDisabled : "")
+            )}>
+                <span></span>
+                <span>Unmark all as completed</span>
+            </div>
+            <div className={css.listOptionBreak}></div>
+            <div onClick={() => !disabled.rename && actionRename()} className={classNames(
+                css.listOptionBar,
+                (disabled.rename ? css.listOptionDisabled : "")
+            )}>
+                <span></span>
+                <span>Rename list</span>
+            </div>
+            <div onClick={() => !disabled.delete && actionDelete()} className={classNames(
+                css.listOptionBar,
+                (disabled.delete ? css.listOptionDisabled : "")
+            )}>
+                <span></span>
+                <span>Delete list</span>
+            </div>
+            <div onClick={() => !disabled.completed && actionCompleted()} className={classNames(
+                css.listOptionBar,
+                (disabled.completed ? css.listOptionDisabled : "")
+            )}>
+                <span></span>
+                <span>Delete all completed tasks</span>
+            </div>
+            {(disabled.rename || disabled.delete) && <div className={css.listOptionNote}>Default categories can't be edited.</div>}
         </TransLayout>
+    );
+}
+
+function DeleteList({currentList = {}, publish = null}) {
+    const navigate = useNavigate();
+    const deleteList = async () => {
+        navigate(-1);
+        const update = await updateList(currentList.key, "deleted", true);
+        if (update.type !== "success") {
+            return toast.error(update.data);
+        }
+        await publish();
+        toast.success("List deleted");
+    };
+    return (
+        <DeleteLayout
+            title="Delete this list?"
+            label="All tasks in this list will be permanently deleted"
+            onOuterClick={() => navigate(-1)}
+            onDelete={deleteList}
+        />
+    );
+}
+
+function DeleteAllCompleted({ currentList = {}, taskArray = {}, publish = null }) {
+    const navigate = useNavigate();
+    const deleteTasks = async () => {
+        navigate(-1);
+        for (const task of taskArray[currentList.key].completed) {
+            const update = await updateTask(task.id, "deleted", true);
+            if (update.type !== "success") {
+                return toast.error(update.data);
+            }
+            publish();
+        }
+        toast.success("All completed tasks deleted");
+    };
+    return (
+        <DeleteLayout
+            title="Delete all completed tasks?"
+            label="Completed tasks will be permanently deleted from this list unless they repeat"
+            onOuterClick={() => navigate(-1)}
+            onDelete={deleteTasks}
+        />
     );
 }

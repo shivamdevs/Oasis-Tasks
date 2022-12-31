@@ -34,10 +34,30 @@ function TransLayout({ children, onOuterClick = null, parentProps, ...props }) {
     )
 }
 
+function DeleteLayout({title, label, onOuterClick = null, onDelete = null, parentProps, ...props}) {
+    const outer = useRef();
+    const hideTrans = () => {
+        onOuterClick && onOuterClick();
+    };
+    return (
+        <div {...parentProps} ref={outer} onClick={({ target }) => (target === outer.current) && hideTrans()} style={cssDelete}>
+            <div {...props} style={cssDeleteCenter}>
+                <div style={cssDeleteTitle}>{title}</div>
+                <div style={cssDeleteLabel}>{label}</div>
+                <div style={cssDeleteFLex}>
+                    <button type="button" style={cssDeleteButton} onClick={hideTrans}>Cancel</button>
+                    <button type="button" style={cssDeleteButton} onClick={onDelete}>Delete</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 export default Layout;
 export {
     FormLayout,
     TransLayout,
+    DeleteLayout,
 };
 
 const css = {
@@ -57,5 +77,50 @@ const csstranslow = {
     "maxHeight": "100%",
     "overflow": "auto",
     "background": "#fff",
+};
 
+const cssDelete = {
+    "position": "fixed",
+    "inset": "0",
+    "background": "#0007",
+    "display": "flex",
+    "flexWrap": "nowrap",
+    "justifyContent": "center",
+    "alignItems": "center",
+};
+const cssDeleteCenter = {
+    "maxHeight": "100%",
+    "overflow": "auto",
+    "background": "#fff",
+    "width": "100%",
+    "maxWidth": "300px",
+    "padding": "20px 10px 10px",
+    "borderRadius": "6px",
+    "boxShadow": "0 0 6px 3px #0003",
+};
+const cssDeleteTitle = {
+    "color": "#e45973",
+    "fontSize": "18px",
+    "fontWeight": "500",
+    "marginBottom": "10px",
+};
+const cssDeleteLabel = {
+    "fontSize": "16px",
+    "fontWeight": "500",
+    "marginBottom": "20px",
+};
+const cssDeleteFLex = {
+    "display": "flex",
+    "flexWrap": "nowrap",
+    "justifyContent": "flex-end",
+    "alignItems": "center",
+    "gap": "10px",
+    "paddingInline": "20px",
+};
+const cssDeleteButton = {
+    "padding": "10px",
+    "border": "none",
+    "background": "none",
+    "fontWeight": "500",
+    "color": "#624ef0",
 };

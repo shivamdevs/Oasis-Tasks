@@ -27,6 +27,31 @@ async function addNewList(user, label, {defaultList = false}) {
     }
 }
 
+async function updateList(list, field, value) {
+    const timestamp = (() => {
+        const date = new Date();
+        return date.setTime(date.getTime());
+    })();
+    const getFieldValues = () => {
+        const obj = {
+            updated: timestamp,
+        };
+        obj[field] = value;
+        return obj;
+    };
+    try {
+        await updateDoc(doc(db, 'to-do-lists', list), getFieldValues());
+        return {
+            type: "success",
+            action: "update-list",
+            data: ""
+        }
+    } catch (err) {
+        console.error(err);
+        return clarifyError(err);
+    }
+}
+
 async function addNewTask(user, list, task, detail) {
     const created = (() => {
         const date = new Date();
@@ -130,6 +155,7 @@ async function getAllTasks(user, docs) {
 export {
     addNewList,
     addNewTask,
+    updateList,
     updateTask,
     getAllLists,
     getAllTasks,

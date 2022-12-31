@@ -283,7 +283,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    padding: 20px;
+    padding: 12px 20px;
     border-radius: 0 50px 50px 0;
     margin-bottom: 2px;
     font-weight: 500;
@@ -321,4 +321,38 @@
     width: 6px;
     background-color: #1e90ff;
     border-radius: 0 12px 12px 0;
+}
+
+.listOptionHeader {
+    padding: 12px 20px;
+    font-weight: 700;
+    color: #624ef0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.listOptionBreak {
+    min-height: 1px;
+    background-color: #624ef0;
+    margin-block: 5px;
+}
+.listOptionBar {
+    display: block;
+    font-weight: 500;
+    padding: 12px 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.listOptionDisabled {
+    color: #727888;
+    background-color: #eee;
+}
+.listOptionNote {
+    color: #727888;
+    border-top: 1px solid #ddd;
+    padding-block: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    padding-inline: 20px;
 }

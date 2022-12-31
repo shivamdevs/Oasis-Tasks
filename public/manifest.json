@@ -1,7 +1,7 @@
 {
   "short_name": "To do",
-  "name": "To do - List",
-  "description": "Manage a list of all your daily tasks",
+  "name": "To do - Tasks",
+  "description": "Manage lists of all your daily tasks.",
   "icons": [
     {
       "src": "favicon-16x16.png",

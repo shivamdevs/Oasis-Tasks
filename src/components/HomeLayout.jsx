@@ -141,7 +141,7 @@ function Listing({user = {}, categories = [], currentList = {}, publish = null, 
                         {item.label === "*star*" ? <i className="fas fa-star"></i> : item.label}
                     </NavReplace>);
                 })}
-                <NavAnchor className={css.category} to="./newlist" replace={false}>+ New list</NavAnchor>
+                <NavAnchor className={css.category} to="./newlist" replace={false}><small><i className="fas fa-plus"></i></small> New list</NavAnchor>
             </div>
             <div className={css.tasksBody}>
                 {categories && (categories.length > 0) && <Carousel
@@ -162,10 +162,10 @@ function Listing({user = {}, categories = [], currentList = {}, publish = null, 
             </div>
             <div className={css.appFooter}>
                 <NavAnchor className={css.footerIcon} to="./allcategories" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
-                <NavAnchor className={css.footerIcon} to="./categoryoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
                 {userLoading && <span className={css.footerIcon}><LoadSVG color="#1e90ff" width={12} /></span>}
-                {!userLoading && <span className={css.footerIcon} onClick={publish}><i className="far fa-cloud-arrow-down"></i></span>}
+                {!userLoading && <span className={css.footerIcon} onClick={publish}><i className="far fa-cloud-check"></i></span>}
                 {(params.listid !== "starred") && <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>}
+                <NavAnchor className={css.footerIcon} to="./categoryoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
             </div>
             <Routes>
                 <Route path="/allcategories" element={<AllCategories categories={categories} currentList={currentList} />} />

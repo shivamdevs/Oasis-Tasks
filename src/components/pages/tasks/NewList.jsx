@@ -2,14 +2,14 @@ import { useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { addNewList } from "../../fb.todo";
-import { auth } from "../../fb.user";
-import { BackHeaderWithButton } from "../BackHeader";
-import { FormLayout } from "../Layout";
-import { LoadCircle } from "../Loading";
-import css from './../../styles/Home.module.css';
+import { addNewList, updateList } from "../../../fb.todo";
+import { auth } from "../../../fb.user";
+import { BackHeaderWithButton } from "../../BackHeader";
+import { FormLayout } from "../../Layout";
+import { LoadCircle } from "../../Loading";
+import css from './../../../styles/Home.module.css';
 
-function NewList({publish}) {
+function NewList({currentList = null, publish}) {
     const navigate = useNavigate();
 
     const [user] = useAuthState(auth);
@@ -26,7 +26,7 @@ function NewList({publish}) {
             return e.target[2].focus();
         }
         setDisabled(true);
-        const data = await addNewList(user, postname, {});
+        const data = currentList ? await updateList(currentList.key, "label", postname) : await addNewList(user, postname, {});
         if (data.type === "success") {
             publish();
             return navigate(-1);
@@ -43,8 +43,8 @@ function NewList({publish}) {
     };
     return (
         <FormLayout className={css.newlist} onSubmit={submitForm}>
-            <BackHeaderWithButton label="Add new list" button="Create" type="submit" disabled={disabled} />
-            <input type="text" placeholder="Enter new list..." className={css.inputarea} autoComplete="off" autoFocus={true} onChange={({target}) => setName(target.value)} required={true} />
+            <BackHeaderWithButton label={currentList ? "Rename list" : "Add new list"} button={currentList ? "Rename" : "Create"} type="submit" disabled={disabled} />
+            <input type="text" placeholder={currentList ? "Rename list..." : "Enter new list..."} className={css.inputarea} defaultValue={currentList?.label} autoComplete="off" autoFocus={true} onChange={({target}) => setName(target.value)} required={true} />
             <span className={css.newError}>{nameErr}</span>
             {disabled && <LoadCircle />}
         </FormLayout>

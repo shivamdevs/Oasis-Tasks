@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { addNewTask } from "../../fb.todo";
-import { auth } from "../../fb.user";
-import { BackHeaderWithButton } from "../BackHeader";
-import { FormLayout } from "../Layout";
-import { LoadCircle } from "../Loading";
-import css from './../../styles/Home.module.css';
+import { addNewTask } from "../../../fb.todo";
+import { auth } from "../../../fb.user";
+import { BackHeaderWithButton } from "../../BackHeader";
+import { FormLayout } from "../../Layout";
+import { LoadCircle } from "../../Loading";
+import css from './../../../styles/Home.module.css';
 
 function NewTask({publish}) {
     const navigate = useNavigate();

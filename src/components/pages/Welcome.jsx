@@ -1,12 +1,13 @@
 import { Carousel } from 'react-responsive-carousel';
 import css from './../../styles/Welcome.module.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import app, { NavAnchor, NavButton } from '../../appdata';
+import app from '../../appdata';
 import Layout from '../Layout';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../fb.user';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { NavAnchor, NavButton } from '../Nav';
 
 function Welcome() {
     const [user, loading, error] = useAuthState(auth);

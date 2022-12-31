@@ -1,8 +1,9 @@
-import Layout from "../Layout";
-import BackHeader from '../BackHeader';
+import Layout from "../../../Layout";
+import BackHeader from '../../../BackHeader';
 
-import css from './../../styles/Profile.module.css';
-import app, { NavButton } from "../../appdata";
+import css from './../../../../styles/Home.module.css';
+import app from "../../../../appdata";
+import { NavButton } from "../../../Nav";
 
 
 function ProfileMenu() {

@@ -1,8 +1,7 @@
 import css from './../styles/Notfound.module.css';
-
-import { NavButton } from '../appdata';
 import Layout from './Layout';
 import BackHeader from './BackHeader';
+import { NavButton } from './Nav';
 
 function Notfound() {
     const undraw = Math.floor(Math.random() * 3);

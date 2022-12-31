@@ -12,8 +12,7 @@ import Notfound from "./components/Notfound";
 import Welcome from "./components/pages/Welcome";
 import AuthLayout from "./components/AuthLayout";
 import HomeLayout from "./components/HomeLayout";
-import ProfileMenu from "./components/pages/Profile";
-import { Redirect } from "./appdata";
+import { Redirect } from "./components/Nav";
 
 function App() {
     const navigate = useNavigate();
@@ -31,7 +30,6 @@ function App() {
                     <Route path="/lists/*" element={<HomeLayout />} />
                     <Route path="/auth/*" element={<AuthLayout />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/settings" element={<ProfileMenu />} />
                     <Route path="/logout" element={<Logout />} />
                     <Route path="/" exact element={<Welcome />} />
                     <Route path="*" element={<Notfound />} />

@@ -1,5 +1,5 @@
 import { collection, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore/lite";
-import { randomString } from "./appdata";
+import { randomString } from "./app.functions";
 import { clarifyError, db } from "./fb.user";
 
 async function addNewList(user, label, {defaultList = false}) {

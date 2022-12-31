@@ -1,19 +1,24 @@
-import classNames from "classnames";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { toast } from "react-hot-toast";
 import { Carousel } from "react-responsive-carousel";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import app, { NavAnchor } from "../appdata";
-import { getAllLists, getAllTasks, updateList, updateTask } from "../fb.todo";
+import app from "../appdata";
+import { getAllLists, getAllTasks } from "../fb.todo";
 import { auth } from "../fb.user";
 
 import css from './../styles/Home.module.css';
-import Layout, { DeleteLayout, TransLayout } from "./Layout";
+import Layout from "./Layout";
 import { LoadCircle, LoadSVG } from "./Loading";
-import NewList from "./pages/NewList";
-import NewTask from "./pages/NewTask";
-import ProfileMenu from "./pages/Profile";
+import { NavAnchor } from "./Nav";
+import NavReplace from "./pages/tasks/NavReplace";
+import NewList from "./pages/tasks/NewList";
+import NewTask from "./pages/tasks/NewTask";
+import AllCategories from "./pages/tasks/overlays/AllCategories";
+import CategoryOptions from "./pages/tasks/overlays/CategoryOptions";
+import DeleteAllCompleted from "./pages/tasks/overlays/DeleteAllCompleted";
+import DeleteList from "./pages/tasks/overlays/DeleteList";
+import ProfileMenu from "./pages/tasks/settings/Profile";
+import TaskItem from "./pages/tasks/TaskItem";
 
 
 function HomeLayout() {
@@ -105,8 +110,10 @@ function Home() {
     return (
         <>
             <Routes>
+                <Route path="/t/*" element={<>Tasks</>} />
                 <Route path="/settings/*" element={<ProfileMenu />} />
                 <Route path="/newlist" element={<NewList publish={publish} />} />
+                <Route path="/renamelist" element={<NewList currentList={currentList} publish={publish} />} />
                 <Route path="/newtask" element={<NewTask publish={publish} />} />
                 <Route path="/*" element={<Listing user={user} userLoading={userLoading} categories={categories} currentList={currentList} publish={publish} taskArray={taskArray} />} />
             </Routes>
@@ -174,57 +181,6 @@ function Listing({user = {}, categories = [], currentList = {}, publish = null, 
     );
 }
 
-
-function TaskItem({ data = {}, publish = null, completed = false }) {
-    const [loading, setLoading] = useState({checked: false, starred: false});
-    const task = data;
-    const navigate = useNavigate();
-    const flipData = async (field) => {
-        const value = !task[field];
-        setLoading(old => {
-            const newLoad = {...old};
-            newLoad[field] = !newLoad[field];
-            return newLoad;
-        });
-        const wait = await updateTask(task.id, field, value);
-        if (wait.type !== "success") {
-            return toast.error(wait.data);
-        }
-        await publish();
-        setLoading(old => {
-            const newLoad = { ...old };
-            newLoad[field] = !newLoad[field];
-            return newLoad;
-        });
-    };
-    return (
-        <div className={css.taskBar}>
-            <button type="button" onClick={() => flipData('checked')}>
-                {!loading.checked && <>
-                    {task.checked && <span><i className="far fa-check"></i></span>}
-                    {!task.checked && <span><i className="far fa-circle"></i></span>}
-                </>}
-                {loading.checked && <>
-                    <span><LoadSVG width={12} color="#727888" /></span>
-                </>}
-            </button>
-            <div className={classNames(css.taskBarContent, (completed ? css.taskBarContentDone : ""))} onClick={() => navigate(`./${task.id}`)}>
-                <div className={css.taskBarLabel}>{task.task}</div>
-                {task.detail && <div className={css.taskBarDetail}>{task.detail}</div>}
-            </div>
-            <button type="button" onClick={() => flipData('starred')}>
-                {!loading.starred && <>
-                    {task.starred && <span><i className="fas fa-star"></i></span>}
-                    {!task.starred && <span><i className="far fa-star"></i></span>}
-                </>}
-                {loading.starred && <>
-                    <span><LoadSVG width={12} color="#727888" /></span>
-                </>}
-            </button>
-        </div>
-    );
-}
-
 function TaskList({ data = [], item = "", publish }) {
     const [extended, setExtended] = useState(false);
     const header = useRef();
@@ -257,235 +213,5 @@ function TaskList({ data = [], item = "", publish }) {
                 </div>}
             </>}
         </div>
-    );
-}
-
-
-function NavReplace({
-    to,
-    children = "",
-    bucket = "default",
-    current = "default",
-    ...props
-}) {
-    const navigate = useNavigate();
-    const [isActive, setActive] = useState(false);
-    const ref = useRef();
-    useEffect(() => {
-        setActive(current === bucket);
-        if (current === bucket) {
-            ref.current.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-        }
-    }, [bucket, current]);
-
-    const clickAction = () => {
-        navigate(to, { replace: true });
-        if (window.localStorage) {
-            window.localStorage.setItem(`${app.bucket}.current.bucket`, bucket);
-        }
-    };
-    return (
-        <a {...props} ref={ref} className={classNames(
-            css.category,
-            (isActive ? css.activeCategory : ""),
-        )} onClick={clickAction}>{children}</a>
-    );
-};
-
-
-function AllCategories({categories = {}, currentList = {}}) {
-    const navigate = useNavigate();
-    function navigateToList(to, key) {
-        navigate(-1);
-        if (window.localStorage) {
-            window.localStorage.setItem(`${app.bucket}.current.bucket`, key);
-        }
-        setTimeout(() => {
-            navigate(to, { replace: true });
-        }, 20);
-    }
-    return (
-        <TransLayout className={css.categoryViewer} onOuterClick={() => navigate(-1)}>
-            {categories && (categories.length > 0) && categories.map((list, index) => <span key={list.key}>
-                <div onClick={() => navigateToList(`/lists/${list.key}`, list.key)} className={classNames(
-                    css.categoryView,
-                    (list.key === currentList.key ? css.categoryViewActive : "")
-                )}>
-                    <span>{(list.key === "starred" ? <i className="fas fa-star"></i> : list.key === "default" ? <i className="fas fa-feather-pointed"></i> : <i className="fas fa-tags"></i>)}</span>
-                    <span>{(list.label === "*star*" ? "Starred" : list.label)}</span>
-                </div>
-                {(list.key === "starred") && <div className={css.categoryViewStarred}></div>}
-            </span>)}
-            <div onClick={() => navigate("../newlist", {replace: true})} className={css.categoryView}>
-                <span><i className="fas fa-plus"></i></span>
-                <span>New list</span>
-            </div>
-        </TransLayout>
-    );
-}
-
-function CategoryOptions({currentList = {}, taskArray = {}, publish = null}) {
-    const navigate = useNavigate();
-    const [disabled, setDisabled] = useState({tasks: false, stars: false, rename: false, delete: false, completed: false});
-
-    useEffect(() => {
-        if (currentList.key === "starred" || currentList.key === "default") setDisabled(old => {
-            old.rename = true;
-            old.delete = true;
-            return old;
-        });
-        if (taskArray[currentList.key].completed.length === 0) setDisabled(old => {
-            old.completed = true;
-            return old;
-        });
-        if (taskArray[currentList.key].length === 0) setDisabled(old => {
-            old.tasks = true;
-            return old;
-        });
-        if (taskArray.starred.length === 0 && taskArray.starred.completed.length === 0) setDisabled(old => {
-            old.stars = true;
-            return old;
-        });
-    }, [currentList.key, taskArray]);
-
-    const actionStar = async () => {
-        navigate(-1);
-        for (const task of [...taskArray.starred, ...taskArray.starred.completed]) {
-            const update = await updateTask(task.id, "starred", false);
-            if (update.type !== "success") {
-                return toast.error(update.data);
-            }
-            publish();
-        }
-        toast.success("All tasks removed from starred");
-    };
-    const actionMark = async () => {
-        navigate(-1);
-        for (const task of taskArray[currentList.key]) {
-            const update = await updateTask(task.id, "checked", true);
-            if (update.type !== "success") {
-                return toast.error(update.data);
-            }
-            publish();
-        }
-        toast.success("All tasks marked as completed");
-    };
-    const actionUnmark = async () => {
-        navigate(-1);
-        for (const task of taskArray[currentList.key].completed) {
-            const update = await updateTask(task.id, "checked", false);
-            if (update.type !== "success") {
-                return toast.error(update.data);
-            }
-            publish();
-        }
-        toast.success("All tasks marked as incomplete");
-    };
-    const actionRename = () => {
-        navigate(`/lists/${currentList.key}/editlist`, {replace: true});
-    };
-    const actionDelete = () => {
-        navigate(`/lists/${currentList.key}/deletelist`, {replace: true});
-    };
-    const actionCompleted = () => {
-        navigate(`/lists/${currentList.key}/deletecompleted`, { replace: true });
-    };
-
-    return (
-        <TransLayout onOuterClick={() => navigate(-1)}>
-            <div className={css.listOptionHeader}>{currentList.label}</div>
-            {(currentList.key === "starred") && <>
-                <div className={css.listOptionBreak}></div>
-                <div onClick={() => !disabled.stars && actionStar()} className={classNames(
-                    css.listOptionBar,
-                    (disabled.stars ? css.listOptionDisabled : "")
-                )}>
-                    <span></span>
-                    <span>Remove all tasks from Starred</span>
-                </div>
-            </>}
-            <div className={css.listOptionBreak}></div>
-            <div onClick={() => !disabled.tasks && actionMark()} className={classNames(
-                css.listOptionBar,
-                (disabled.tasks ? css.listOptionDisabled : "")
-            )}>
-                <span></span>
-                <span>Mark all as completed</span>
-            </div>
-            <div onClick={() => !disabled.completed && actionUnmark()} className={classNames(
-                css.listOptionBar,
-                (disabled.completed ? css.listOptionDisabled : "")
-            )}>
-                <span></span>
-                <span>Unmark all as completed</span>
-            </div>
-            <div className={css.listOptionBreak}></div>
-            <div onClick={() => !disabled.rename && actionRename()} className={classNames(
-                css.listOptionBar,
-                (disabled.rename ? css.listOptionDisabled : "")
-            )}>
-                <span></span>
-                <span>Rename list</span>
-            </div>
-            <div onClick={() => !disabled.delete && actionDelete()} className={classNames(
-                css.listOptionBar,
-                (disabled.delete ? css.listOptionDisabled : "")
-            )}>
-                <span></span>
-                <span>Delete list</span>
-            </div>
-            <div onClick={() => !disabled.completed && actionCompleted()} className={classNames(
-                css.listOptionBar,
-                (disabled.completed ? css.listOptionDisabled : "")
-            )}>
-                <span></span>
-                <span>Delete all completed tasks</span>
-            </div>
-            {(disabled.rename || disabled.delete) && <div className={css.listOptionNote}>Default categories can't be edited.</div>}
-        </TransLayout>
-    );
-}
-
-function DeleteList({currentList = {}, publish = null}) {
-    const navigate = useNavigate();
-    const deleteList = async () => {
-        navigate(-1);
-        const update = await updateList(currentList.key, "deleted", true);
-        if (update.type !== "success") {
-            return toast.error(update.data);
-        }
-        await publish();
-        toast.success("List deleted");
-    };
-    return (
-        <DeleteLayout
-            title="Delete this list?"
-            label="All tasks in this list will be permanently deleted"
-            onOuterClick={() => navigate(-1)}
-            onDelete={deleteList}
-        />
-    );
-}
-
-function DeleteAllCompleted({ currentList = {}, taskArray = {}, publish = null }) {
-    const navigate = useNavigate();
-    const deleteTasks = async () => {
-        navigate(-1);
-        for (const task of taskArray[currentList.key].completed) {
-            const update = await updateTask(task.id, "deleted", true);
-            if (update.type !== "success") {
-                return toast.error(update.data);
-            }
-            publish();
-        }
-        toast.success("All completed tasks deleted");
-    };
-    return (
-        <DeleteLayout
-            title="Delete all completed tasks?"
-            label="Completed tasks will be permanently deleted from this list unless they repeat"
-            onOuterClick={() => navigate(-1)}
-            onDelete={deleteTasks}
-        />
     );
 }

@@ -9,17 +9,19 @@ function NavReplace({
     children = "",
     bucket = "default",
     current = "default",
+    setRef = null,
     ...props
 }) {
     const navigate = useNavigate();
     const [isActive, setActive] = useState(false);
-    const ref = useRef();
+    const ref = useRef(null);
     useEffect(() => {
         setActive(current === bucket);
         if (current === bucket) {
             ref.current?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+            setRef && setRef(ref?.current);
         }
-    }, [bucket, current]);
+    }, [bucket, current, setRef]);
 
     const clickAction = () => {
         navigate(to, { replace: true });

@@ -104,7 +104,7 @@ async function getAllLists(user) {
         const snap = await getDocs(q);
         const result = [
             {
-                label: '*star*',
+                label: <i className="fas fa-star"></i>,
                 key: "starred",
             },
             {

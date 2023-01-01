@@ -9,10 +9,25 @@ import TaskList from "./TaskList";
 import css from './../../../styles/Home.module.css';
 import TaskLayout from "../../layouts/TaskLayout";
 import { toast } from "react-hot-toast";
+import { useEffect, useRef, useState } from "react";
 
 function Listing({ user = {}, categories = [], currentList = {}, publish = null, taskArray = {}, userLoading = false }) {
     const params = useParams();
     const navigate = useNavigate();
+
+    const activeTab = useRef();
+    const [activeRef, setActiveRef] = useState(null);
+
+    useEffect(() => {
+        if (activeTab?.current && activeRef) {
+            const referer = activeTab.current;
+            const differ = 20;
+            referer.style.left = (activeRef.offsetLeft + differ) + "px";
+            referer.style.width = (activeRef.offsetWidth - (2 * differ)) + "px";
+            referer.style.transition = ".3s";
+        }
+    }, [params.listid, activeRef, activeTab]);
+
     return (
         <Layout className={css.listbody}>
             <div className={css.header}>
@@ -29,11 +44,13 @@ function Listing({ user = {}, categories = [], currentList = {}, publish = null,
                         bucket={item.key}
                         current={params.listid}
                         to={`/lists/${item.key}`}
+                        setRef={setActiveRef}
                     >
-                        {item.label === "*star*" ? <i className="fas fa-star"></i> : item.label}
+                        {item.label}
                     </NavReplace>);
                 })}
                 <NavAnchor className={css.category} to="./newlist" replace={false}><small><i className="fas fa-plus"></i></small> New list</NavAnchor>
+                <div className={css.activeTab} ref={activeTab}></div>
             </div>
             <div className={css.tasksBody}>
                 {categories && (categories.length > 0) && <Carousel

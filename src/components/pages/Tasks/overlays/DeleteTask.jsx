@@ -1,16 +1,14 @@
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { ConfirmLayout } from "../../../layouts/Layout";
-import { LoadCircle } from "../../../layouts/Loading";
 
 
-function DeleteTask({goBack = null, deleting = false, setDeleting = null, flipData = null}) {
+function DeleteTask({goBack = null, flipData = null}) {
     const navigate = useNavigate();
     const deleteTask = async () => {
-        setDeleting(true);
         goBack && goBack();
-        flipData && await flipData("deleted");
         goBack && goBack();
+        await flipData("deleted");
         toast.success("Task has been deleted");
     };
     return (
@@ -22,7 +20,6 @@ function DeleteTask({goBack = null, deleting = false, setDeleting = null, flipDa
                 onOuterClick={() => navigate(-1)}
                 onConfirm={deleteTask}
             />
-            {deleting && <LoadCircle />}
         </>
     );
 };

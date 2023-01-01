@@ -21,10 +21,10 @@ function NewList({currentList = null, publish}) {
         e.preventDefault();
         const postname = name.trim();
         if (!postname) return e.target[2].focus();
-        if (postname.match(/[^a-zA-Z0-9\-._ ]/gm)) {
-            setNameError('No special characters except dash, underscore and period is allowed.');
-            return e.target[2].focus();
-        }
+        // if (postname.match(/[^a-zA-Z0-9\-._ ]/gm)) {
+        //     setNameError('No special characters except dash, underscore and period is allowed.');
+        //     return e.target[2].focus();
+        // }
         setDisabled(true);
         const data = currentList ? await updateList(currentList.key, "label", postname) : await addNewList(user, postname, {});
         if (data.type === "success") {

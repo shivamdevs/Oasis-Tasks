@@ -94,7 +94,7 @@ const cssConfirmCenter = {
     "background": "#fff",
     "width": "100%",
     "maxWidth": "300px",
-    "padding": "20px 10px 10px",
+    "padding": "20px 10px 10px 20px",
     "borderRadius": "6px",
     "boxShadow": "0 0 6px 3px #0003",
 };

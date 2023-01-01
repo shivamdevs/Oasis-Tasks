@@ -6,7 +6,6 @@ import { BackHeaderForTasks } from "../../parts/BackHeader";
 import { updateTask } from "../../../fb.todo";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import DeleteTask from "./overlays/DeleteTask";
-import { LoadCircle } from "../../layouts/Loading";
 import NewTask from "../lists/NewTask";
 
 
@@ -14,7 +13,6 @@ function TaskView({goBack = null, taskArray = {}, publish = null}) {
     const params = useParams();
     const navigate = useNavigate();
     const [currentTask, setCurrentTask] = useState({});
-    const [deleting, setDeleting] = useState(false);
     const [updating, setUpdating] = useState(false);
 
     useEffect(() => {
@@ -79,10 +77,9 @@ function TaskView({goBack = null, taskArray = {}, publish = null}) {
                     {!currentTask.checked && "Mark as Completed"}
                 </span>
             </div>
-            {deleting && <LoadCircle />}
             <Routes>
                 <Route path="/edittask" element={<NewTask publish={publish} currentTask={currentTask} />} />
-                <Route path="/deletetask" element={<DeleteTask flipData={flipData} deleting={deleting} setDeleting={setDeleting} goBack={goBack} />} />
+                <Route path="/deletetask" element={<DeleteTask flipData={flipData} goBack={goBack} />} />
             </Routes>
         </Layout>
     );

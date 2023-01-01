@@ -24,13 +24,13 @@ function TaskList({ data = [], item = "", publish }) {
             {(data.length === 0 && data.completed.length === 0) && <>
                 {item === "starred" && <div className={css.taskEmpty}>
                     <img src="/assets/images/lists/undraw-stars.svg" alt="" />
-                    <div className={css.taskEmptyText}>No stars is yours yet!</div>
-                    <div className={css.taskEmptyNote}>Add tasks as <strong>Starred</strong> by clicking on the <i className="far fa-star"></i> icon.</div>
+                    <div className={css.taskEmptyText}>No starred tasks!</div>
+                    <div className={css.taskEmptyNote}>Click <i className="far fa-star"></i> beside a task to star it.</div>
                 </div>}
                 {item !== "starred" && <div className={css.taskEmpty}>
                     <img src="/assets/images/lists/undraw-waiting.svg" alt="" />
-                    <div className={css.taskEmptyText}>Waiting for you along!</div>
-                    <div className={css.taskEmptyNote}>Add new tasks by clicking on <i className="fas fa-plus"></i> icon below.</div>
+                    <div className={css.taskEmptyText}>No tasks in the list!</div>
+                    <div className={css.taskEmptyNote}>Click <i className="fas fa-plus"></i> below to add a new task.</div>
                 </div>}
             </>}
         </div>

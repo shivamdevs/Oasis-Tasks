@@ -37,6 +37,7 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     border-bottom: 1px solid #ccc;
+    position: relative;
 }
 
 .categories::-webkit-scrollbar {
@@ -56,17 +57,18 @@
     color: #232323;
     font-weight: 600;
     text-decoration: none;
-    position: relative;
+    
 }
 
 .activeCategory {
     color: #ab54aa;
 }
 
-.activeCategory::after {
-    content: " ";
+.activeTab {
     position: absolute;
-    inset: auto 20px -1px 20px;
+    bottom: 0;
+    left: 0px;
+    width: 0px;
     height: 5px;
     background-color: #ab54aa;
     border-radius: 4px 4px 0 0;

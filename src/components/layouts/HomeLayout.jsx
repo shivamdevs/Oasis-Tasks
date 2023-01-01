@@ -76,12 +76,12 @@ function Home() {
                     available = true;
                     setCurrentList({
                         key: item.key,
-                        label: (item.label === "*star*" ? "Starred" : item.label),
+                        label: (item.label.type ? "Starred" : item.label),
                         index,
                     });
                 }
             });
-            if (!available && params.listid !== "t") navigate("/lists/default", { replace: true });
+            if (!available) navigate("/lists/default", { replace: true });
         }
     }, [categories, navigate, params.listid]);
 
@@ -99,13 +99,15 @@ function Home() {
     }, [params.listid, updateLists]);
     return (
         <>
-            <Routes>
-                <Route path="/settings/*" element={<ProfileMenu />} />
-                <Route path="/newlist" element={<NewList publish={publish} />} />
-                <Route path="/renamelist" element={<NewList currentList={currentList} publish={publish} />} />
-                <Route path="/newtask" element={<NewTask publish={publish} />} />
-                <Route path="/*" element={<Listing user={user} userLoading={userLoading} categories={categories} currentList={currentList} publish={publish} taskArray={taskArray} />} />
-            </Routes>
+            {!loading && <>
+                <Routes>
+                    <Route path="/settings/*" element={<ProfileMenu />} />
+                    <Route path="/newlist" element={<NewList publish={publish} />} />
+                    <Route path="/renamelist" element={<NewList currentList={currentList} publish={publish} />} />
+                    <Route path="/newtask" element={<NewTask publish={publish} />} />
+                    <Route path="/*" element={<Listing user={user} userLoading={userLoading} categories={categories} currentList={currentList} publish={publish} taskArray={taskArray} />} />
+                </Routes>
+            </>}
             {(categories.length === 0) && <LoadCircle />}
         </>
     );

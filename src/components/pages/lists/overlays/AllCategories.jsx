@@ -23,7 +23,7 @@ function AllCategories({ categories = {}, currentList = {} }) {
                     (list.key === currentList.key ? css.categoryViewActive : "")
                 )}>
                     <span>{(list.key === "starred" ? <i className="fas fa-star"></i> : list.key === "default" ? <i className="fas fa-feather-pointed"></i> : <i className="fas fa-tags"></i>)}</span>
-                    <span>{(list.label === "*star*" ? "Starred" : list.label)}</span>
+                    <span>{(list.label.type ? "Starred" : list.label)}</span>
                 </div>
                 {(list.key === "starred") && <div className={css.categoryViewStarred}></div>}
             </span>)}

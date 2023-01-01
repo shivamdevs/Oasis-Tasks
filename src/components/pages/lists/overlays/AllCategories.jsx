@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import app from "../../../../appdata";
-import { TransLayout } from "../../../Layout";
+import { TransLayout } from "../../../layouts/Layout";
 import css from './../../../../styles/Home.module.css';
 
 function AllCategories({ categories = {}, currentList = {} }) {

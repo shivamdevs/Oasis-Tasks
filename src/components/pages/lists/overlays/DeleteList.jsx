@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { updateList } from "../../../../fb.todo";
-import { DeleteLayout } from "../../../Layout";
+import { ConfirmLayout } from "../../../layouts/Layout";
 
 function DeleteList({ currentList = {}, publish = null }) {
     const navigate = useNavigate();
@@ -15,11 +15,12 @@ function DeleteList({ currentList = {}, publish = null }) {
         toast.success("List deleted");
     };
     return (
-        <DeleteLayout
+        <ConfirmLayout
             title="Delete this list?"
+            button="Delete"
             label="All tasks in this list will be permanently deleted"
             onOuterClick={() => navigate(-1)}
-            onDelete={deleteList}
+            onConfirm={deleteList}
         />
     );
 }

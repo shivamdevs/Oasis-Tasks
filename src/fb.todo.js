@@ -79,20 +79,14 @@ async function addNewTask(user, list, task, detail) {
     }
 }
 
-async function updateTask(task, field, value) {
+async function updateTask(task, updates = {}) {
     const timestamp = (() => {
         const date = new Date();
         return date.setTime(date.getTime());
     })();
-    const getFieldValues = () => {
-        const obj = {
-            updated: timestamp,
-        };
-        obj[field] = value;
-        return obj;
-    };
     try {
-        await updateDoc(doc(db, 'to-do-tasks', task), getFieldValues());
+        updates.updated = timestamp;
+        await updateDoc(doc(db, 'to-do-tasks', task), updates);
         return {
             type: "success",
             action: "update-task",
@@ -134,12 +128,15 @@ async function getAllTasks(user, docs) {
     try {
         const q = query(collection(db, 'to-do-tasks'), where("uid" , "==", user.uid), where("deleted", "==", false));
         const snap = await getDocs(q);
-        const result = {};
+        const result = {
+            "$allTasks": {},
+        };
         for (const key of docs) (result[key.key] = []) && (result[key.key].completed = []);
         snap.docs.reverse().forEach(item => {
             const data = { ...item.data(), id: item.id };
             if (data.starred) (data.checked ? result.starred.completed.push(data) : result.starred.push(data));
             if (data.checked) result[data.list].completed.push(data); else result[data.list].push(data);
+            result.$allTasks[item.id] = data;
         });
         return {
             type: "success",

@@ -356,3 +356,38 @@
     font-weight: 500;
     padding-inline: 20px;
 }
+
+.todoLayer {
+    display: flex;
+    flex-direction: column;
+}
+.todoBody {
+    display: block;
+    flex: 1;
+    padding: 20px;
+    font-weight: 500;
+}
+.todoTask {
+    font-size: 18px;
+}
+.todoDetail {
+    font-size: 15px;
+    margin-top: 20px;
+}
+.todoFooter {
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+    background-color: #eef;
+    padding: 5px 10px;
+    border-top: 1px solid #71b6ff;
+}
+.todoCheck {
+    display: inline-block;
+    padding: 10px 20px;
+    height: 40px;
+    font-weight: 500;
+    color: #1e90ff;
+    font-size: 15px;
+}

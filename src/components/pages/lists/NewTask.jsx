@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import { addNewTask } from "../../../fb.todo";
+import { addNewTask, updateTask } from "../../../fb.todo";
 import { auth } from "../../../fb.user";
-import { BackHeaderWithButton } from "../../BackHeader";
-import { FormLayout } from "../../Layout";
-import { LoadCircle } from "../../Loading";
+import { BackHeaderWithButton } from "../../parts/BackHeader";
+import { FormLayout } from "../../layouts/Layout";
+import { LoadCircle } from "../../layouts/Loading";
 import css from './../../../styles/Home.module.css';
 
-function NewTask({publish}) {
+function NewTask({currentTask = null, publish}) {
     const navigate = useNavigate();
 
     const params = useParams();
 
     const [user] = useAuthState(auth);
-    const [task, setTask] = useState("");
-    const [detail, setDetail] = useState("");
+    const [task, setTask] = useState(currentTask?.task || "");
+    const [detail, setDetail] = useState(currentTask?.detail || "");
     const [taskErr, setTaskError] = useState("");
     const [detailErr, setDetailError] = useState("");
     const [disabled, setDisabled] = useState(false);
@@ -25,7 +25,7 @@ function NewTask({publish}) {
         const posttask = task.trim();
         if (!posttask) return e.target[2].focus();
         setDisabled(true);
-        const data = await addNewTask(user, params.listid, posttask, detail);
+        const data = currentTask ? await updateTask(currentTask.id, {task: posttask, detail}) : await addNewTask(user, params.listid, posttask, detail);
         if (data.type === "success") {
             publish();
             return navigate(-1);
@@ -48,10 +48,10 @@ function NewTask({publish}) {
     }, [navigate, params.listid]);
     return (
         <FormLayout className={css.newlist} onSubmit={submitForm}>
-            <BackHeaderWithButton label="Add new task" button="Create" type="submit" disabled={disabled} />
-            <input type="text" placeholder="Enter new task..." className={css.inputarea} autoComplete="off" autoFocus={true} onChange={({target}) => setTask(target.value)} required={true} />
+            <BackHeaderWithButton label={currentTask ? "Edit task" : "Add new task"} button={currentTask ? "Update" : "Create"} type="submit" disabled={disabled} />
+            <input type="text" placeholder={currentTask ? "Edit task..." : "Enter new task..."} defaultValue={currentTask?.task} className={css.inputarea} autoComplete="off" autoFocus={true} onChange={({target}) => setTask(target.value)} required={true} />
             <span className={css.newError}>{taskErr}</span>
-            <textarea className={css.inputbox} placeholder="Details..." autoComplete="off" onChange={({ target }) => { setDetail(target.value); target.style.height = 'inherit'; target.style.height = (target.scrollHeight + 10) + 'px' }}></textarea>
+            <textarea className={css.inputbox} placeholder={currentTask ? "Edit details..." : "Add details..."} defaultValue={currentTask?.detail} autoComplete="off" onChange={({ target }) => { setDetail(target.value); target.style.height = 'inherit'; target.style.height = (target.scrollHeight + 10) + 'px' }}></textarea>
             <span className={css.newError}>{detailErr}</span>
             {disabled && <LoadCircle />}
         </FormLayout>

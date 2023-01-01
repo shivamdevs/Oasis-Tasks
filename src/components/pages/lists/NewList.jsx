@@ -4,16 +4,16 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { addNewList, updateList } from "../../../fb.todo";
 import { auth } from "../../../fb.user";
-import { BackHeaderWithButton } from "../../BackHeader";
-import { FormLayout } from "../../Layout";
-import { LoadCircle } from "../../Loading";
+import { BackHeaderWithButton } from "../../parts/BackHeader";
+import { FormLayout } from "../../layouts/Layout";
+import { LoadCircle } from "../../layouts/Loading";
 import css from './../../../styles/Home.module.css';
 
 function NewList({currentList = null, publish}) {
     const navigate = useNavigate();
 
     const [user] = useAuthState(auth);
-    const [name, setName] = useState("");
+    const [name, setName] = useState(currentList?.label || "");
     const [nameErr, setNameError] = useState("");
     const [disabled, setDisabled] = useState(false);
     const submitForm = async (e) => {

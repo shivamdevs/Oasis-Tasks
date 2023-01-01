@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import app from '../appdata';
-import css from './../styles/Loading.module.css';
+import app from '../../appdata';
+import css from './../../styles/Loading.module.css';
 import Layout from './Layout';
 
 function Loading() {

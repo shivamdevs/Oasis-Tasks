@@ -2,13 +2,13 @@ import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { auth } from '../fb.user';
-import css from './../styles/Auth.module.css';
+import { auth } from '../../fb.user';
+import css from './../../styles/Auth.module.css';
 import Layout from './Layout';
-import { Redirect } from './Nav';
+import { Redirect } from '../parts/Nav';
 import Notfound from './Notfound';
-import Create from './pages/auth/Create';
-import Email from './pages/auth/Email';
+import Create from '../pages/auth/Create';
+import Email from '../pages/auth/Email';
 
 function AuthLayout() {
     const [user, loading, error] = useAuthState(auth);

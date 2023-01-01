@@ -1,6 +1,8 @@
+import classNames from 'classnames';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { LoadSVG } from '../layouts/Loading';
 
-import css from './../styles/Backheader.module.css';
+import css from './../../styles/Backheader.module.css';
 
 function BackHeader({children = "", label = ""}) {
     const navigate = useNavigate();
@@ -44,3 +46,26 @@ export function BackHeaderWithButton({children, label = "", button = "Done", typ
         </header>
     );
 }
+
+export function BackHeaderForTasks({buttons = []}) {
+    const navigate = useNavigate();
+    const location = useLocation();
+    const goBack = () => {
+        if (location.key !== "default") {
+            navigate(-1);
+        } else {
+            navigate("/");
+        }
+    };
+    return (
+        <header className={css.headerAuto}>
+            <button className={classNames(css.navigate, css.navigateRight)} type="button" onClick={goBack}>
+                <i className="fas fa-arrow-left"></i>
+            </button>
+            {buttons.map((button, index) => <button key={index} className={classNames(css.button, css.buttonLarge)} type="button" onClick={button.action}>
+                {button.disabled && <LoadSVG width={12} />}
+                {!button.disabled && <i className={button.label}></i>}
+            </button>)}
+        </header>
+    );
+};

@@ -6,13 +6,13 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import './styles/override.css';
 
-import Loading from "./components/Loading";
+import Loading from "./components/layouts/Loading";
 import About from "./components/pages/About";
-import Notfound from "./components/Notfound";
+import Notfound from "./components/layouts/Notfound";
 import Welcome from "./components/pages/Welcome";
-import AuthLayout from "./components/AuthLayout";
-import HomeLayout from "./components/HomeLayout";
-import { Redirect } from "./components/Nav";
+import AuthLayout from "./components/layouts/AuthLayout";
+import HomeLayout from "./components/layouts/HomeLayout";
+import { Redirect } from "./components/parts/Nav";
 
 function App() {
     const navigate = useNavigate();

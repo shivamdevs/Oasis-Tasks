@@ -3,7 +3,7 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { updateTask } from "../../../fb.todo";
-import { LoadSVG } from "../../Loading";
+import { LoadSVG } from "../../layouts/Loading";
 import css from './../../../styles/Home.module.css';
 
 function TaskItem({ data = {}, publish = null, completed = false }) {
@@ -17,7 +17,9 @@ function TaskItem({ data = {}, publish = null, completed = false }) {
             newLoad[field] = !newLoad[field];
             return newLoad;
         });
-        const wait = await updateTask(task.id, field, value);
+        const update = {};
+        update[field] = value;
+        const wait = await updateTask(task.id, update);
         if (wait.type !== "success") {
             return toast.error(wait.data);
         }
@@ -39,7 +41,7 @@ function TaskItem({ data = {}, publish = null, completed = false }) {
                     <span><LoadSVG width={12} color="#727888" /></span>
                 </>}
             </button>
-            <div className={classNames(css.taskBarContent, (completed ? css.taskBarContentDone : ""))} onClick={() => navigate(`/lists/t/${task.id}`)}>
+            <div className={classNames(css.taskBarContent, (completed ? css.taskBarContentDone : ""))} onClick={() => navigate(`./${task.id}`)}>
                 <div className={css.taskBarLabel}>{task.task}</div>
                 {task.detail && <div className={css.taskBarDetail}>{task.detail}</div>}
             </div>

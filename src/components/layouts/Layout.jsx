@@ -34,19 +34,19 @@ function TransLayout({ children, onOuterClick = null, parentProps, ...props }) {
     )
 }
 
-function DeleteLayout({title, label, onOuterClick = null, onDelete = null, parentProps, ...props}) {
+function ConfirmLayout({ title, label, button = "Confirm", onOuterClick = null, onConfirm = null, parentProps, ...props}) {
     const outer = useRef();
     const hideTrans = () => {
         onOuterClick && onOuterClick();
     };
     return (
-        <div {...parentProps} ref={outer} onClick={({ target }) => (target === outer.current) && hideTrans()} style={cssDelete}>
-            <div {...props} style={cssDeleteCenter}>
-                <div style={cssDeleteTitle}>{title}</div>
-                <div style={cssDeleteLabel}>{label}</div>
-                <div style={cssDeleteFLex}>
-                    <button type="button" style={cssDeleteButton} onClick={hideTrans}>Cancel</button>
-                    <button type="button" style={cssDeleteButton} onClick={onDelete}>Delete</button>
+        <div {...parentProps} ref={outer} onClick={({ target }) => (target === outer.current) && hideTrans()} style={cssConfirm}>
+            <div {...props} style={cssConfirmCenter}>
+                <div style={cssConfirmTitle}>{title}</div>
+                <div style={cssConfirmLabel}>{label}</div>
+                <div style={cssConfirmFLex}>
+                    <button type="button" style={cssConfirmButton} onClick={hideTrans}>Cancel</button>
+                    <button type="button" style={cssConfirmButton} onClick={onConfirm}>{button}</button>
                 </div>
             </div>
         </div>
@@ -57,7 +57,7 @@ export default Layout;
 export {
     FormLayout,
     TransLayout,
-    DeleteLayout,
+    ConfirmLayout,
 };
 
 const css = {
@@ -79,7 +79,7 @@ const csstranslow = {
     "background": "#fff",
 };
 
-const cssDelete = {
+const cssConfirm = {
     "position": "fixed",
     "inset": "0",
     "background": "#0007",
@@ -88,7 +88,7 @@ const cssDelete = {
     "justifyContent": "center",
     "alignItems": "center",
 };
-const cssDeleteCenter = {
+const cssConfirmCenter = {
     "maxHeight": "100%",
     "overflow": "auto",
     "background": "#fff",
@@ -98,18 +98,18 @@ const cssDeleteCenter = {
     "borderRadius": "6px",
     "boxShadow": "0 0 6px 3px #0003",
 };
-const cssDeleteTitle = {
+const cssConfirmTitle = {
     "color": "#e45973",
     "fontSize": "18px",
     "fontWeight": "500",
     "marginBottom": "10px",
 };
-const cssDeleteLabel = {
+const cssConfirmLabel = {
     "fontSize": "16px",
     "fontWeight": "500",
     "marginBottom": "20px",
 };
-const cssDeleteFLex = {
+const cssConfirmFLex = {
     "display": "flex",
     "flexWrap": "nowrap",
     "justifyContent": "flex-end",
@@ -117,7 +117,7 @@ const cssDeleteFLex = {
     "gap": "10px",
     "paddingInline": "20px",
 };
-const cssDeleteButton = {
+const cssConfirmButton = {
     "padding": "10px",
     "border": "none",
     "background": "none",

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { updateTask } from "../../../../fb.todo";
-import { TransLayout } from "../../../Layout";
+import { TransLayout } from "../../../layouts/Layout";
 import css from './../../../../styles/Home.module.css';
 
 function CategoryOptions({ currentList = {}, taskArray = {}, publish = null }) {
@@ -33,7 +33,7 @@ function CategoryOptions({ currentList = {}, taskArray = {}, publish = null }) {
     const actionStar = async () => {
         navigate(-1);
         for (const task of [...taskArray.starred, ...taskArray.starred.completed]) {
-            const update = await updateTask(task.id, "starred", false);
+            const update = await updateTask(task.id, {starred: false});
             if (update.type !== "success") {
                 return toast.error(update.data);
             }
@@ -44,7 +44,7 @@ function CategoryOptions({ currentList = {}, taskArray = {}, publish = null }) {
     const actionMark = async () => {
         navigate(-1);
         for (const task of taskArray[currentList.key]) {
-            const update = await updateTask(task.id, "checked", true);
+            const update = await updateTask(task.id, {checked: true});
             if (update.type !== "success") {
                 return toast.error(update.data);
             }
@@ -55,7 +55,7 @@ function CategoryOptions({ currentList = {}, taskArray = {}, publish = null }) {
     const actionUnmark = async () => {
         navigate(-1);
         for (const task of taskArray[currentList.key].completed) {
-            const update = await updateTask(task.id, "checked", false);
+            const update = await updateTask(task.id, {checked: false});
             if (update.type !== "success") {
                 return toast.error(update.data);
             }

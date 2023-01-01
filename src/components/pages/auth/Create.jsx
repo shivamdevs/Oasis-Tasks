@@ -3,10 +3,10 @@ import { toast } from 'react-hot-toast';
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { useNavigate } from 'react-router-dom';
 import { registerWithEmailAndPassword } from '../../../fb.user';
-import { Input } from '../../AuthLayout';
-import { BackHeaderWithButton } from '../../BackHeader';
-import { FormLayout } from '../../Layout';
-import { LoadCircle } from '../../Loading';
+import { Input } from '../../layouts/AuthLayout';
+import { BackHeaderWithButton } from '../../parts/BackHeader';
+import { FormLayout } from '../../layouts/Layout';
+import { LoadCircle } from '../../layouts/Loading';
 import css from './../../../styles/Auth.module.css';
 
 function Create() {

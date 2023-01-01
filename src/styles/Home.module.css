@@ -130,11 +130,13 @@
 .tasksBody>div>div>div,
 .tasksBody>div>div>div>ul {
     height: 100%;
+    width: 100%;
 }
 
 .tasksBlock {
     display: block;
     height: 100%;
+    width: 100%;
     overflow: auto;
     padding-bottom: 60px;
 }
@@ -163,6 +165,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .footerIcon:last-child {
     margin-left: auto;
 }
@@ -190,6 +193,7 @@
     align-items: stretch;
     padding: 10px;
     gap: 10px;
+    width: 100%;
     border-bottom: 1px solid #ddf;
 }
 
@@ -211,10 +215,22 @@
     text-align: left;
     font-weight: 500;
     padding-block: 5px;
+    width: calc(100% - 80px);
     font-size: 17px;
 }
+
 .taskBarContentDone {
     text-decoration: line-through;
+}
+
+.taskBarLabel {
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
 }
 
 .taskBarDetail {
@@ -222,6 +238,12 @@
     color: #212333;
     font-size: .8em;
     white-space: pre-wrap;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
 }
 
 .taskCompletedHeader {
@@ -241,6 +263,7 @@
 .taskCompletedArrow {
     color: #727888;
 }
+
 .taskBar:has(+ .taskCompletedHeader) {
     border-bottom: none;
 }
@@ -278,6 +301,7 @@
 .categoryViewer {
     padding-right: 15px;
 }
+
 .categoryView {
     display: block;
     white-space: nowrap;
@@ -289,16 +313,20 @@
     font-weight: 500;
     position: relative;
 }
+
 .categoryView:first-child {
     margin-top: 5px;
 }
+
 .categoryView:last-child {
     margin-bottom: 5px;
 }
-.categoryView > span:first-child {
+
+.categoryView>span:first-child {
     color: #727888;
     margin-right: 20px;
 }
+
 .categoryViewStarred {
     background-color: #71b6ff;
     height: 1px;
@@ -307,13 +335,16 @@
     margin-bottom: 2px;
     z-index: 1;
 }
+
 .categoryViewActive {
     background-color: #c3e1ff;
     color: #1e90ff;
 }
+
 .categoryViewActive span:first-child {
     color: #1e90ff;
 }
+
 .categoryViewActive::before {
     content: " ";
     position: absolute;
@@ -331,11 +362,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .listOptionBreak {
     min-height: 1px;
     background-color: #624ef0;
     margin-block: 5px;
 }
+
 .listOptionBar {
     display: block;
     font-weight: 500;
@@ -344,10 +377,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .listOptionDisabled {
     color: #727888;
     background-color: #eee;
 }
+
 .listOptionNote {
     color: #727888;
     border-top: 1px solid #ddd;
@@ -361,19 +396,27 @@
     display: flex;
     flex-direction: column;
 }
+
 .todoBody {
     display: block;
     flex: 1;
     padding: 20px;
     font-weight: 500;
 }
+
 .todoTask {
     font-size: 18px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
+
 .todoDetail {
     font-size: 15px;
     margin-top: 20px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
+
 .todoFooter {
     position: sticky;
     bottom: 0;
@@ -383,6 +426,7 @@
     padding: 5px 10px;
     border-top: 1px solid #71b6ff;
 }
+
 .todoCheck {
     display: inline-block;
     padding: 10px 20px;

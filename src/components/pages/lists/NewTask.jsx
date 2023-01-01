@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,12 +14,22 @@ function NewTask({currentTask = null, publish}) {
 
     const params = useParams();
 
+    const textarea = useRef();
+
+
+
     const [user] = useAuthState(auth);
     const [task, setTask] = useState(currentTask?.task || "");
     const [detail, setDetail] = useState(currentTask?.detail || "");
     const [taskErr, setTaskError] = useState("");
     const [detailErr, setDetailError] = useState("");
     const [disabled, setDisabled] = useState(false);
+
+    useEffect(() => {
+        textarea.current.style.height = 'inherit';
+        textarea.current.style.height = (textarea.current.scrollHeight + 10) + 'px';
+    }, [detail]);
+
     const submitForm = async (e) => {
         e.preventDefault();
         const posttask = task.trim();
@@ -51,7 +61,7 @@ function NewTask({currentTask = null, publish}) {
             <BackHeaderWithButton label={currentTask ? "Edit task" : "Add new task"} button={currentTask ? "Update" : "Create"} type="submit" disabled={disabled} />
             <input type="text" placeholder={currentTask ? "Edit task..." : "Enter new task..."} defaultValue={currentTask?.task} className={css.inputarea} autoComplete="off" autoFocus={true} onChange={({target}) => setTask(target.value)} required={true} />
             <span className={css.newError}>{taskErr}</span>
-            <textarea className={css.inputbox} placeholder={currentTask ? "Edit details..." : "Add details..."} defaultValue={currentTask?.detail} autoComplete="off" onChange={({ target }) => { setDetail(target.value); target.style.height = 'inherit'; target.style.height = (target.scrollHeight + 10) + 'px' }}></textarea>
+            <textarea className={css.inputbox} placeholder={currentTask ? "Edit details..." : "Add details..."} defaultValue={currentTask?.detail} autoComplete="off" onChange={({ target }) => setDetail(target.value)} ref={textarea}></textarea>
             <span className={css.newError}>{detailErr}</span>
             {disabled && <LoadCircle />}
         </FormLayout>

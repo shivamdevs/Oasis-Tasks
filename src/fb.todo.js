@@ -1,4 +1,4 @@
-import { collection, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore/lite";
+import { collection, deleteDoc, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore/lite";
 import { randomString } from "./app.functions";
 import { clarifyError, db } from "./fb.user";
 
@@ -149,6 +149,26 @@ async function getAllTasks(user, docs) {
     }
 }
 
+async function deleteAllDeleted() {
+    try {
+        const listsq = query(collection(db, 'to-do-tasks'), where("deleted", "==", true));
+        const listsr = await getDocs(listsq);
+        listsr.docs.forEach(async list => {
+            console.log("Deleting list", list.id);
+            await deleteDoc(list.ref);
+        });
+        const tasksq = query(collection(db, 'to-do-tasks'), where("deleted", "==", true));
+        const tasksr = await getDocs(tasksq);
+        tasksr.docs.forEach(async task => {
+            console.log("Deleting task", task.id);
+            await deleteDoc(task.ref);
+        });
+    } catch (err) {
+        console.error(err);
+        return clarifyError(err);
+    }
+}
+
 export {
     addNewList,
     addNewTask,
@@ -156,4 +176,5 @@ export {
     updateTask,
     getAllLists,
     getAllTasks,
+    deleteAllDeleted,
 };

@@ -20,7 +20,7 @@ function About() {
                 </div>
                 <div className={css.label}>
                     <span className={css.data}>Copyright: </span>
-                    <span className={css.value}>{app.copyright}</span>
+                    <span className={css.value}>{app.parent}</span>
                 </div>
                 <div className={css.label}>
                     <span className={css.data}>Updated: </span>

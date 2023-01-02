@@ -1,14 +1,36 @@
 .profile {
     padding: 20px;
+    flex: 1;
+}
+.layout,
+.profile {
+    display: flex;
+    flex-direction: column;
 }
 
 .logout {
     background-color: #ff000033;
     color: red;
+    margin-top: auto;
+}
+
+.navigate {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 500;
+    color: #624ef0;
+    text-decoration: none;
+}
+.navigate > span:first-child {
+    margin-right: 20px;
 }
 
 .footer {
-    margin-block: 20px;
+    margin-top: 10px;
     text-align: center;
     background: -webkit-linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
     background: linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
@@ -30,6 +52,7 @@
 .user {
     display: flex;
     width: 100%;
+    margin-bottom: 30px;
     padding-block: 10px;
     justify-content: space-between;
     align-items: center;

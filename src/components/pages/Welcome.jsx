@@ -64,11 +64,11 @@ function Welcome() {
                 <div className={css.step}>
                     <NavButton to="/auth/create" className="button filled">Create Account</NavButton>
                     <NavButton to="/auth/email" className="button">Already have an Account? Sign in</NavButton>
-                    <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <NavAnchor to="/docs/legal">Privacy policy</NavAnchor> and <NavAnchor to="/docs/legal/terms">Terms of Usage</NavAnchor>.</div>
+                    <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}/legal`}>Privacy policy</a> and <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}/legal/terms`}>Terms of Usage</a>.</div>
                     <div className={css.links}>
-                        <NavAnchor to="/lists">Docs</NavAnchor>
+                        <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}`}>{app.parent}</a>
                         <span className={css.dot}>•</span>
-                        <NavAnchor to="/support">Support</NavAnchor>
+                        <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}/support/tasks`}>Support</a>
                         <span className={css.dot}>•</span>
                         <NavAnchor to="/about">About</NavAnchor>
                     </div>

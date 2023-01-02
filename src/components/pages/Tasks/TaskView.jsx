@@ -21,12 +21,14 @@ function TaskView({ goBack = null, categories = [], taskArray = {}, publish = nu
         setCurrentTask(taskArray.$allTasks[params.taskid]);
     }, [currentTask, goBack, params.taskid, taskArray]);
 
+    let listCurrent = {};
     const listCategories = [];
 
     if (categories.length) {
-        categories.forEach((list) => {
+        categories.forEach(list => {
             const value = { value: list.key, label: list.label };
             if (list.key !== "starred") listCategories.push(value);
+            if (currentTask.list === list.key) listCurrent = value;
         });
     }
 
@@ -96,7 +98,7 @@ function TaskView({ goBack = null, categories = [], taskArray = {}, publish = nu
                             className={css.todoSelect}
                             options={listCategories}
                             onChange={listChanged}
-                            placeholder="Move task to"
+                            placeholder={listCurrent?.label}
                         />
                     </>}
                 </div>

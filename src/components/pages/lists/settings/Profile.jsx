@@ -3,7 +3,7 @@ import BackHeader from '../../../parts/BackHeader';
 
 import css from './../../../../styles/Profile.module.css';
 import app from "../../../../app.data";
-import { NavAnchor, NavButton } from "../../../parts/Nav";
+import { NavButton } from "../../../parts/Nav";
 import classNames from "classnames";
 
 

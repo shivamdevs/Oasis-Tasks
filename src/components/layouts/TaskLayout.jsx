@@ -26,7 +26,7 @@ function TaskLayout({ taskArray = {}, categories = [], currentList = {}, publish
             <Route path="/categoryoptions" element={<CategoryOptions taskArray={taskArray} currentList={currentList} publish={publish} />} />
             <Route path="/deletelist" element={<DeleteList currentList={currentList} publish={publish} />} />
             <Route path="/deletecompleted" element={<DeleteAllCompleted currentList={currentList} taskArray={taskArray} publish={publish} />} />
-            <Route path="/:taskid/*" element={<TaskView goBack={goBack} taskArray={taskArray} publish={publish} />} />
+            <Route path="/:taskid/*" element={<TaskView goBack={goBack} categories={categories} taskArray={taskArray} publish={publish} />} />
         </Routes>
     );
 };

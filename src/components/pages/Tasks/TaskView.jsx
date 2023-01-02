@@ -7,18 +7,38 @@ import { updateTask } from "../../../fb.todo";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import DeleteTask from "./overlays/DeleteTask";
 import NewTask from "../lists/NewTask";
+import Select from "react-select";
 
 
-function TaskView({goBack = null, taskArray = {}, publish = null}) {
+function TaskView({ goBack = null, categories = [], taskArray = {}, publish = null }) {
     const params = useParams();
     const navigate = useNavigate();
     const [currentTask, setCurrentTask] = useState({});
-    const [updating, setUpdating] = useState(false);
+    const [updating, setUpdating] = useState(0);
 
     useEffect(() => {
         if (!taskArray || !taskArray.$allTasks || !taskArray.$allTasks[params.taskid]) return goBack();
         setCurrentTask(taskArray.$allTasks[params.taskid]);
     }, [currentTask, goBack, params.taskid, taskArray]);
+
+    const listCategories = [];
+
+    if (categories.length) {
+        categories.forEach((list) => {
+            const value = { value: list.key, label: list.label };
+            if (list.key !== "starred") listCategories.push(value);
+        });
+    }
+
+    const listChanged = async ({value, label}) => {
+        if (!value) return;
+        setUpdating(old => ++old);
+        await updateTask(currentTask.id, { list: value });
+        publish && await publish();
+        setUpdating(old => --old);
+        toast.success("Task moved to " + label);
+    };
+
     const flipData = async (field) => {
         const value = !currentTask[field];
         setUpdating(old => ++old);
@@ -31,7 +51,9 @@ function TaskView({goBack = null, taskArray = {}, publish = null}) {
         publish && await publish();
         setUpdating(old => --old);
     };
+
     const toEditPage = () => navigate("./edittask");
+
     return (
         <Layout className={css.todoLayer}>
             <BackHeaderForTasks
@@ -67,6 +89,17 @@ function TaskView({goBack = null, taskArray = {}, publish = null}) {
                 ]}
             />
             <div className={css.todoBody}>
+                <div className={css.todoSelectArea}>
+                    {listCategories.length && <>
+                        <Select
+                            isSearchable={false}
+                            className={css.todoSelect}
+                            options={listCategories}
+                            onChange={listChanged}
+                            placeholder="Move task to"
+                        />
+                    </>}
+                </div>
                 <div className={css.todoTask} onClick={toEditPage}>{currentTask.task}</div>
                 {currentTask.detail && <div className={css.todoDetail} onClick={toEditPage}>{currentTask.detail}</div>}
                 {!currentTask.detail && <div className={css.todoDetail} onClick={toEditPage}><i className="far fa-bars-sort"></i> &nbsp; Add details</div>}

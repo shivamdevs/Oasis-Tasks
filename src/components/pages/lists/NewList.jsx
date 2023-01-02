@@ -26,7 +26,7 @@ function NewList({currentList = null, publish}) {
         //     return e.target[2].focus();
         // }
         setDisabled(true);
-        const data = currentList ? await updateList(currentList.key, "label", postname) : await addNewList(user, postname, {});
+        const data = currentList ? await updateList(currentList.key, "label", postname) : await addNewList(user, postname);
         if (data.type === "success") {
             publish();
             return navigate(-1);

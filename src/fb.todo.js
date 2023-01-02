@@ -2,19 +2,18 @@ import { collection, deleteDoc, doc, getDocs, query, setDoc, updateDoc, where } 
 import { randomString } from "./app.functions";
 import { clarifyError, db } from "./fb.user";
 
-async function addNewList(user, label, {defaultList = false}) {
+async function addNewList(user, label) {
     const created = (() => {
         const date = new Date();
         return date.setTime(date.getTime());
     })();
     try {
-        const data = await setDoc(doc(db, 'to-do-lists', (defaultList ? 'default' : (`${user.uid}-${created}-${randomString(11)}`))), {
+        const data = await setDoc(doc(db, 'to-do-lists', `${user.uid}-${created}-${randomString(11)}`), {
             uid: user.uid,
             label,
             deleted: false,
             created,
             updated: created,
-            defaultList: defaultList,
         });
         return {
             type: "success",

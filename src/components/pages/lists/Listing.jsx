@@ -26,7 +26,7 @@ function Listing({ user = {}, admin = null, categories = [], currentList = {}, p
             referer.style.width = (activeRef.offsetWidth - (2 * differ)) + "px";
             referer.style.transition = ".3s";
         }
-    }, [params.listid, activeRef, activeTab]);
+    }, [params.listid, activeRef, activeTab, categories]);
 
     return (
         <Layout className={css.listbody}>

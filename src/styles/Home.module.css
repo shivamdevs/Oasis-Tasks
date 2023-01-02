@@ -447,3 +447,9 @@
     color: #1e90ff;
     font-size: 15px;
 }
+.todoSelectArea {
+    display: flex;
+    max-width: 100%;
+    min-width: 70%;
+    margin-bottom: 10px;
+}

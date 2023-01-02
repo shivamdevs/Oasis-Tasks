@@ -1,7 +1,7 @@
 import { Carousel } from 'react-responsive-carousel';
 import css from './../../styles/Welcome.module.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import app from '../../appdata';
+import app from '../../app.data';
 import Layout from '../layouts/Layout';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../fb.user';

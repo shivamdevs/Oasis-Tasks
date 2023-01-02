@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import app from '../../appdata';
+import app from '../../app.data';
 import css from './../../styles/Loading.module.css';
 import Layout from './Layout';
 

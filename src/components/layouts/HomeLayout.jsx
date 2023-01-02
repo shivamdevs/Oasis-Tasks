@@ -1,4 +1,4 @@
-import app from "../../appdata";
+import app from "../../app.data";
 import { auth } from "../../fb.user";
 import { LoadCircle } from "./Loading";
 import NewList from "../pages/lists/NewList";
@@ -9,6 +9,7 @@ import { getAllLists, getAllTasks } from "../../fb.todo";
 import { useCallback, useEffect, useState } from "react";
 import ProfileMenu from "../pages/lists/settings/Profile";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
+import { isUserWithAdminRights } from "../../fb.admin";
 
 
 function HomeLayout() {
@@ -41,6 +42,8 @@ function Home() {
     const [user, loading, error] = useAuthState(auth);
     const [userLoading, setUserLoading] = useState(0);
 
+    const [admin, setAdmin] = useState(null);
+
     const params = useParams();
     const navigate = useNavigate();
 
@@ -60,6 +63,14 @@ function Home() {
         }
         setCategory(docs.data);
         setTaskArray(tasks.data);
+    }, [user]);
+
+    const isAnAdmin = useCallback(async () => {
+        if (!user) return;
+        const getAdmin = await isUserWithAdminRights(user);
+        if (getAdmin.type === "success") {
+            setAdmin(getAdmin.data);
+        }
     }, [user]);
 
     const publish = async () => {
@@ -95,17 +106,18 @@ function Home() {
     useEffect(() => {
         (async function () {
             await updateLists();
+            await isAnAdmin();
         })();
-    }, [params.listid, updateLists]);
+    }, [isAnAdmin, params.listid, updateLists]);
     return (
         <>
             {!loading && <>
                 <Routes>
-                    <Route path="/settings/*" element={<ProfileMenu />} />
+                    <Route path="/settings/*" element={<ProfileMenu admin={admin} user={user} />} />
                     <Route path="/newlist" element={<NewList publish={publish} />} />
                     <Route path="/renamelist" element={<NewList currentList={currentList} publish={publish} />} />
                     <Route path="/newtask" element={<NewTask publish={publish} />} />
-                    <Route path="/*" element={<Listing user={user} userLoading={userLoading} categories={categories} currentList={currentList} publish={publish} taskArray={taskArray} />} />
+                    <Route path="/*" element={<Listing user={user} admin={admin} userLoading={userLoading} categories={categories} currentList={currentList} publish={publish} taskArray={taskArray} />} />
                 </Routes>
             </>}
             {(categories.length === 0) && <LoadCircle />}

@@ -1,8 +1,8 @@
 const app = {
     name: 'To do',
     version: '1.0.0',
-    copyright: '© Shivam Devs 2022',
-    updated: 'December 12, 2022 06:55 PM',
+    copyright: '© My Oasis',
+    updated: 'January 02, 2023 12:00 PM',
     bucket: "to.do"
 };
 

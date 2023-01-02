@@ -72,7 +72,8 @@ function TaskView({goBack = null, taskArray = {}, publish = null}) {
                 {!currentTask.detail && <div className={css.todoDetail} onClick={toEditPage}><i className="far fa-bars-sort"></i> &nbsp; Add details</div>}
             </div>
             <div className={css.todoFooter}>
-                <span className={css.todoCheck} onClick={() => flipData("checked")}>
+                <span className={css.todoFooterOpts} onClick={toEditPage}>Edit task</span>
+                <span className={css.todoFooterOpts} onClick={() => flipData("checked")}>
                     {currentTask.checked && "Mark as Incomplete"}
                     {!currentTask.checked && "Mark as Completed"}
                 </span>

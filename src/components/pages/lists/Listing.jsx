@@ -1,6 +1,6 @@
 import { Carousel } from "react-responsive-carousel";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import app from "../../../appdata";
+import app from "../../../app.data";
 import Layout from "../../layouts/Layout";
 import { LoadSVG } from "../../layouts/Loading";
 import { NavAnchor } from "../../parts/Nav";
@@ -11,7 +11,7 @@ import TaskLayout from "../../layouts/TaskLayout";
 import { toast } from "react-hot-toast";
 import { useEffect, useRef, useState } from "react";
 
-function Listing({ user = {}, categories = [], currentList = {}, publish = null, taskArray = {}, userLoading = false }) {
+function Listing({ user = {}, admin = null, categories = [], currentList = {}, publish = null, taskArray = {}, userLoading = false }) {
     const params = useParams();
     const navigate = useNavigate();
 
@@ -33,9 +33,12 @@ function Listing({ user = {}, categories = [], currentList = {}, publish = null,
             <div className={css.header}>
                 <img src="/logo192.png" alt="" className={css.headerTitle} />
                 <div className={css.headerLabel}>{app.name}</div>
-                <NavAnchor to="./settings" className={css.headerUser}>
-                    <img src={user?.photoURL || `https://ui-avatars.com/api/?name=${user?.displayName || "User"}&background=624ef0&color=fff`} alt="" />
-                </NavAnchor>
+                <div className={css.headerRight}>
+                    {admin && <NavAnchor to={`/admin/${admin.id}`} className={css.headerAdmin}><i className="fa-solid fa-user-shield"></i></NavAnchor>}
+                    <NavAnchor to="./settings" className={css.headerUser}>
+                        <img src={user?.photoURL || `https://ui-avatars.com/api/?name=${user?.displayName || "User"}&background=624ef0&color=fff`} alt="" />
+                    </NavAnchor>
+                </div>
             </div>
             <div className={css.categories}>
                 {categories && (categories.length > 0) && categories.map(item => {

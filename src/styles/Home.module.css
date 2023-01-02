@@ -21,7 +21,15 @@
     font-size: 20px;
     font-weight: 700;
 }
-
+.headerRight {
+    display: inline-flex;
+    gap: 20px;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+.headerAdmin {
+    font-size: 20px;
+}
 .headerUser {
     width: 38px;
     height: 38px;
@@ -423,13 +431,15 @@
     position: sticky;
     bottom: 0;
     width: 100%;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background-color: #eef;
     padding: 5px 10px;
     border-top: 1px solid #71b6ff;
 }
 
-.todoCheck {
+.todoFooterOpts {
     display: inline-block;
     padding: 10px 20px;
     height: 40px;

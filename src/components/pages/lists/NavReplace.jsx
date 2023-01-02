@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import app from "../../../appdata";
+import app from "../../../app.data";
 import css from './../../../styles/Home.module.css';
 
 function NavReplace({

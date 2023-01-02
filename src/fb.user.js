@@ -10,13 +10,13 @@ import {
 import { getFirestore } from 'firebase/firestore/lite';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDRA5z3oE6WR5yh9XwdS2_GcIAo6WTD-UI",
-    authDomain: "react-c4e3a.firebaseapp.com",
-    projectId: "react-c4e3a",
-    storageBucket: "react-c4e3a.appspot.com",
-    messagingSenderId: "361633102410",
-    appId: "1:361633102410:web:f533b9337899da7398c4b3",
-    measurementId: "G-D49LGDJTFD"
+    apiKey: "AIzaSyAuT7owM2lF6JqmWUionKIM1vQ2pOHgzRM",
+    authDomain: "my-oasis-tech.firebaseapp.com",
+    projectId: "my-oasis-tech",
+    storageBucket: "my-oasis-tech.appspot.com",
+    messagingSenderId: "180046491267",
+    appId: "1:180046491267:web:f184a60c760b8c0eb375b6",
+    measurementId: "G-WJZGXF8F3L"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -51,6 +51,7 @@ const logInWithEmailAndPassword = async (email, password) => {
             data: data.user
         }
     } catch (err) {
+        console.error(err);
         return clarifyError(err);
     }
 };
@@ -65,6 +66,7 @@ const registerWithEmailAndPassword = async (name, email, password) => {
             data: data.user
         }
     } catch (err) {
+        console.error(err);
         return clarifyError(err);
     }
 };
@@ -86,6 +88,7 @@ const updateUserProfile = async (user, {
             data: user,
         };
     } catch (err) {
+        console.error(err);
         return clarifyError(err);
     }
 };
@@ -95,6 +98,7 @@ const sendPasswordReset = async (email) => {
         await sendPasswordResetEmail(auth, email);
         return true;
     } catch (err) {
+        console.error(err);
         return err;
     }
 };

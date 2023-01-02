@@ -2,7 +2,7 @@ import Layout from "../layouts/Layout";
 import BackHeader from '../parts/BackHeader';
 
 import css from './../../styles/About.module.css';
-import app from "../../appdata";
+import app from "../../app.data";
 
 
 function About() {

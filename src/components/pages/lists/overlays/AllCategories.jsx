@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
-import app from "../../../../appdata";
+import app from "../../../../app.data";
 import { TransLayout } from "../../../layouts/Layout";
 import css from './../../../../styles/Home.module.css';
 

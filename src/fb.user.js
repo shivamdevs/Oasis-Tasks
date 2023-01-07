@@ -34,6 +34,8 @@ const clarifyError = (text) => {
         return (result.action = "email") && (result.data = "This email is invalid") && result;
     } else if (text.includes('auth/wrong-password')) {
         return (result.action = "password") && (result.data = "This password is incorrect") && result;
+    } else if (text.includes('auth / user - not - found')) {
+        return (result.action = "email") && (result.data = "This user does not exist") && result;
     } else if (text.includes('')) {
         return (result.action = "") && (result.data = "") && result;
     } else {

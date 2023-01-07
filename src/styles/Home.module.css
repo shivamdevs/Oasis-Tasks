@@ -21,15 +21,18 @@
     font-size: 20px;
     font-weight: 700;
 }
+
 .headerRight {
     display: inline-flex;
     gap: 20px;
     flex-wrap: nowrap;
     align-items: center;
 }
+
 .headerAdmin {
     font-size: 20px;
 }
+
 .headerUser {
     width: 38px;
     height: 38px;
@@ -65,7 +68,7 @@
     color: #232323;
     font-weight: 600;
     text-decoration: none;
-    
+
 }
 
 .activeCategory {
@@ -282,10 +285,10 @@
 .taskEmpty {
     display: flex;
     flex: 1;
-    min-height: 100%;
+    min-height: calc(100% - 45px);
     align-items: center;
     flex-direction: column;
-    padding: 50px 50px 0;
+    padding: 75px 50px 0;
     justify-content: center;
     gap: 10px;
 }
@@ -447,9 +450,61 @@
     color: #1e90ff;
     font-size: 15px;
 }
-.todoSelectArea {
+
+.todoMove {
     display: flex;
     max-width: 100%;
-    min-width: 70%;
-    margin-bottom: 10px;
+    align-items: center;
+    flex-wrap: nowrap;
+    margin-bottom: 20px;
+    color: #1e90ff;
+    font-weight: 500;
+}
+
+.todoMove span {
+    max-width: calc(100% - 30px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+}
+
+.todoMove i {
+    min-width: 30px;
+    font-size: 20px;
+    display: inline-flex;
+    justify-content: flex-end;
+}
+
+.todoShiftHead {
+    margin-block: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #727888;
+    padding-inline: 20px;
+}
+
+.todoShiftItem {
+    padding: 12px 20px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+
+.todoShiftItem span {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.todoShiftItemActive {
+    background-color: #1e90ff33;
+    color: #1e90ff;
+}
+.todoShiftItemActive span {
+    width: calc(100% - 40px);
 }

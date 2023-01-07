@@ -6,8 +6,9 @@ import { BackHeaderForTasks } from "../../parts/BackHeader";
 import { updateTask } from "../../../fb.todo";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import DeleteTask from "./overlays/DeleteTask";
+import MoveTask from "./overlays/MoveTask";
 import NewTask from "../lists/NewTask";
-import Select from "react-select";
+import { NavAnchor } from './../../parts/Nav';
 
 
 function TaskView({ goBack = null, categories = [], taskArray = {}, publish = null }) {
@@ -18,28 +19,12 @@ function TaskView({ goBack = null, categories = [], taskArray = {}, publish = nu
 
     useEffect(() => {
         if (!taskArray || !taskArray.$allTasks || !taskArray.$allTasks[params.taskid]) return goBack();
-        setCurrentTask(taskArray.$allTasks[params.taskid]);
-    }, [currentTask, goBack, params.taskid, taskArray]);
-
-    let listCurrent = {};
-    const listCategories = [];
-
-    if (categories.length) {
-        categories.forEach(list => {
-            const value = { value: list.key, label: list.label };
-            if (list.key !== "starred") listCategories.push(value);
-            if (currentTask.list === list.key) listCurrent = value;
-        });
-    }
-
-    const listChanged = async ({value, label}) => {
-        if (!value) return;
-        setUpdating(old => ++old);
-        await updateTask(currentTask.id, { list: value });
-        publish && await publish();
-        setUpdating(old => --old);
-        toast.success("Task moved to " + label);
-    };
+        const taskobj = taskArray.$allTasks[params.taskid];
+        for (const lists of categories) {
+            if (lists.key === taskobj.list) taskobj.listname = lists.label;
+        }
+        setCurrentTask(taskobj);
+    }, [categories, currentTask, goBack, params.taskid, taskArray]);
 
     const flipData = async (field) => {
         const value = !currentTask[field];
@@ -91,17 +76,10 @@ function TaskView({ goBack = null, categories = [], taskArray = {}, publish = nu
                 ]}
             />
             <div className={css.todoBody}>
-                <div className={css.todoSelectArea}>
-                    {listCategories.length && <>
-                        <Select
-                            isSearchable={false}
-                            className={css.todoSelect}
-                            options={listCategories}
-                            onChange={listChanged}
-                            placeholder={listCurrent?.label}
-                        />
-                    </>}
-                </div>
+                <NavAnchor to="./movetask" className={css.todoMove}>
+                    <span>{currentTask.listname}</span>
+                    <i className="fas fa-caret-down"></i>
+                </NavAnchor>
                 <div className={css.todoTask} onClick={toEditPage}>{currentTask.task}</div>
                 {currentTask.detail && <div className={css.todoDetail} onClick={toEditPage}>{currentTask.detail}</div>}
                 {!currentTask.detail && <div className={css.todoDetail} onClick={toEditPage}><i className="far fa-bars-sort"></i> &nbsp; Add details</div>}
@@ -115,6 +93,7 @@ function TaskView({ goBack = null, categories = [], taskArray = {}, publish = nu
             </div>
             <Routes>
                 <Route path="/edittask" element={<NewTask publish={publish} currentTask={currentTask} />} />
+                <Route path="/movetask" element={<MoveTask publish={publish} categories={categories} setUpdating={setUpdating} currentList={currentTask.list} />} />
                 <Route path="/deletetask" element={<DeleteTask flipData={flipData} goBack={goBack} />} />
             </Routes>
         </Layout>

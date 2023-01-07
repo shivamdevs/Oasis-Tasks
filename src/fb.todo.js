@@ -51,7 +51,7 @@ async function updateList(list, field, value) {
     }
 }
 
-async function addNewTask(user, list, task, detail) {
+async function addNewTask(user, list, task, detail, starred = false) {
     const created = (() => {
         const date = new Date();
         return date.setTime(date.getTime());
@@ -62,7 +62,7 @@ async function addNewTask(user, list, task, detail) {
             list,
             task,
             detail,
-            starred: false,
+            starred,
             deleted: false,
             created,
             updated: created,

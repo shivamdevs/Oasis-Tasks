@@ -35,7 +35,7 @@ function NewTask({currentTask = null, publish}) {
         const posttask = task.trim();
         if (!posttask) return e.target[2].focus();
         setDisabled(true);
-        const data = currentTask ? await updateTask(currentTask.id, {task: posttask, detail}) : await addNewTask(user, params.listid, posttask, detail);
+        const data = currentTask ? await updateTask(currentTask.id, { task: posttask, detail }) : await addNewTask(user, (params.listid === "starred" ? "default" : params.listid), posttask, detail, (params.listid === "starred"));
         if (data.type === "success") {
             publish();
             return navigate(-1);
@@ -53,9 +53,6 @@ function NewTask({currentTask = null, publish}) {
             console.error(data);
         }
     };
-    useEffect(() => {
-        if (params.listid === "starred") navigate(-1);
-    }, [navigate, params.listid]);
     return (
         <FormLayout className={css.newlist} onSubmit={submitForm}>
             <BackHeaderWithButton label={currentTask ? "Edit task" : "Add new task"} button={currentTask ? "Update" : "Create"} type="submit" disabled={disabled} />

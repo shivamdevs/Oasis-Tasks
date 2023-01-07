@@ -76,7 +76,7 @@ function Listing({ user = {}, admin = null, categories = [], currentList = {}, p
                 <NavAnchor className={css.footerIcon} to="./allcategories" replace={false}><i className="fas fa-list-tree"></i></NavAnchor>
                 {(userLoading > 0) && <span className={css.footerIcon}><LoadSVG color="#1e90ff" width={12} /></span>}
                 {(userLoading === 0) && <span className={css.footerIcon} onClick={async () => { await publish(); toast.success("All lists updated");}}><i className="far fa-cloud-check"></i></span>}
-                {(params.listid !== "starred") && <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>}
+                <NavAnchor className={css.footerAddIcon} to="./newtask" replace={false}><i className="fas fa-plus"></i></NavAnchor>
                 <NavAnchor className={css.footerIcon} to="./categoryoptions" replace={false}><i className="fas fa-ellipsis-vertical"></i></NavAnchor>
             </div>
             <Routes>

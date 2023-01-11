@@ -457,7 +457,7 @@
     align-items: center;
     flex-wrap: nowrap;
     margin-bottom: 20px;
-    color: #1e90ff;
+    color: #624ef0;
     font-weight: 500;
 }
 
@@ -474,6 +474,9 @@
     font-size: 20px;
     display: inline-flex;
     justify-content: flex-end;
+}
+.todoShift {
+    padding-block: 20px;
 }
 
 .todoShiftHead {
@@ -499,6 +502,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+.todoShiftItem i {
+    font-size: 1.5em;
+    rotate: -10deg;
 }
 
 .todoShiftItemActive {

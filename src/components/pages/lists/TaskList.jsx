@@ -23,7 +23,7 @@ function TaskList({ data = [], item = "", publish }) {
                         {!extended && <span className={css.taskCompletedArrow}><i className="fas fa-chevron-down"></i></span>}
                     </div>
                     {extended && data.completed.map(done => <TaskItem key={done.id} completed={true} publish={publish} data={done} />)}
-                    {!extended && <div className={css.taskEmpty}>
+                    {!extended && data.length === 0 && <div className={css.taskEmpty}>
                         <img src="/assets/images/lists/undraw-checklist.svg" alt="" />
                         <div className={css.taskEmptyText}>All tasks completed</div>
                         <div className={css.taskEmptyNote}>Go fo it. You have finished all tasks from this list. Nice work.</div>

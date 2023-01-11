@@ -62,8 +62,8 @@ function Welcome() {
                     </Carousel>
                 </div>
                 <div className={css.step}>
-                    <NavButton to="/auth/create" className="button filled">Create Account</NavButton>
-                    <NavButton to="/auth/email" className="button">Already have an Account? Sign in</NavButton>
+                    <NavButton to="/accounts" className="button filled">Continue to Accounts</NavButton>
+                    {/* <NavButton to="/auth/email" className="button">Already have an Account? Sign in</NavButton> */}
                     <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}/legal`}>Privacy policy</a> and <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}/legal/terms`}>Terms of Usage</a>.</div>
                     <div className={css.links}>
                         <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}`}>{app.parent}</a>

@@ -1,7 +1,7 @@
 // import { BrowserView, MobileView } from "react-device-detect";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { auth, logout } from './fb.user';
+import { auth } from './fb.user';
 import { useAuthState } from "react-firebase-hooks/auth";
 
 import './styles/override.css';
@@ -10,9 +10,9 @@ import Loading from "./components/layouts/Loading";
 import About from "./components/pages/About";
 import Notfound from "./components/layouts/Notfound";
 import Welcome from "./components/pages/Welcome";
-import AuthLayout from "./components/layouts/AuthLayout";
+// import AuthLayout from "./components/layouts/AuthLayout";
 import HomeLayout from "./components/layouts/HomeLayout";
-import { Redirect } from "./components/parts/Nav";
+import Accounts from "./components/Accounts/Accounts";
 
 function App() {
     const navigate = useNavigate();
@@ -28,9 +28,8 @@ function App() {
             {!loading && <>
                 <Routes>
                     <Route path="/lists/*" element={<HomeLayout />} />
-                    <Route path="/auth/*" element={<AuthLayout />} />
+                    <Route path="/accounts/*" element={<Accounts />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/logout" element={<Logout />} />
                     <Route path="/" exact element={<Welcome />} />
                     <Route path="*" element={<Notfound />} />
                 </Routes>
@@ -41,15 +40,9 @@ function App() {
                 </Routes>
             </BrowserView>
             <MobileView>
-                
             </MobileView> */}
         </>
     );
 };
 
 export default App;
-
-function Logout() {
-    logout();
-    return (<Redirect to={-1} />);
-}

@@ -11,21 +11,20 @@ function CategoryOptions({ currentList = {}, taskArray = [], publish = null }) {
     const [disabled, setDisabled] = useState({ tasks: false, stars: false, rename: false, delete: false, completed: false });
 
     useEffect(() => {
-        if (!taskArray.length || !taskArray.completed.length || !taskArray.starred.length) return;
-        if (currentList.key === "starred" || currentList.key === "default") setDisabled(old => {
+        if (currentList?.key === "starred" || currentList?.key === "default") setDisabled(old => {
             old.rename = true;
             old.delete = true;
             return old;
         });
-        if (taskArray[currentList.key].completed.length === 0) setDisabled(old => {
+        if (taskArray && taskArray[currentList.key]?.completed?.length === 0) setDisabled(old => {
             old.completed = true;
             return old;
         });
-        if (taskArray[currentList.key].length === 0) setDisabled(old => {
+        if (taskArray && taskArray[currentList.key]?.length === 0) setDisabled(old => {
             old.tasks = true;
             return old;
         });
-        if (taskArray.starred.length === 0 && taskArray.starred.completed.length === 0) setDisabled(old => {
+        if (taskArray?.starred?.length === 0 && taskArray?.starred?.completed?.length === 0) setDisabled(old => {
             old.stars = true;
             return old;
         });

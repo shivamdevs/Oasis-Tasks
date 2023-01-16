@@ -12,6 +12,7 @@
     border-bottom-color: transparent;
     transition: .2s;
 }
+
 .headerAuto {
     width: 100%;
     padding: 10px;
@@ -47,18 +48,22 @@
     min-width: 50px;
     border-radius: 50%;
 }
+
 .navigate:hover {
     background-color: #0003;
     cursor: pointer;
 }
-.navigateRight + .buttonLarge {
+
+.navigateRight+.buttonLarge {
     margin-left: auto;
 }
+
 .text {
     margin-right: auto;
     font-weight: 700;
     font-size: 20px;
 }
+
 .button {
     color: dodgerblue;
     background: none;
@@ -66,15 +71,8 @@
     font-weight: 500;
     font-size: 17px;
     padding: 5px 10px;
-    transition: .2s;
-    border-radius: 50%;
-    min-width: 50px;
-    min-height: 50px;
 }
-.button:hover {
-    background-color: #1e90ff44;
-    cursor: pointer;
-}
+
 .buttonLarge {
     font-size: 20px;
     padding: 5px 10px;
@@ -84,4 +82,13 @@
     flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
+    transition: .2s;
+    border-radius: 50%;
+    min-width: 50px;
+    min-height: 50px;
+}
+
+.buttonLarge:hover {
+    background-color: #1e90ff44;
+    cursor: pointer;
 }

@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import TaskItem from "./TaskItem";
 import css from './../../../styles/Home.module.css';
 import app from "../../../app.data";
+import classNames from "classnames";
 
-function TaskList({ data = [], item = "", publish }) {
+function TaskList({ data = [], item = "", publish = null, isDesktop = false }) {
     const [extended, setExtended] = useState(false);
     const header = useRef();
     useEffect(() => {
@@ -13,7 +14,10 @@ function TaskList({ data = [], item = "", publish }) {
         if (data.completed.length === 0) setExtended(false);
     }, [data.completed.length]);
     return (
-        <div className={css.tasksBlock}>
+        <div className={classNames(
+            css.tasksBlock,
+            {"wccard": isDesktop}
+        )}>
             {(data.length > 0 || data.completed.length > 0) && <>
                 {data.map(item => <TaskItem key={item.id} publish={publish} data={item} />)}
                 {(data.completed.length > 0) && <>

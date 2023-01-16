@@ -18,7 +18,7 @@ function HomeMain({ publish = null, currentList = {}, userLoading = false, categ
                     showIndicators={false}
                     selectedItem={currentList.index}
                 >
-                    {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} publish={publish} item={item.key} data={taskArray[item.key] || []} />)}
+                    {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} publish={publish} item={item.key} isDesktop={true} data={taskArray[item.key] || []} />)}
                 </Carousel>}
             </div>
             <ListOptions currentList={currentList} userLoading={userLoading} taskArray={taskArray} publish={publish} />

@@ -39,9 +39,9 @@ function NewTask({ currentTask = null, currentList = null, publish = null, setUp
         const data = currentTask ? await updateTask(currentTask.id, { task: posttask, detail }) : await addNewTask(user, (params.listid === "starred" ? "default" : params.listid), posttask, detail, (params.listid === "starred"));
         if (data.type === "success") {
             navigate(-1);
-            setUpdating(old => ++old);
+            setUpdating && setUpdating(old => ++old);
             await publish();
-            setUpdating(old => --old);
+            setUpdating && setUpdating(old => --old);
             return ;
         }
         setDisabled(false);

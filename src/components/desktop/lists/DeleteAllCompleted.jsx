@@ -21,7 +21,6 @@ function DeleteAllCompleted({ currentList = {}, taskArray = {}, publish = null }
             title="Delete all completed tasks?"
             button="Delete"
             label="Completed tasks will be permanently deleted from this list unless they repeat"
-            onOuterClick={() => navigate(-1)}
             onConfirm={deleteTasks}
         />
     );

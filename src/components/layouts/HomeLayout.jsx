@@ -114,7 +114,6 @@ function Home({mode}) {
         <>
             {!loading && mode && <>
                 <Routes>
-                    <Route path="/settings/*" element={<ProfileMenu admin={admin} user={user} />} />
                     <Route path="/*" element={<HomeWindow user={user} admin={admin} userLoading={userLoading} categories={categories} currentList={currentList} publish={publish} taskArray={taskArray} />} />
                 </Routes>
             </>}

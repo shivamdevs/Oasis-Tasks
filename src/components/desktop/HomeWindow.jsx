@@ -11,6 +11,7 @@ import HomeMain from "./HomeMain";
 import DeleteAllCompleted from "./lists/DeleteAllCompleted";
 import DeleteList from "./lists/DeleteList";
 import TaskWindow from "./TaskWindow";
+import Settings from "./Settings";
 
 
 function HomeWindow({ user = {}, admin = null, categories = [], currentList = {}, publish = null, taskArray = {}, userLoading = false }) {
@@ -62,10 +63,11 @@ function HomeWindow({ user = {}, admin = null, categories = [], currentList = {}
             </div>
             <main className={css.body}>
                 <Routes>
-                    <Route path="/*" element={<HomeMain publish={publish} userLoading={userLoading} currentList={currentList} categories={categories} taskArray={taskArray} />} />
+                    <Route path="/*" element={<HomeMain admin={admin} user={user} publish={publish} userLoading={userLoading} currentList={currentList} categories={categories} taskArray={taskArray} />} />
                 </Routes>
             </main>
             <Routes>
+                <Route path="/settings" element={<Settings admin={admin} user={user} />} />
                 <Route path="/deletelist" element={<DeleteList currentList={currentList} publish={publish} />} />
                 <Route path="/deletecompleted" element={<DeleteAllCompleted currentList={currentList} taskArray={taskArray} publish={publish} />} />
                 <Route path="/newlist" element={<NewList publish={publish} />} />

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { escapePage, setTitle } from "../../app.functions";
+import { setTitle } from "../../app.functions";
 import { addNewTask, updateTask } from "../../fb.todo";
 import { auth } from "../../fb.user";
 import { LoadCircle } from "../layouts/Loading";
@@ -13,7 +13,6 @@ import css from './styles/Adder.module.css';
 function NewTask({ currentTask = null, currentList = null, publish = null, setUpdating = null }) {
 
     const navigate = useNavigate();
-    escapePage(() => navigate(-1));
 
     const params = useParams();
 
@@ -59,7 +58,7 @@ function NewTask({ currentTask = null, currentList = null, publish = null, setUp
         }
     };
     return (
-        <CenterLayer maxWidth={700} onOuterClick={() => navigate(-1)}>
+        <CenterLayer maxWidth={700}>
             <header className={css.header}>
                 <span>{currentTask ? "Edit task" : "Add new task"}</span>
                 <Link to={-1} className={css.closer}><i className="fas fa-times"></i></Link>

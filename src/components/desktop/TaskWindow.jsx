@@ -4,6 +4,7 @@ import { Route, Routes, useLocation, useNavigate, useParams } from "react-router
 import { updateTask } from "../../fb.todo";
 import NewTask from "./NewTask";
 import DeleteTask from "./tasks/DeleteTask";
+import MoveTask from "./tasks/MoveTask";
 import Viewer from "./tasks/Viewer";
 
 
@@ -48,6 +49,7 @@ function TaskWindow({publish = null, taskArray = [], categories = [], currentLis
         <Routes>
             <Route path="/" element={<Viewer currentList={currentList} currentTask={currentTask} updating={updating} flipData={flipData} setUpdating={setUpdating} publish={publish} />} />
             <Route path="/edittask" element={<NewTask setUpdating={setUpdating} currentTask={currentTask} currentList={currentList} publish={publish} />} />
+            <Route path="/movetask" element={<MoveTask categories={categories} setUpdating={setUpdating} currentTask={currentTask} currentList={currentList} publish={publish} />} />
             <Route path="/deletetask" element={<DeleteTask goBack={goBack} flipData={flipData} />} />
         </Routes>
     );

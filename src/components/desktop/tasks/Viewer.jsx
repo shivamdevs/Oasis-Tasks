@@ -13,7 +13,7 @@ function Viewer({ currentTask = {}, flipData = null, currentList = {}, setUpdati
     setTitle(currentTask?.task, currentList?.label)
 
     return (
-        <CenterLayer maxWidth={600} onOuterClick={() => navigate(-1)}>
+        <CenterLayer maxWidth={600}>
             <BackHeaderForTasks
                 buttons={[
                     {

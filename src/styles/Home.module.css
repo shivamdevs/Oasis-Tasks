@@ -441,7 +441,8 @@
     white-space: pre-wrap;
     word-wrap: break-word;
     text-decoration: none;
-    display: block;
+    display: inline-block;
+    max-width: 100%;
     color: #212333;
 }
 
@@ -524,8 +525,10 @@
     align-items: center;
     width: 100%;
     flex-wrap: nowrap;
+    user-select: none;
+    transition: .2s;
+    margin-bottom: 4px;
 }
-
 .todoShiftItem span {
     width: 100%;
     overflow: hidden;
@@ -540,6 +543,10 @@
 .todoShiftItemActive {
     background-color: #1e90ff33;
     color: #1e90ff;
+}
+.todoShiftItem:hover {
+    background-color: #1e90ff22;
+    cursor: pointer;
 }
 .todoShiftItemActive span {
     width: calc(100% - 40px);

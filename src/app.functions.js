@@ -17,9 +17,3 @@ export const setTitle = (...titles) => {
     title += app.title;
     document.title = title;
 };
-
-export const escapePage = (callback = null) => {
-    window.addEventListener('keydown', (e) => {
-        if ((e.which || e.keyCode) === 27) callback && !callback.called && (callback.called = true) && callback(); else escapePage(callback);
-    }, {once: true});
-}

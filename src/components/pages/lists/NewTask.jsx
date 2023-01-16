@@ -16,8 +16,6 @@ function NewTask({currentTask = null, publish, setUpdating = null}) {
 
     const textarea = useRef();
 
-
-
     const [user] = useAuthState(auth);
     const [task, setTask] = useState(currentTask?.task || "");
     const [detail, setDetail] = useState(currentTask?.detail || "");

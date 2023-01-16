@@ -1,13 +1,12 @@
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { escapePage, setTitle } from "../../../app.functions";
+import { setTitle } from "../../../app.functions";
 import { updateList } from "../../../fb.todo";
 import ConfirmLayer from "./ConfirmLayer";
 
 function DeleteList({ currentList = {}, publish = null }) {
     const navigate = useNavigate();
     setTitle("Delete list", currentList.label);
-    escapePage(() => navigate(-1));
     const deleteList = async () => {
         navigate(-1);
         const update = await updateList(currentList.key, "deleted", true);
@@ -23,7 +22,6 @@ function DeleteList({ currentList = {}, publish = null }) {
             title="Delete this list?"
             button="Delete"
             label="All tasks in this list will be permanently deleted"
-            onOuterClick={() => navigate(-1)}
             onConfirm={deleteList}
         />
     );

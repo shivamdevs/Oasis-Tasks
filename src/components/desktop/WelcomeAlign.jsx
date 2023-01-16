@@ -71,14 +71,9 @@ function WelcomeAlign() {
                         </div>
                         <div className={css.step}>
                             <NavButton to="/accounts" className="button filled">Continue to Accounts</NavButton>
-                            {/* <NavButton to="/auth/email" className="button">Already have an Account? Sign in</NavButton> */}
                             <div className={css.labeled}>By <strong>continuing</strong> to this website you agree to our <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}/legal`}>Privacy policy</a> and <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}/legal/terms`}>Terms of Usage</a>.</div>
                             <div className={css.links}>
                                 <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}`}>© {app.parent} @2023</a>
-                                {/* <span className={css.dot}>•</span>
-                                <a className="link" target="_blank" rel="noreferrer" href={`${app.pathname}/support/tasks`}>Support</a>
-                                <span className={css.dot}>•</span>
-                                <NavAnchor to="/about">About</NavAnchor> */}
                             </div>
                         </div>
                     </div>

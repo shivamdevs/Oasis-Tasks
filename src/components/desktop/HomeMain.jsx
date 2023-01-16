@@ -16,7 +16,7 @@ function HomeMain({ publish = null, currentList = {}, userLoading = false, categ
                     infiniteLoop={false}
                     transitionTime={300}
                     showIndicators={false}
-                    selectedItem={currentList.index}
+                    selectedItem={currentList.index ?? 1}
                 >
                     {categories && (categories.length > 0) && categories.map(item => <TaskList key={item.key} publish={publish} item={item.key} isDesktop={true} data={taskArray[item.key] || []} />)}
                 </Carousel>}

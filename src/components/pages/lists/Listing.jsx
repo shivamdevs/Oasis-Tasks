@@ -65,7 +65,7 @@ function Listing({ user = {}, admin = null, categories = [], currentList = {}, p
                     transitionTime={300}
                     showIndicators={false}
                     swipeScrollTolerance={25}
-                    selectedItem={currentList.index}
+                    selectedItem={currentList.index ?? 1}
                     preventMovementUntilSwipeScrollTolerance={true}
                     onChange={(index, item) => (index !== currentList.index) && navigate(`/lists/${item.key.slice(2)}`, { replace: true })}
                 >

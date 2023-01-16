@@ -77,9 +77,9 @@ function ListOptions({ currentList = {}, taskArray = {}, userLoading = false, pu
                 {(userLoading > 0) && <span className={css.loading}><LoadSVG color="#1e90ff" width={12} /></span>}
                 {(userLoading === 0) && <span className={css.loading} onClick={async () => { await publish(); toast.success("All lists updated"); }}><i className="far fa-cloud-check"></i></span>}
             </div>
-            <div className={classNames(css.rsBody, css.scroller)}>
+            <div className={css.listOptionBreak}></div>
+            <div className={classNames(css.rsBody, "scroller")}>
                 {(currentList.key === "starred") && <>
-                    <div className={css.listOptionBreak}></div>
                     <div onClick={() => !disabled.stars && actionStar()} className={classNames(
                         css.listOptionBar,
                         (disabled.stars ? css.listOptionDisabled : "")
@@ -87,8 +87,8 @@ function ListOptions({ currentList = {}, taskArray = {}, userLoading = false, pu
                         <span></span>
                         <span>Remove all tasks from Starred</span>
                     </div>
-                </>}
                 <div className={css.listOptionBreak}></div>
+                </>}
                 <div onClick={() => !disabled.tasks && actionMark()} className={classNames(
                     css.listOptionBar,
                     (disabled.tasks ? css.listOptionDisabled : "")

@@ -16,7 +16,8 @@ function TaskList({ data = [], item = "", publish = null, isDesktop = false }) {
     return (
         <div className={classNames(
             css.tasksBlock,
-            {"desktopOverlook": isDesktop}
+            {"desktopOverlook": isDesktop},
+            {"scroller": isDesktop}
         )}>
             {(data.length > 0 || data.completed.length > 0) && <>
                 {data.map(item => <TaskItem key={item.id} publish={publish} data={item} />)}

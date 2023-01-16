@@ -50,7 +50,7 @@ function HomeWindow({ user = {}, admin = null, categories = [], currentList = {}
                     <i className="fas fa-plus"></i>
                     <span>Add new list</span>
                 </Link>
-                <div className={classNames(css.categories, css.scroller)} onScroll={({target}) => {
+                <div className={classNames(css.categories, "scroller")} onScroll={({target}) => {
                     if (target.scrollTop > 0) target.classList.add(css.categoriesScroll); else target.classList.remove(css.categoriesScroll);
                 }}>
                     {categories && (categories.length > 0) && categories.map(item => <ListItem key={item.key}

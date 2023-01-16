@@ -11,7 +11,7 @@ function CategoryOptions({ currentList = {}, taskArray = [], publish = null }) {
     const [disabled, setDisabled] = useState({ tasks: false, stars: false, rename: false, delete: false, completed: false });
 
     useEffect(() => {
-        if (!taskArray.length || !taskArray.completed.length)
+        if (!taskArray.length || !taskArray.completed.length || !taskArray.starred.length) return;
         if (currentList.key === "starred" || currentList.key === "default") setDisabled(old => {
             old.rename = true;
             old.delete = true;

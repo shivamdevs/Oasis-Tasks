@@ -12,7 +12,7 @@ function DeleteTask({ goBack = null, flipData = null }) {
     return (
         <ConfirmLayer
             maxWidth={200}
-            title="Delete this lask?"
+            title="Delete this task?"
             button="Delete"
             label="This tasks will be permanently deleted"
             onConfirm={deleteTask}

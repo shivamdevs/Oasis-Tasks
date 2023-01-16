@@ -34,7 +34,7 @@ function NewTask({ currentTask = null, currentList = null, publish = null, setUp
     const submitForm = async (e) => {
         e.preventDefault();
         const posttask = task.trim();
-        if (!posttask) return e.target[2].focus();
+        if (!posttask) return e.target[0].focus();
         setDisabled(true);
         const data = currentTask ? await updateTask(currentTask.id, { task: posttask, detail }) : await addNewTask(user, (params.listid === "starred" ? "default" : params.listid), posttask, detail, (params.listid === "starred"));
         if (data.type === "success") {

@@ -6,11 +6,12 @@ import { updateTask } from "../../../../fb.todo";
 import { TransLayout } from "../../../layouts/Layout";
 import css from './../../../../styles/Home.module.css';
 
-function CategoryOptions({ currentList = {}, taskArray = {}, publish = null }) {
+function CategoryOptions({ currentList = {}, taskArray = [], publish = null }) {
     const navigate = useNavigate();
     const [disabled, setDisabled] = useState({ tasks: false, stars: false, rename: false, delete: false, completed: false });
 
     useEffect(() => {
+        if (!taskArray.length || !taskArray.completed.length)
         if (currentList.key === "starred" || currentList.key === "default") setDisabled(old => {
             old.rename = true;
             old.delete = true;

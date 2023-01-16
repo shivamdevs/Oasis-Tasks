@@ -1,13 +1,13 @@
 import { Carousel } from "react-responsive-carousel";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+// import { Navigate, useNavigate, useParams } from "react-router-dom";
 import TaskList from "../pages/lists/TaskList";
 import ListOptions from "./lists/ListOptions";
 import css from './styles/Home.module.css';
 import './styles/override.css';
 
 function HomeMain({ publish = null, currentList = {}, userLoading = false, categories = [], taskArray = {} }) {
-    const params = useParams();
-    const navigate = useNavigate();
+    // const params = useParams();
+    // const navigate = useNavigate();
     return (
         <>
             <div className={css.taskview}>

@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../../fb.user';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { NavAnchor, NavButton } from '../parts/Nav';
+import { NavButton } from '../parts/Nav';
 import { setTitle } from '../../app.functions';
 
 function WelcomeAlign() {

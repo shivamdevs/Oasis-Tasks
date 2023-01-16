@@ -22,6 +22,8 @@
 .link:hover,
 .link:active {
     color: #624ef0;
+    cursor: pointer;
+    user-select: none;
 }
 
 .button {
@@ -42,6 +44,7 @@
 .button:hover,
 .button:active {
     background-color: #503af644;
+    cursor: pointer;
 }
 
 .button.filled {

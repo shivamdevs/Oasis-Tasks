@@ -10,13 +10,14 @@ import { useCallback, useEffect, useState } from "react";
 import ProfileMenu from "../pages/lists/settings/Profile";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { isUserWithAdminRights } from "../../fb.admin";
+import HomeWindow from "../desktop/HomeWindow";
 
 
-function HomeLayout() {
+function HomeLayout({mode}) {
     return (
         <>
             <Routes>
-                <Route path="/:listid/*" element={<Home />} />
+                <Route path="/:listid/*" element={<Home mode={mode} />} />
                 <Route path="/" element={<RedirectToList />} />
             </Routes>
         </>
@@ -25,7 +26,7 @@ function HomeLayout() {
 
 export default HomeLayout;
 
-function RedirectToList() {
+export function RedirectToList() {
     const navigate = useNavigate();
     let bucket = "default";
     if (window.localStorage) {
@@ -38,7 +39,7 @@ function RedirectToList() {
     useEffect(() => {navigate(`/lists/${bucket}`, { replace: true })});
 }
 
-function Home() {
+function Home({mode}) {
     const [user, loading, error] = useAuthState(auth);
     const [userLoading, setUserLoading] = useState(0);
 
@@ -111,7 +112,13 @@ function Home() {
     }, [isAnAdmin, params.listid, updateLists]);
     return (
         <>
-            {!loading && <>
+            {!loading && mode && <>
+                <Routes>
+                    <Route path="/settings/*" element={<ProfileMenu admin={admin} user={user} />} />
+                    <Route path="/*" element={<HomeWindow user={user} admin={admin} userLoading={userLoading} categories={categories} currentList={currentList} publish={publish} taskArray={taskArray} />} />
+                </Routes>
+            </>}
+            {!loading & !mode && <>
                 <Routes>
                     <Route path="/settings/*" element={<ProfileMenu admin={admin} user={user} />} />
                     <Route path="/newlist" element={<NewList publish={publish} />} />

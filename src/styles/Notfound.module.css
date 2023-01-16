@@ -14,10 +14,10 @@
 .wrap {
     width: 100%;
     text-align: center;
+    margin-block: auto;
 }
 .flex {
-    margin-block: 20px;
-    padding-inline: 20px;
+    padding: 20px;
     gap: 20px;
     display: flex;
     justify-content: space-around;

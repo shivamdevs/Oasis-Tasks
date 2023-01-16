@@ -1,0 +1,131 @@
+.rightside {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    max-width: 300px;
+    min-width: 200px;
+    border-left: 1px solid #ddd;
+}
+
+.rsHeader {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-weight: 500;
+    color: #ab54aa;
+    font-size: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rsBody {
+    flex: 1;
+}
+
+.rsFooter {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    font-weight: 500;
+    font-size: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.rsAddnew {
+    background-color: #ab54aa;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: block;
+    transition: .2s;
+}
+.rsAddnew:hover {
+    background-color: #624ef0;
+}
+
+
+.listOptionHeader {
+    padding: 5px 5px 5px 20px;
+    font-weight: 700;
+    color: #624ef0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.listOptionHeader>span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    flex: 1;
+    max-width: 100%;
+}
+
+.listOptionBreak {
+    min-height: 1px;
+    background-color: #624ef0;
+    margin-block: 5px;
+}
+
+.listOptionBar {
+    display: block;
+    font-weight: 500;
+    padding: 12px 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    transition: .2s;
+}
+
+.listOptionDisabled {
+    color: #727888;
+    background-color: #eee;
+}
+
+.listOptionBar:not(.listOptionDisabled):hover {
+    user-select: none;
+    cursor: pointer;
+    background-color: #624ef022;
+}
+
+.listOptionBar:not(.listOptionDisabled):active {
+    background-color: #624ef011;
+}
+
+.listOptionNote {
+    color: #727888;
+    border-top: 1px solid #ddd;
+    padding-block: 5px;
+    font-size: 14px;
+    font-weight: 500;
+    padding-inline: 20px;
+}
+
+.loading {
+    font-size: 20px;
+    margin-left: auto;
+    color: #1e90ff;
+    width: 50px;
+    height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: .2s;
+}
+.loading:has(svg) {
+    padding: 15px;
+}
+.loading:hover {
+    background-color: #1e90ff22;
+    cursor: pointer;
+}

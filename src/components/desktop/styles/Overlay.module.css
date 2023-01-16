@@ -1,0 +1,17 @@
+.centerLayer {
+    position: fixed;
+    inset: 0;
+    background-color: #0007;
+    display: flex;
+    overflow: auto;
+    padding: 20px;
+}
+.centerLayerCrop {
+    margin: auto;
+    width: 100%;
+    max-width: 600px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 4px #0001;
+    overflow: hidden;
+}

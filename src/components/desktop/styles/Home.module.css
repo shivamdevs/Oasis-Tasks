@@ -1,0 +1,167 @@
+.layout {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+.sider {
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    max-width: 300px;
+    flex: 1;
+    padding-right: 30px;
+}
+
+.sideheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-inline: 10px;
+    height: 70px;
+    gap: 10px;
+}
+
+.headerTitle {
+    width: 44px;
+    height: 44px;
+}
+
+.headerLabel {
+    background: -webkit-linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    background: linear-gradient(to bottom, #e45973, #ab54aa, #624ef0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.headerFlow {
+    text-decoration: none;
+    display: inline-flex;
+    gap: 20px;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.headerAdmin {
+    font-size: 20px;
+}
+
+.headerUser {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+
+
+
+.addNewList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+    padding: 10px 30px;
+    border-radius: 30px;
+    margin: 20px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+    transition: .2s;
+    border: 1px solid #0002;
+}
+
+.categories {
+    overflow: hidden auto;
+    position: relative;
+    flex: 1;
+    transition: .2s;
+    padding-bottom: 50px;
+}
+
+.categoriesScroll {
+    box-shadow: inset 20px 7px 20px -8px #0002;
+}
+
+.scroller::-webkit-scrollbar {
+    width: 16px;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+    background-color: #5f6368;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+    background: #dadce0;
+    background-clip: padding-box;
+    border: 4px solid transparent;
+    border-radius: 8px;
+    box-shadow: none;
+    min-height: 50px;
+}
+
+.scroller::-webkit-scrollbar-track,
+.scroller::-webkit-scrollbar-track:hover {
+    background: none;
+    border: none;
+}
+
+.activeTab {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 5px;
+    height: 0;
+    background-color: #ab54aa;
+    border-radius: 0 4px 4px 0;
+}
+
+.addNewList:hover {
+    box-shadow: 0 0 8px 3px #0001;
+}
+
+.addNewList i {
+    margin-right: 10px;
+}
+
+.category {
+    display: block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 12px 20px;
+    border-radius: 0 50px 50px 0;
+    margin-bottom: 5px;
+    font-weight: 500;
+    position: relative;
+    color: #1e90ff;
+    text-decoration: none;
+    transition: .2s;
+}
+
+.category:hover {
+    background-color: #f6f6f6;
+}
+
+.activeCategory {
+    color: #ab54aa;
+    background-color: #ab54aa33 !important;
+}
+
+
+.body {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+.taskview {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}

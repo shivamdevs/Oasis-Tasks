@@ -13,6 +13,8 @@ import Welcome from "./components/pages/Welcome";
 // import AuthLayout from "./components/layouts/AuthLayout";
 import HomeLayout from "./components/layouts/HomeLayout";
 import Accounts from "./components/Accounts/Accounts";
+import { BrowserView, MobileView } from "react-device-detect";
+import Desktop from "./components/desktop/Desktop";
 
 function App() {
     const navigate = useNavigate();
@@ -24,23 +26,21 @@ function App() {
 
     return (
         <>
-            {loading && <Loading />}
-            {!loading && <>
-                <Routes>
-                    <Route path="/lists/*" element={<HomeLayout />} />
-                    <Route path="/accounts/*" element={<Accounts />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/" exact element={<Welcome />} />
-                    <Route path="*" element={<Notfound />} />
-                </Routes>
-            </>}
-            {/* <BrowserView>
-                <Routes>
-                    < Route path="*" element={<h1><center>View this app on mobile device.</center></h1>} />
-                </Routes>
+            <BrowserView>
+                <Desktop />
             </BrowserView>
             <MobileView>
-            </MobileView> */}
+                {!loading && <>
+                    <Routes>
+                        <Route path="/lists/*" element={<HomeLayout />} />
+                        <Route path="/accounts/*" element={<Accounts />} />
+                        <Route path="/about" element={<About />} />
+                        <Route path="/" exact element={<Welcome />} />
+                        <Route path="*" element={<Notfound />} />
+                    </Routes>
+                </>}
+            </MobileView>
+            {loading && <Loading />}
         </>
     );
 };

@@ -27,6 +27,24 @@
     font-size: 30px;
     font-weight: 700;
 }
+.appflex {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin-block: auto;
+}
+.appflex > div {
+    width: 50%;
+    flex: 1;
+    max-width: 600px;
+    margin-inline: auto;
+}
+.appflex .slider {
+    max-width: 500px;
+    margin: auto;
+}
 .card {
     width: 100%;
     display: flex;

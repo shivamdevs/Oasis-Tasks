@@ -6,25 +6,26 @@ import { updateTask } from "../../../../fb.todo";
 import { TransLayout } from "../../../layouts/Layout";
 import css from './../../../../styles/Home.module.css';
 
-function CategoryOptions({ currentList = {}, taskArray = [], publish = null }) {
+function CategoryOptions({ currentList = {}, taskArray = {}, publish = null }) {
     const navigate = useNavigate();
     const [disabled, setDisabled] = useState({ tasks: false, stars: false, rename: false, delete: false, completed: false });
 
     useEffect(() => {
-        if (currentList?.key === "starred" || currentList?.key === "default") setDisabled(old => {
+        if (!currentList?.key) return;
+        if (currentList.key === "starred" || currentList.key === "default") setDisabled(old => {
             old.rename = true;
             old.delete = true;
             return old;
         });
-        if (taskArray && taskArray[currentList.key]?.completed?.length === 0) setDisabled(old => {
+        if (taskArray[currentList.key].completed.length === 0) setDisabled(old => {
             old.completed = true;
             return old;
         });
-        if (taskArray && taskArray[currentList.key]?.length === 0) setDisabled(old => {
+        if (taskArray[currentList.key].length === 0) setDisabled(old => {
             old.tasks = true;
             return old;
         });
-        if (taskArray?.starred?.length === 0 && taskArray?.starred?.completed?.length === 0) setDisabled(old => {
+        if (taskArray.starred.length === 0 && taskArray.starred.completed.length === 0) setDisabled(old => {
             old.stars = true;
             return old;
         });

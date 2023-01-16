@@ -207,6 +207,7 @@
     padding: 10px;
     gap: 10px;
     width: 100%;
+    transition: .2s;
     border-bottom: 1px solid #ddf;
 }
 
@@ -219,7 +220,13 @@
     background-color: transparent;
     width: 30px;
     font-size: 18px;
+    transition: .2s;
     color: #545454;
+    transition: .2s;
+}
+.taskBar>button:hover{
+    cursor: pointer;
+    color: #008cff;
 }
 
 .taskBarContent {
@@ -230,6 +237,11 @@
     padding-block: 5px;
     width: calc(100% - 80px);
     font-size: 17px;
+    cursor: pointer;
+    user-select: none;
+}
+.taskBar:has(>.taskBarContent:hover) {
+    background-color: #d5ecff47;
 }
 
 .taskBarContentDone {
@@ -428,6 +440,9 @@
     margin-top: 20px;
     white-space: pre-wrap;
     word-wrap: break-word;
+    text-decoration: none;
+    display: block;
+    color: #212333;
 }
 
 .todoFooter {
@@ -448,17 +463,31 @@
     height: 40px;
     font-weight: 500;
     color: #1e90ff;
+    text-decoration: none;
     font-size: 15px;
+    transition: .2s;
+    border-radius: 5px;
+}
+.todoFooterOpts:hover {
+    background-color: #1e90ff33;
+    cursor: pointer;
 }
 
 .todoMove {
-    display: flex;
+    display: inline-flex;
     max-width: 100%;
     align-items: center;
     flex-wrap: nowrap;
     margin-bottom: 20px;
     color: #624ef0;
     font-weight: 500;
+    transition: .2s;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+.todoMove:hover {
+    background-color: #624ef022;
+    cursor: pointer;
 }
 
 .todoMove span {

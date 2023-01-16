@@ -4,12 +4,13 @@ import { Link, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import app from "../../app.data";
 import { setTitle } from "../../app.functions";
 import Layout from "../layouts/Layout";
-import NewTask from "../pages/lists/NewTask";
+import NewTask from "./NewTask";
 import css from './styles/Home.module.css';
 import NewList from "./NewList";
 import HomeMain from "./HomeMain";
 import DeleteAllCompleted from "./lists/DeleteAllCompleted";
 import DeleteList from "./lists/DeleteList";
+import TaskWindow from "./TaskWindow";
 
 
 function HomeWindow({ user = {}, admin = null, categories = [], currentList = {}, publish = null, taskArray = {}, userLoading = false }) {
@@ -69,7 +70,8 @@ function HomeWindow({ user = {}, admin = null, categories = [], currentList = {}
                 <Route path="/deletecompleted" element={<DeleteAllCompleted currentList={currentList} taskArray={taskArray} publish={publish} />} />
                 <Route path="/newlist" element={<NewList publish={publish} />} />
                 <Route path="/renamelist" element={<NewList currentList={currentList} publish={publish} />} />
-                <Route path="/newtask" element={<NewTask publish={publish} />} />
+                <Route path="/newtask" element={<NewTask currentList={currentList} publish={publish} />} />
+                <Route path="/:taskid/*" element={<TaskWindow taskArray={taskArray} categories={categories} currentList={currentList} publish={publish} />} />
             </Routes>
         </Layout>
     )

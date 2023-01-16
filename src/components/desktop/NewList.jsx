@@ -46,7 +46,7 @@ function NewList({ currentList = null, publish }) {
                 <Link to={-1} className={css.closer}><i className="fas fa-times"></i></Link>
             </header>
             <form  onSubmit={submitForm} className={css.body}>
-                <input className={css.input} type="text" autoComplete="off" autoFocus onChange={({target}) => setName(target.value)} disabled={disabled} defaultValue={name} />
+                <input className={css.input} placeholder="List label..." type="text" autoComplete="off" autoFocus onChange={({target}) => setName(target.value)} disabled={disabled} defaultValue={name} />
                 <div className={css.error}>{nameErr}</div>
                 <div className={css.flexbox}>
                     <Link to={-1} className={css.button}>Cancel</Link>

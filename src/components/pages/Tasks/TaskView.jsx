@@ -92,7 +92,7 @@ function TaskView({ goBack = null, categories = [], taskArray = {}, publish = nu
                 </span>
             </div>
             <Routes>
-                <Route path="/edittask" element={<NewTask publish={publish} currentTask={currentTask} />} />
+                <Route path="/edittask" element={<NewTask setUpdating={setUpdating} publish={publish} currentTask={currentTask} />} />
                 <Route path="/movetask" element={<MoveTask publish={publish} categories={categories} setUpdating={setUpdating} currentList={currentTask.list} />} />
                 <Route path="/deletetask" element={<DeleteTask flipData={flipData} goBack={goBack} />} />
             </Routes>

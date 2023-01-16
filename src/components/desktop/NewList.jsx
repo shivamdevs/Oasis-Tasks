@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { setTitle } from "../../app.functions";
 import { addNewList, updateList } from "../../fb.todo";
 import { auth } from "../../fb.user";
+import { LoadCircle } from "../layouts/Loading";
 import CenterLayer from "./CenterLayer";
 import css from './styles/Adder.module.css';
 
@@ -52,6 +53,7 @@ function NewList({ currentList = null, publish }) {
                     <button className={css.button} disabled={disabled} type="submit">{currentList ? "Rename" : "Create"}</button>
                 </div>
             </form>
+            {disabled && <LoadCircle />}
         </CenterLayer>
     )
 }

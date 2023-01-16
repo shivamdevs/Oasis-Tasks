@@ -8,7 +8,7 @@ import MoveTask from "./tasks/MoveTask";
 import Viewer from "./tasks/Viewer";
 
 
-function TaskWindow({publish = null, taskArray = [], categories = [], currentList = {}}) {
+function TaskWindow({publish = null, taskArray = {}, categories = [], currentList = {}}) {
     const params = useParams();
     const navigate = useNavigate();
     const location = useLocation();
@@ -24,7 +24,8 @@ function TaskWindow({publish = null, taskArray = [], categories = [], currentLis
     }, [location.key, navigate]);
 
     useEffect(() => {
-        if (categories.length !== 0 && !taskArray.$allTasks[params.taskid]) return goBack();
+        if (!taskArray?.$allTasks) return;
+        if (!taskArray.$allTasks[params.taskid]) return goBack();
         const taskobj = taskArray.$allTasks[params.taskid];
         for (const lists of categories) {
             if (lists.key === taskobj.list) taskobj.listname = lists.label;

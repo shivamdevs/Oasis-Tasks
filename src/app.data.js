@@ -1,8 +1,8 @@
 const app = {
     name: 'Tasks',
-    version: '1.1.8',
+    version: '1.2.0',
     copyright: <a href="//myoasis.tech" target="_blank" rel="noreferrer">© My Oasis Tech</a>,
-    updated: 'January 16, 2023 07:00 PM',
+    updated: 'January 17, 2023 02:00 AM',
     bucket: "tasks:",
     pathname: "//myoasis.tech",
     parent: "Oasis Tech",

@@ -18,7 +18,8 @@ function TaskView({ goBack = null, categories = [], taskArray = {}, publish = nu
     const [updating, setUpdating] = useState(0);
 
     useEffect(() => {
-        if (!taskArray || !taskArray.$allTasks || !taskArray.$allTasks[params.taskid]) return goBack();
+        if (!taskArray?.$allTasks) return;
+        if (!taskArray.$allTasks[params.taskid]) return goBack();
         const taskobj = taskArray.$allTasks[params.taskid];
         for (const lists of categories) {
             if (lists.key === taskobj.list) taskobj.listname = lists.label;

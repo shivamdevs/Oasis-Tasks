@@ -5,9 +5,11 @@ import css from './../../styles/Profile.module.css';
 import app from "../../app.data";
 import { logout } from "../../fb.user";
 import classNames from "classnames";
+import { setTitle } from "../../app.functions";
 
 
 function Settings({admin = null, user = null}) {
+    setTitle(user?.name, "Settings");
     const navigate = useNavigate();
     const doLogout = async () => {
         logout();

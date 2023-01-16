@@ -1,6 +1,6 @@
 .carousel-root {
     width: 100%;
 }
-.slider .slide:not(:has(> .wccard)) {
+.slider .slide:has(.desktopOverlook) {
     height: 100vh;
 }

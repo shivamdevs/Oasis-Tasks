@@ -43,28 +43,28 @@ function WelcomeAlign() {
                                 infiniteLoop={true}
                                 transitionTime={500}
                             >
-                                <div className={`${css.card} wccard`}>
+                                <div className={css.card}>
                                     <img src="/assets/images/welcome/undraw-1.svg" alt="" />
                                 </div>
-                                <div className={`${css.card} wccard`}>
+                                <div className={css.card}>
                                     <img src="/assets/images/welcome/undraw-2.svg" alt="" />
                                 </div>
-                                <div className={`${css.card} wccard`}>
+                                <div className={css.card}>
                                     <img src="/assets/images/welcome/undraw-3.svg" alt="" />
                                 </div>
-                                <div className={`${css.card} wccard`}>
+                                <div className={css.card}>
                                     <img src="/assets/images/welcome/undraw-4.svg" alt="" />
                                 </div>
-                                <div className={`${css.card} wccard`}>
+                                <div className={css.card}>
                                     <img src="/assets/images/welcome/undraw-5.svg" alt="" />
                                 </div>
-                                <div className={`${css.card} wccard`}>
+                                <div className={css.card}>
                                     <img src="/assets/images/welcome/undraw-6.svg" alt="" />
                                 </div>
-                                <div className={`${css.card} wccard`}>
+                                <div className={css.card}>
                                     <img src="/assets/images/welcome/undraw-7.svg" alt="" />
                                 </div>
-                                <div className={`${css.card} wccard`}>
+                                <div className={css.card}>
                                     <img src="/assets/images/welcome/undraw-8.svg" alt="" />
                                 </div>
                             </Carousel>

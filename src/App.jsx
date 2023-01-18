@@ -10,9 +10,9 @@ import About from "./components/pages/About";
 import Notfound from "./components/layouts/Notfound";
 import Welcome from "./components/pages/Welcome";
 import HomeLayout from "./components/layouts/HomeLayout";
-import Accounts from "./components/Accounts/Accounts";
 import { BrowserView, MobileView } from "react-device-detect";
 import Desktop from "./components/desktop/Desktop";
+import Accounts from "myoasis-accounts";
 
 function App() {
     const navigate = useNavigate();
@@ -31,7 +31,7 @@ function App() {
                 {!loading && <>
                     <Routes>
                         <Route path="/lists/*" element={<HomeLayout />} />
-                        <Route path="/accounts/*" element={<Accounts />} />
+                        <Route path="/accounts/*" element={<Accounts onUserChange={() => navigate(-1)} />} />
                         <Route path="/about" element={<About />} />
                         <Route path="/" exact element={<Welcome />} />
                         <Route path="*" element={<Notfound />} />

@@ -41,7 +41,7 @@ function HomeWindow({ user = {}, admin = null, categories = [], currentList = {}
                         <div className={css.headerLabel}>{app.name}</div>
                     </Link>
                     <div className={css.headerFlow}>
-                        {admin && <Link to={`/admin/${admin.id}`} className={css.headerAdmin}><i className="fa-solid fa-user-shield"></i></Link>}
+                        {admin && <Link to="./admin" className={css.headerAdmin}><i className="fa-solid fa-user-shield"></i></Link>}
                         <Link to="./settings" className={css.headerUser}>
                             <img src={user?.photoURL || `https://ui-avatars.com/api/?name=${user?.displayName || "User"}&background=624ef0&color=fff`} alt="" />
                         </Link>

@@ -34,7 +34,7 @@ function Listing({ user = {}, admin = null, categories = [], currentList = {}, p
                 <img src="/logo192.png" alt="" className={css.headerTitle} />
                 <div className={css.headerLabel}>{app.name}</div>
                 <div className={css.headerRight}>
-                    {admin && <NavAnchor to={`/admin/${admin.id}`} className={css.headerAdmin}><i className="fa-solid fa-user-shield"></i></NavAnchor>}
+                    {admin && <NavAnchor to="./admin" className={css.headerAdmin}><i className="fa-solid fa-user-shield"></i></NavAnchor>}
                     <NavAnchor to="./settings" className={css.headerUser}>
                         <img src={user?.photoURL || `https://ui-avatars.com/api/?name=${user?.displayName || "User"}&background=624ef0&color=fff`} alt="" />
                     </NavAnchor>

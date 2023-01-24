@@ -2,6 +2,7 @@
     padding: 20px;
     flex: 1;
 }
+
 .layout,
 .profile {
     display: flex;
@@ -25,7 +26,8 @@
     color: #624ef0;
     text-decoration: none;
 }
-.navigate > span:first-child {
+
+.navigate>span:first-child {
     margin-right: 20px;
 }
 
@@ -66,15 +68,17 @@
     min-height: 60px;
     max-width: 60px;
     max-height: 60px;
+    overflow: hidden;
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
 }
 
 .photo>img {
-    max-width: 100%;
-    max-height: 100%;
     border-radius: 50%;
+    height: 60px;
+    width: 60px;
+    object-fit: cover;
 }
 
 .data {
@@ -89,9 +93,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .name {
     color: #624ef0;
 }
+
 .email {
     color: #727888;
 }

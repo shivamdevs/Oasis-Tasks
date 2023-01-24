@@ -30,7 +30,8 @@ function ProfileMenu({admin = null, user = {}}) {
                         {admin && <div className={css.admin}>Admin level: {admin?.level}</div>}
                     </div>
                 </div>
-                {admin && <NavAnchor className={css.navigate} to={`/admin/${admin?.id}`}>Admin Console</NavAnchor>}
+                {admin && <NavAnchor className={css.navigate} to="../admin">Admin Console</NavAnchor>}
+                <NavAnchor className={css.navigate} to="/accounts/profile">Edit profile</NavAnchor>
                 <a className={css.navigate} href={`${app.pathname}/support/tasks`} target="_blank" rel="noreferrer">Support</a>
                 <NavAnchor className={css.navigate} to="./about">About</NavAnchor>
                 <button onClick={doLogout} className={classNames("button", css.logout)} replace="true"><i className="fas fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Sign out</button>

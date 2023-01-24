@@ -11,6 +11,7 @@ import ProfileMenu from "../pages/lists/settings/Profile";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { isUserWithAdminRights } from "../../fb.admin";
 import HomeWindow from "../desktop/HomeWindow";
+import Admin from "../pages/Admin";
 
 
 function HomeLayout({mode}) {
@@ -119,6 +120,7 @@ function Home({mode}) {
             </>}
             {!loading & !mode && <>
                 <Routes>
+                    <Route path="/admin" element={<Admin admin={admin} />} />
                     <Route path="/settings/*" element={<ProfileMenu admin={admin} user={user} />} />
                     <Route path="/newlist" element={<NewList publish={publish} />} />
                     <Route path="/renamelist" element={<NewList currentList={currentList} publish={publish} />} />

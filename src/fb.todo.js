@@ -1,27 +1,12 @@
-import { collection, deleteDoc, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore/lite";
+import { collection, doc, getDocs, query, setDoc, updateDoc, where } from "firebase/firestore/lite";
 import { clarifyError, db } from "./fb.user";
-import hashids from "hashids";
 import CryptoJS from "crypto-js";
+import uniqid from 'uniqid';
 
 const tables = {
     lists: "tasks-list", // "to-do-lists",
     tasks: "tasks-todo" // "to-do-tasks",
 };
-
-async function getRequestKey(table, user, length) {
-    return await new Promise(async (resolve, reject) => {
-        const hash = new hashids(user + ":" + table, length);
-        try {
-            const q = query(collection(db, table), where("uid", "==", user), where("deleted", "==", false));
-            const docs = await getDocs(q);
-            const key = hash.encode(docs.docs.length);
-            resolve(key);
-        } catch (err) {
-            console.error(err);
-            reject(clarifyError(err));
-        }
-    });
-}
 
 async function addNewList(user, label) {
     const created = (() => {
@@ -29,7 +14,7 @@ async function addNewList(user, label) {
         return date.setTime(date.getTime());
     })();
     try {
-        const req = await getRequestKey(tables.lists, user.uid, 7);
+        const req = uniqid();
         const encrypt = CryptoJS.AES.encrypt(label, req).toString();
         const data = await setDoc(doc(db, tables.lists, req), {
             uid: user.uid,
@@ -80,7 +65,7 @@ async function addNewTask(user, list, task, detail, starred = false) {
         return date.setTime(date.getTime());
     })();
     try {
-        const req = await getRequestKey(tables.tasks, user.uid, 12);
+        const req = uniqid();
         const encrypttask = CryptoJS.AES.encrypt(task, req).toString();
         const encryptdetail = CryptoJS.AES.encrypt(detail, req).toString();
         const data = await setDoc(doc(db, tables.tasks, req), {
@@ -163,8 +148,8 @@ async function getAllTasks(user, docs) {
             const data = { ...item.data(), id: item.id };
             data.task = CryptoJS.AES.decrypt(data.task, data.id).toString(CryptoJS.enc.Utf8);
             data.detail = CryptoJS.AES.decrypt(data.detail, data.id).toString(CryptoJS.enc.Utf8);
-            if (data.starred) (data.checked ? result.starred.completed.push(data) : result.starred.push(data));
-            if (data.checked) result[data.list].completed.push(data); else result[data.list].push(data);
+            if (data.starred) (data.checked ? result.starred?.completed?.push(data) : result.starred?.push(data));
+            if (data.checked) result[data.list]?.completed?.push(data); else result[data.list]?.push(data);
             result.$allTasks[item.id] = data;
         });
         return {
@@ -178,26 +163,6 @@ async function getAllTasks(user, docs) {
     }
 }
 
-async function deleteAllDeleted() {
-    try {
-        const listsq = query(collection(db, 'to-do-tasks'), where("deleted", "==", true));
-        const listsr = await getDocs(listsq);
-        listsr.docs.forEach(async list => {
-            console.log("Deleting list", list.id);
-            await deleteDoc(list.ref);
-        });
-        const tasksq = query(collection(db, 'to-do-tasks'), where("deleted", "==", true));
-        const tasksr = await getDocs(tasksq);
-        tasksr.docs.forEach(async task => {
-            console.log("Deleting task", task.id);
-            await deleteDoc(task.ref);
-        });
-    } catch (err) {
-        console.error(err);
-        return clarifyError(err);
-    }
-}
-
 export {
     addNewList,
     addNewTask,
@@ -205,5 +170,4 @@ export {
     updateTask,
     getAllLists,
     getAllTasks,
-    deleteAllDeleted,
 };

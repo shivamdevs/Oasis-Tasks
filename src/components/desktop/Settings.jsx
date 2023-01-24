@@ -29,7 +29,8 @@ function Settings({admin = null, user = null}) {
                         {admin && <div className={css.admin}>Admin level: {admin?.level}</div>}
                     </div>
                 </div>
-                {admin && <Link className={css.navigate} to={`/admin/${admin?.id}`}>Admin Console</Link>}
+                {admin && <Link className={css.navigate} to="../admin">Admin Console</Link>}
+                <Link className={css.navigate} to="/accounts/profile">Edit profile</Link>
                 <a className={css.navigate} href={`${app.pathname}/support/tasks`} target="_blank" rel="noreferrer">Support</a>
                 <button onClick={doLogout} className={classNames("button", css.logout)} replace="true"><i className="fas fa-arrow-right-from-bracket"></i>&nbsp;&nbsp;Sign out</button>
                 <div className={css.footer}>

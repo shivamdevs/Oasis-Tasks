@@ -8,7 +8,9 @@ function TaskList({ data = [], item = "", publish = null, isDesktop = false }) {
     const [extended, setExtended] = useState(false);
     const header = useRef();
     useEffect(() => {
-        if (extended) header.current.scrollIntoView({ behavior: 'smooth' });
+        if (extended && header.current.parentElement.scrollHeight > header.current.parentElement.offsetHeight) {
+            header.current.scrollIntoView({ behavior: 'smooth', block: "center" });
+        }
     }, [extended]);
     useEffect(() => {
         if (data.completed.length === 0) setExtended(false);

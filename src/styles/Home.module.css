@@ -283,8 +283,13 @@
     position: sticky;
     top: 0;
     bottom: -60px;
+    transition: .2s;
 }
-
+.taskCompletedHeader:hover {
+    user-select: none;
+    cursor: pointer;
+    background-color: rgb(206, 206, 255);
+}
 .taskCompletedArrow {
     color: #727888;
 }

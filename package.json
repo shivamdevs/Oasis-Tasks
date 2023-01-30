@@ -9,7 +9,7 @@
     "classnames": "^2.3.2",
     "crypto-js": "^4.1.1",
     "firebase": "^9.15.0",
-    "myoasis-accounts": "^1.4.1",
+    "myoasis-accounts": "^1.4.7",
     "react": "^18.2.0",
     "react-device-detect": "^2.2.2",
     "react-dom": "^18.2.0",

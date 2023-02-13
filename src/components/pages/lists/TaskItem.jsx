@@ -32,7 +32,7 @@ function TaskItem({ data = {}, publish = null, completed = false }) {
     };
     return (
         <div className={css.taskBar}>
-            <button type="button" onClick={() => flipData('checked')}>
+            <div className={css.taskBarButton} onClick={() => flipData('checked')}>
                 {!loading.checked && <>
                     {task.checked && <span><i className="far fa-check"></i></span>}
                     {!task.checked && <span><i className="far fa-circle"></i></span>}
@@ -40,12 +40,12 @@ function TaskItem({ data = {}, publish = null, completed = false }) {
                 {loading.checked && <>
                     <span><LoadSVG width={12} color="#727888" /></span>
                 </>}
-            </button>
+            </div>
             <div className={classNames(css.taskBarContent, (completed ? css.taskBarContentDone : ""))} onClick={() => navigate(`./${task.id}`)}>
                 <div className={css.taskBarLabel}>{task.task}</div>
                 {task.detail && <div className={css.taskBarDetail}>{task.detail}</div>}
             </div>
-            <button type="button" onClick={() => flipData('starred')}>
+            <div className={css.taskBarButton} onClick={() => flipData('starred')}>
                 {!loading.starred && <>
                     {task.starred && <span><i className="fas fa-star"></i></span>}
                     {!task.starred && <span><i className="far fa-star"></i></span>}
@@ -53,7 +53,7 @@ function TaskItem({ data = {}, publish = null, completed = false }) {
                 {loading.starred && <>
                     <span><LoadSVG width={12} color="#727888" /></span>
                 </>}
-            </button>
+            </div>
         </div>
     );
 }

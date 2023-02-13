@@ -216,7 +216,7 @@
     border-bottom: 1px solid #ddf;
 }
 
-.taskBar>button {
+.taskBar>.taskBarButton {
     display: inline-flex;
     border: none;
     justify-content: center;
@@ -229,7 +229,7 @@
     color: #545454;
     transition: .2s;
 }
-.taskBar>button:hover{
+.taskBar>.taskBarButton:hover{
     cursor: pointer;
     color: #008cff;
 }
